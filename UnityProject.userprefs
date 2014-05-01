@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\Core\Shared\Units\Extensions\CombatUnit.cs">
+    <Files>
+      <File FileName="Assets\Code\Core\Shared\Units\Extensions\MeeleMinion.cs" Line="14" Column="1" />
+      <File FileName="Assets\Code\Core\Shared\Units\Extensions\CombatUnit.cs" Line="23" Column="2" />
+      <File FileName="Assets\Code\Core\Shared\Units\Unit.cs" Line="22" Column="19" />
+      <File FileName="Assets\Code\Core\Shared\Units\Extensions\MoveableUnit.cs" Line="7" Column="18" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

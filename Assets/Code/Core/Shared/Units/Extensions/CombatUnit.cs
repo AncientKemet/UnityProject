@@ -10,27 +10,53 @@ public class CombatUnit : MoveableUnit
   [SerializeField]
   private float _baseHealth = 100f;
 
-  [SerializeField] 
+	[SerializeField]
+	private float _baseresource = 100f;
+
+	[SerializeField] 
   private float _baseArmor = 0;
 
   [SerializeField] 
   private float _baseMagicResist = 0;
 
-  private float _health;
+	[SerializeField]
+	private float _baseattackdamage=0;
+	
+	[SerializeField]
+	private float _baseattackspeed=0;
+
+	[SerializeField]
+	private float _baseattackrange=0;	
+
+
+  private float _currenthealth;
+  private float _currentresource;
 
   public void AppendHealthChange(HealthChange _change)
   {
     if (_change is Damage)
     {
-      _health -= _change.value;
+			_currenthealth -= _change.value;
     } 
 
     if(_change is Heal)
     {
-      _health += _change.value;
+			_currenthealth += _change.value;
     }
   }
-
-
-
+	public void AppendResourceChange(ResourceChange _change)
+	{
+		if (_change is Damage)
+		{
+			_currentresource -= _change.value;
+		} 
+		
+		if(_change is Heal)
+		{
+			_currentresource += _change.value;
+		}
+	}
+	
+	
+	
 }
