@@ -5,18 +5,21 @@ using System.Collections;
 
 public class Unit : movesimple{
 
-	public void movemetupdate (float speed,float slow) {
-		movementSpeed=speed*(1-slow);
-		targetPosition = transform.localPosition;
-	}
+	private int _id = -1;
 
 	public int ID {
-		get;
-		set;
-	}
+		get{
+			return -1;
+		}
+		set{
+			if(UnitManager.Instance.WasUnitRegistered(this)){
+				UnitManager.Instance.DeRegisterUnit(this);
+			}
 
-	void Awake(){
-		UnitManager.Instance.RegisterUnit(this);
+			_id = value;
+
+			UnitManager.Instance.RegisterUnit(this);
+		}
 	}
 
 

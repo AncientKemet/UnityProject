@@ -5,6 +5,17 @@ public class Monosingleton<T> :MonoBehaviour where T : MonoBehaviour {
 
 	private static T _instance;
 
+	private static GameObject _singletons;
+
+	public static GameObject singletons {
+		get {
+			if(_singletons == null){
+				_singletons = GameObject.Find("Singletons");
+			}
+			return _singletons;
+		}
+	}
+
 	private static object _lock = new object();
 
 	public static T Instance {
@@ -24,10 +35,20 @@ public class Monosingleton<T> :MonoBehaviour where T : MonoBehaviour {
 						               " Reopenning the scene might fix it.");
 						return _instance;
 					}
+
+					GameObject _prefab = ((GameObject)Resources.Load(typeof(T).Name));
+					if(_prefab !=null && _prefab is GameObject){
+						if(_prefab.GetComponent<T>() != null){
+							_instance = _prefab.GetComponent<T>();
+							return _instance;
+						}
+					}
 					
 					if (_instance == null)
 					{
 						GameObject singleton = new GameObject();
+						singleton.transform.parent = singletons.transform;
+
 						_instance = singleton.AddComponent<T>();
 						singleton.name = "(singleton) "+ typeof(T).ToString();
 						

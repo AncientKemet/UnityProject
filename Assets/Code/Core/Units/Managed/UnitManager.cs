@@ -30,6 +30,11 @@ public class UnitManager : Monosingleton<UnitManager>
 		}
 	}
 
+	public bool WasUnitRegistered (Unit unit)
+	{
+		return unit.ID != -1;
+	}
+
 	public Unit GetUnit(int id){
 		return units[id];
 	}
