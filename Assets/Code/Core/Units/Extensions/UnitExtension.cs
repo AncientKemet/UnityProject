@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : Unit {
+public class UnitExtension : MonoBehaviour {
 
-	private string name;
+	
 
 }

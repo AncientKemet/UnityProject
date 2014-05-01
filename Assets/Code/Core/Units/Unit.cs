@@ -1,26 +1,29 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
-// author paris stefanou
+public class Unit : MonoBehaviour
+{
 
-public class Unit : movesimple{
+  private int _id = -1;
 
-	private int _id = -1;
+  public int ID
+  {
+    get
+    {
+      return -1;
+    }
+    set
+    {
+      if (UnitManager.Instance.WasUnitRegistered(this))
+      {
+        UnitManager.Instance.DeRegisterUnit(this);
+      }
 
-	public int ID {
-		get{
-			return -1;
-		}
-		set{
-			if(UnitManager.Instance.WasUnitRegistered(this)){
-				UnitManager.Instance.DeRegisterUnit(this);
-			}
+      _id = value;
 
-			_id = value;
-
-			UnitManager.Instance.RegisterUnit(this);
-		}
-	}
+      UnitManager.Instance.RegisterUnit(this);
+    }
+  }
 
 
 }

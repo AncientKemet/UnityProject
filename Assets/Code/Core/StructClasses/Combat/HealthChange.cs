@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : Unit {
+public class HealthChange {
 
-	private string name;
+	public float value;
 
 }
