@@ -46,15 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Code\Core\Mechanics\Pathfinding\Editor\RouteEditor.cs" />
      <Compile Include="Assets\Free Assets\AbstractPack\Ressources\Editor\formationFacile.cs" />
      <None Include="Assets\Free Assets\AbstractPack\Ombre\Sources\Shaders\Projector Multiply.shader" />
-     <None Include="Assets\FastAStar\cubematdif.shader" />
      <None Include="Assets\Free Assets\AbstractPack\Ombre\Sources\Shaders\Projector Light.shader" />
-     <None Include="Assets\FastAStar\ontopofoters.shader" />
- <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
- </Reference>
  <Reference Include="Assembly-UnityScript">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript.dll</HintPath>
  </Reference>

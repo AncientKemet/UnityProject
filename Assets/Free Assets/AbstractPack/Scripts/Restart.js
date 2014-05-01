@@ -1,1 +1,0 @@
-/* http://formation-facile.fr (c)Redémarre le jeu si le joueur appuie sur rrestart the game if player hit r*/function Update (){	if(Input.GetKeyDown("r")) Application.LoadLevel(0);}

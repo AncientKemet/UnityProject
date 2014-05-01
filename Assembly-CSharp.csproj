@@ -46,47 +46,22 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Code\Core\Client\Settings\GlobalConstants.cs" />
+     <Compile Include="Assets\Code\Core\Client\camera\CameraController.cs" />
+     <Compile Include="Assets\Code\Core\Client\camera\cameracontrolxz.cs" />
+     <Compile Include="Assets\Code\Core\Client\camera\cameracontroly.cs" />
      <Compile Include="Assets\Code\Core\GV.cs" />
-     <Compile Include="Assets\Code\Core\Mechanics\Pathfinding\Node.cs" />
-     <Compile Include="Assets\Code\Core\Mechanics\Pathfinding\Nodehit.cs" />
-     <Compile Include="Assets\Code\Core\Mechanics\Pathfinding\Route.cs" />
-     <Compile Include="Assets\Code\Core\Mechanics\movement\movesimple.cs" />
-     <Compile Include="Assets\Code\Core\Mechanics\spells\base\AoeInterface.cs" />
-     <Compile Include="Assets\Code\Core\Mechanics\spells\base\BoltInterface.cs" />
-     <Compile Include="Assets\Code\Core\Mechanics\spells\base\BuffInterface.cs" />
-     <Compile Include="Assets\Code\Core\Mechanics\spells\base\SpellFactory.cs" />
-     <Compile Include="Assets\Code\Core\Mechanics\spells\base\SpellInterface.cs" />
-     <Compile Include="Assets\Code\Core\Mechanics\spells\base\spell.cs" />
-     <Compile Include="Assets\Code\Core\Settings\GlobalConstants.cs" />
-     <Compile Include="Assets\Code\Core\StructClasses\Combat\Damage.cs" />
-     <Compile Include="Assets\Code\Core\StructClasses\Combat\Heal.cs" />
-     <Compile Include="Assets\Code\Core\StructClasses\Combat\HealthChange.cs" />
-     <Compile Include="Assets\Code\Core\Terrain.cs" />
-     <Compile Include="Assets\Code\Core\Units\Extensions\CombatUnit.cs" />
-     <Compile Include="Assets\Code\Core\Units\Extensions\UnitExtension.cs" />
-     <Compile Include="Assets\Code\Core\Units\Managed\UnitFactory.cs" />
-     <Compile Include="Assets\Code\Core\Units\Managed\UnitManager.cs" />
-     <Compile Include="Assets\Code\Core\Units\Player.cs" />
-     <Compile Include="Assets\Code\Core\Units\Unit.cs" />
-     <Compile Include="Assets\Code\Core\camera\CameraController.cs" />
-     <Compile Include="Assets\Code\Core\camera\cameracontrolxz.cs" />
-     <Compile Include="Assets\Code\Core\camera\cameracontroly.cs" />
+     <Compile Include="Assets\Code\Core\Shared\StructClasses\Combat\Damage.cs" />
+     <Compile Include="Assets\Code\Core\Shared\StructClasses\Combat\Heal.cs" />
+     <Compile Include="Assets\Code\Core\Shared\StructClasses\Combat\HealthChange.cs" />
+     <Compile Include="Assets\Code\Core\Shared\Units\Extensions\CombatUnit.cs" />
+     <Compile Include="Assets\Code\Core\Shared\Units\Extensions\MoveableUnit.cs" />
+     <Compile Include="Assets\Code\Core\Shared\Units\Extensions\UnitExtension.cs" />
+     <Compile Include="Assets\Code\Core\Shared\Units\Managed\UnitFactory.cs" />
+     <Compile Include="Assets\Code\Core\Shared\Units\Managed\UnitManager.cs" />
+     <Compile Include="Assets\Code\Core\Shared\Units\Player.cs" />
+     <Compile Include="Assets\Code\Core\Shared\Units\Unit.cs" />
      <Compile Include="Assets\Code\Libaries\Generic\Monosingleton.cs" />
-     <Compile Include="Assets\FastAStar\AStarRunner.cs" />
-     <Compile Include="Assets\FastAStar\BreadCrumb.cs" />
-     <Compile Include="Assets\FastAStar\MinHeap.cs" />
-     <Compile Include="Assets\FastAStar\PathFinder.cs" />
-     <Compile Include="Assets\FastAStar\Point3D.cs" />
-     <Compile Include="Assets\FastAStar\Program.cs" />
-     <Compile Include="Assets\FastAStar\World.cs" />
-     <None Include="Assets\Free Assets\AbstractPack\Ombre\Sources\Shaders\Projector Multiply.shader" />
-     <None Include="Assets\FastAStar\cubematdif.shader" />
-     <None Include="Assets\Free Assets\AbstractPack\Ombre\Sources\Shaders\Projector Light.shader" />
-     <None Include="Assets\FastAStar\ontopofoters.shader" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
-      <Project>{55A27D47-400E-8F39-A81A-D915F525F554}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

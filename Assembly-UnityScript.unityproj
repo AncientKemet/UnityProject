@@ -58,13 +58,7 @@
      <Compile Include="Assets\Free Assets\AbstractPack\Scripts\cam_score.js" />
      <Compile Include="Assets\Free Assets\AbstractPack\Scripts\checkpoint.js" />
      <None Include="Assets\Free Assets\AbstractPack\Ombre\Sources\Shaders\Projector Multiply.shader" />
-     <None Include="Assets\FastAStar\cubematdif.shader" />
      <None Include="Assets\Free Assets\AbstractPack\Ombre\Sources\Shaders\Projector Light.shader" />
-     <None Include="Assets\FastAStar\ontopofoters.shader" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
-      <Project>{55A27D47-400E-8F39-A81A-D915F525F554}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
