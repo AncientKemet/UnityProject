@@ -56,7 +56,6 @@
      <Compile Include="Assets\Code\Core\Shared\StructClasses\Combat\HealthChange.cs" />
      <Compile Include="Assets\Code\Core\Shared\Units\Extensions\CombatUnit.cs" />
      <Compile Include="Assets\Code\Core\Shared\Units\Extensions\MoveableUnit.cs" />
-     <Compile Include="Assets\Code\Core\Shared\Units\Extensions\UnitExtension.cs" />
      <Compile Include="Assets\Code\Core\Shared\Units\Managed\UnitFactory.cs" />
      <Compile Include="Assets\Code\Core\Shared\Units\Managed\UnitManager.cs" />
      <Compile Include="Assets\Code\Core\Shared\Units\Player.cs" />
