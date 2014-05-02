@@ -62,7 +62,9 @@
      <Compile Include="Assets\Code\Core\Shared\Units\Managed\UnitManager.cs" />
      <Compile Include="Assets\Code\Core\Shared\Units\Player.cs" />
      <Compile Include="Assets\Code\Core\Shared\Units\Unit.cs" />
+     <Compile Include="Assets\Code\Core\Shared\spells\extensions\NewBehaviourScript.cs" />
      <Compile Include="Assets\Code\Libaries\Generic\Monosingleton.cs" />
+     <Compile Include="Assets\Code\Libaries\SimpleMath\DetectHitInRadious.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

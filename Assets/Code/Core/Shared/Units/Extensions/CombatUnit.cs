@@ -29,8 +29,13 @@ public class CombatUnit : MoveableUnit
 	private float _baseattackrange=0;	
 
 
-  private float _currenthealth;
-  private float _currentresource;
+  	private float _currenthealth;
+  	private float _currentresource;
+	private float _Armor;
+	private float _attackspeed;
+	private float _attackrange;
+
+
 
   public void AppendHealthChange(HealthChange _change)
   {
