@@ -1,16 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\Core\Units\Unit.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\Core\Shared\Units\Extensions\CombatUnit.cs">
     <Files>
-      <File FileName="Assets\Code\Core\StructClasses\Combat\Heal.cs" Line="7" Column="1" />
-      <File FileName="Assets\Code\Core\Units\Extensions\CombatUnit.cs" Line="7" Column="39" />
-      <File FileName="Assets\Code\Core\StructClasses\Combat\HealthChange.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Core\StructClasses\Combat\Damage.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Core\Units\Unit.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Core\Units\Player.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\Core\GV.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Core\Units\Managed\UnitFactory.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Core\Units\Extensions\MoveableUnit.cs" Line="4" Column="32" />
+      <File FileName="Assets\Code\Core\Shared\Units\Unit.cs" Line="7" Column="3" />
+      <File FileName="Assets\Code\Core\Shared\Units\Extensions\CombatUnit.cs" Line="58" Column="16" />
+      <File FileName="Assets\Code\Core\Shared\Units\Extensions\MoveableUnit.cs" Line="22" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
