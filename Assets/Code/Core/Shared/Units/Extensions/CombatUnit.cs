@@ -71,20 +71,9 @@ public class CombatUnit : MoveableUnit
       {
         _calculatedValue *= _modifier.value;
       }
-
-<<<<<<< HEAD
-  	private float _currenthealth;
-  	private float _currentresource;
-	private float _Armor;
-	private float _attackspeed;
-	private float _attackrange;
-
-
-=======
       return _calculatedValue;
     }
   }
->>>>>>> d4b99cc5d6f2048a1b6b3525e41fb7a291ac34d9
 
   public void AddBuff(CombatStatBuff buff)
   {

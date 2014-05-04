@@ -15,10 +15,10 @@ public class MoveableUnit : Unit {
     }
   }
 
-;
+
 
 	void Update () {
 		transform.LookAt (targetPosition, Vector3.up);
-		transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPosition, Time.deltaTime * movementSpeed );
+    transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPosition, Time.deltaTime * CurrentMovementSpeed );
 	}
 }
