@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class UnitManager : Monosingleton<UnitManager>
 {
 
-	private Unit[] units;
+  private Unit[] units;
 
 	void Awake(){
 		units = new Unit[GlobalConstants.Instance.MAX_UNIT_AMOUNT];
@@ -13,12 +13,9 @@ public class UnitManager : Monosingleton<UnitManager>
 
 	public void RegisterUnit (Unit unit)
 	{
-		if (units [unit.ID] == null) {
-			units [unit.ID] = unit;
-			Debug.Log("Registered unit["+unit.ID+"]. "+unit);
-		} else {
-			Debug.LogError ("Broken unit array.");
-		}
+    int id = FreeId;
+    unit.ID = id;
+    units [id] = unit;
 	}
 	
 	public void DeRegisterUnit (Unit unit)
@@ -38,4 +35,16 @@ public class UnitManager : Monosingleton<UnitManager>
 	public Unit GetUnit(int id){
 		return units[id];
 	}
+
+  private int FreeId
+  {
+    get{
+      for (int i = 0; i < units.Length; i++) {
+        if(units[i] == null){
+          return i;
+        }
+      }
+      return -1;
+    }
+  }
 }

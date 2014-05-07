@@ -10,19 +10,36 @@ public class Unit : MonoBehaviour
   {
     get
     {
-      return -1;
+      return _id;
     }
     set
     {
-      if (UnitManager.Instance.WasUnitRegistered(this))
-      {
-        UnitManager.Instance.DeRegisterUnit(this);
-      }
-
       _id = value;
-
-      UnitManager.Instance.RegisterUnit(this);
     }
   }
+
+  void Start()
+  {
+    OnStart();
+  }
+
+  void Update()
+  {
+    OnUpdate();
+  }
+
+  void FixedUpdate()
+  {
+    OnFixedUpdate();
+  }
+
+  protected virtual void OnStart()
+  {}
+
+  protected virtual void OnUpdate()
+  {}
+
+  protected virtual void OnFixedUpdate()
+  {}
 
 }
