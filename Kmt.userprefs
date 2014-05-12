@@ -1,20 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\Core\Shared\Units\UnitControllers\UnitAnimator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\Core\Server\Model\World.cs">
     <Files>
-      <File FileName="Assets\Code\Core\Shared\Units\Extensions\MoveableUnit.cs" Line="9" Column="23" />
-      <File FileName="Assets\Code\Core\Shared\Units\Extensions\CombatUnit.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Libaries\SimpleMath\DetectHitInRadious.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Core\Client\Terrain\TerrainShader.shader" Line="1" Column="1" />
-      <File FileName="Assets\Data\Client\Materials\ProjectorShader.shader" Line="1" Column="1" />
-      <File FileName="Assets\Code\Core\Shared\Units\Managed\UnitFactory.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Core\Shared\Units\Extensions\Player.cs" Line="19" Column="22" />
-      <File FileName="Assets\Code\Core\Client\Terrain\KemetTerrain.cs" Line="32" Column="18" />
-      <File FileName="Assets\Code\Libaries\Generic\Monosingleton.cs" Line="45" Column="56" />
-      <File FileName="Assets\Code\Core\Shared\Units\Managed\UnitManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Core\Shared\Units\Unit.cs" Line="6" Column="1" />
-      <File FileName="Assets\Code\Core\Shared\Units\UnitControllers\UnitAnimator.cs" Line="6" Column="3" />
-      <File FileName="Assets\Code\Core\Client\Controls\MouseInput.cs" Line="22" Column="50" />
+      <File FileName="Assets\Code\Core\Client\Net\NET.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Core\Server\ServerWorldManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Core\Server\Model\World.cs" Line="22" Column="10" />
+      <File FileName="Assets\Code\Core\Server\Model\WorldEntity.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Core\Server\Model\Entities\Player.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Core\Server\Server.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Libaries\Net\ByteStream.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Core\Server\ServerConnectionManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

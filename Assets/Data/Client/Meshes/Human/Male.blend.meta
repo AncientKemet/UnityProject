@@ -23,6 +23,11 @@ ModelImporter:
     100034: Right_leg
     100036: Right_shiv
     100038: Right_shoulder
+    100040: Body
+    100042: Skirt
+    100044: UnderWear
+    100046: Body_001
+    100048: Face
     400000: Armature
     400002: Base
     400004: chest
@@ -43,7 +48,17 @@ ModelImporter:
     400034: Right_leg
     400036: Right_shiv
     400038: Right_shoulder
+    400040: Body
+    400042: Skirt
+    400044: UnderWear
+    400046: Body_001
+    400048: Face
     4300000: Cube
+    4300002: Body
+    4300004: Skirt
+    4300006: UnderWear
+    4300008: Body_001
+    4300010: Face
     7400000: Default Take
     7400002: ArmatureAction
     7400004: Idle
@@ -53,6 +68,11 @@ ModelImporter:
     9500000: //RootNode
     11100000: //RootNode
     13700000: Cube
+    13700002: Body
+    13700004: Skirt
+    13700006: UnderWear
+    13700008: Body_001
+    13700010: Face
   materials:
     importMaterials: 1
     materialName: 0
@@ -332,7 +352,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{90C6057C-FB14-AC80-1293-A2C1D3D6CF4B}") = "Kmt", "Assembly-CSharp-vs.csproj", "{A333A7A7-EE8B-487B-DDA4-9A46D7DA2442}"
 EndProject
+Project("{90C6057C-FB14-AC80-1293-A2C1D3D6CF4B}") = "Kmt", "Assembly-CSharp-Editor-vs.csproj", "{3C7CE496-CFB7-070D-7AF6-AEAAD1B0564A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,16 +15,18 @@ Global
 		{A333A7A7-EE8B-487B-DDA4-9A46D7DA2442}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A333A7A7-EE8B-487B-DDA4-9A46D7DA2442}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A333A7A7-EE8B-487B-DDA4-9A46D7DA2442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C7CE496-CFB7-070D-7AF6-AEAAD1B0564A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C7CE496-CFB7-070D-7AF6-AEAAD1B0564A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C7CE496-CFB7-070D-7AF6-AEAAD1B0564A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C7CE496-CFB7-070D-7AF6-AEAAD1B0564A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																						GlobalSection(MonoDevelopProperties) = preSolution
+																													GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
-		$1.TabWidth = 2
-		$1.IndentWidth = 2
 		$1.inheritsSet = VisualStudio
 		$1.inheritsScope = text/plain
 		$1.scope = text/x-csharp
@@ -57,6 +61,9 @@ Global
 		$4.IncludeInNewFiles = True
 		$0.VersionControlPolicy = $5
 		$5.inheritsSet = Mono
+		$0.DotNetNamingPolicy = $6
+		$6.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$6.ResourceNamePolicy = MSBuild
 	EndGlobalSection
 
 EndGlobal
