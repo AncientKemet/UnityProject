@@ -18,7 +18,7 @@ namespace OldBlood.Code.Core.Server.Net
 
         protected override void aExecutePacket(BasePacket packet)
         {
-            Debug.Log("WOOOT");
+            Debug.Log("WOOOT a packet!");
         }
     }
 }

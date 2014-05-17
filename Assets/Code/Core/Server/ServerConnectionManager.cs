@@ -18,7 +18,6 @@ namespace OldBlood.Code.Core.Server
 
         public void acceptCallback(IAsyncResult ar)
         {
-            Debug.Log("new client!");
             Socket listener = (Socket)ar.AsyncState;
             Socket newConnection = listener.EndAccept(ar);
 

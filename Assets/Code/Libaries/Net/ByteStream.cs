@@ -26,7 +26,11 @@ namespace OldBlood.Code.Libaries.Net
 
         public ByteStream(byte[] bytes)
         {
-            stream = new List<byte>(bytes);
+            stream = new List<byte>(bytes.Length);
+            foreach (var _b in bytes)
+            {
+                addByte(_b);
+            }
         }
 
         public void addByte(int value) {
@@ -34,7 +38,7 @@ namespace OldBlood.Code.Libaries.Net
         }
         
         public void addByte(int value, int pos) {
-            if (pos < stream.Count-1) {
+            if (pos < stream.Count) {
                 stream[pos] = (byte) value;
             } else {
                 stream.Add((byte) value);
@@ -42,7 +46,12 @@ namespace OldBlood.Code.Libaries.Net
         }
 
         public int getByte() {
-            return (stream.Capacity-1 > _offset) ? (int)stream[_offset++] : 0;
+            if (stream.Count > _offset) {
+                return (int)stream[_offset++]; 
+            }else{
+                Debug.LogError("Readigngdsg streamsize: "+stream.Count+" off: "+Offset);
+                return 0;
+            }
         }
 
         public void addShort(int i) {
@@ -69,10 +78,10 @@ namespace OldBlood.Code.Libaries.Net
         }
         
         public void addString(String s) {
-            foreach (byte _b in GetBytesOfString(s)) {
-                addByte(_b);
+            addShort(s.Length);
+            foreach (char c in s.ToCharArray()) {
+                addByte((byte)c);
             }
-             addByte(0);
         }
 
         
@@ -124,9 +133,10 @@ namespace OldBlood.Code.Libaries.Net
         
         public String getString() {
             String s = "";
-            int b;
-            while ((b = getByte()) != 0) {
-                s = s + (char) b;
+            int size = getUnsignedShort();
+            for (int i = 0; i < size; i++)
+            {
+                s += (char) getByte();
             }
             return s;
         }
@@ -142,7 +152,7 @@ namespace OldBlood.Code.Libaries.Net
 
         public int Length {
             get {
-                return stream.Capacity;
+                return stream.Count;
             }
             set {
                 stream.Capacity = value;

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using UnityEngine;
 
 namespace OldBlood.Code.Libaries.Net
 {
 
     public static class PacketManager 
     {
-        private static List<Type> packetTypes = new List<Type>(256);
-        private static bool _packetsWereLoaded;
+        private static Dictionary<int, Type> packetTypes = new Dictionary<int, Type>();
+        private static bool _packetsWereLoaded = false;
 
         public static BasePacket PacketForOpcode(int opcode)
         {
@@ -19,17 +20,24 @@ namespace OldBlood.Code.Libaries.Net
                 Type BasePacketType = typeof(BasePacket);
                 foreach (var type in Assembly.GetAssembly(typeof(PacketManager)).GetTypes())
                 {
-                    if(BasePacketType.IsAssignableFrom(type))
+                    if(BasePacketType.IsAssignableFrom(type) && type != BasePacketType)
                     {
-                        object intance = Activator.CreateInstance(type);
-                        int _opcode = (int)type.GetMethod("GetOpCode", BindingFlags.NonPublic).Invoke(intance, null);
+                        object instance = Activator.CreateInstance(type);
+                        Debug.Log(instance);
+                        var methodInfo = type.GetMethod("OPCODE");
+                        Debug.Log(methodInfo);
+                        int _opcode = (int)(
+                            methodInfo.
+                            Invoke(
+                            instance,
+                            new object[0]));
                         packetTypes[_opcode] = type;
                     }
                 }
             }
-
-            BasePacket packetInstance = (BasePacket)Activator.CreateInstance(packetTypes[opcode]);
-            return packetInstance;
+                BasePacket packetInstance = (BasePacket)Activator.CreateInstance(packetTypes[opcode]);
+                return packetInstance;
+           
         }
     }
 
@@ -39,6 +47,11 @@ namespace OldBlood.Code.Libaries.Net
 
         protected abstract void enSerialize(ByteStream bytestream);
         protected abstract void deSerialize(ByteStream bytestream);
+
+        public int OPCODE()
+        {
+            return GetOpCode();
+        }
 
         public void Deserialize(ByteStream bytestream)
         {

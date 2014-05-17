@@ -5,14 +5,15 @@ using System.Threading;
 using OldBlood.Code.Libaries.Generic;
 using OldBlood.Code.Core.Server;
 using UnityEngine;
+using UnityEditor;
 
 namespace OldBlood.Code.Core.Server
 {
     public class Server
     {
 
-        public GenProperty<ServerConnectionManager> scm;
-        public GenProperty<ServerWorldManager> swm;
+        public GenProperty<ServerConnectionManager> scm = new GenProperty<ServerConnectionManager>();
+        public GenProperty<ServerWorldManager> swm = new GenProperty<ServerWorldManager>();
 
         private Socket socket;
         private Thread thread;
@@ -25,28 +26,21 @@ namespace OldBlood.Code.Core.Server
         public void StartServer()
         {
             socket = CreateServerSocket();
-            thread = new Thread(ServerUpdate);
-            thread.Start();
+            //thread = new Thread(ServerUpdate);
+            //thread.Start();
             Debug.Log("Server running.");
         }
 
         public void ServerUpdate()
         {
-            while(true)
-            {
-                Debug.Log("Listening");
-                if(socket.IsBound)
                 scm.Get.AcceptConnections(socket);
-                Debug.Log("Listening2");
                 swm.Get.ProgressWorlds();
-                Debug.Log("Listening3");
-                Thread.Sleep(30);
-            }
         }
 
         static Socket CreateServerSocket()
         {
             Socket newSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            newSocket.Blocking = false;
             newSocket.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 59580));
             newSocket.Listen(10);
             return newSocket;
@@ -58,6 +52,10 @@ namespace OldBlood.Code.Core.Server
         {
             get
             {
+                if(instance == null)
+                {
+                    instance = new Server();
+                }
                 return instance;
             }
             private set
@@ -72,9 +70,11 @@ namespace OldBlood.Code.Core.Server
 
         public void Stop()
         {
+            if(instance != null)
+            {
             socket.Close();
-            thread.Abort();
             Debug.Log("Stopping server.");
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace OldBlood.Code.Libaries.Net.Packets
 {
@@ -23,6 +24,7 @@ namespace OldBlood.Code.Libaries.Net.Packets
         protected override void deSerialize(ByteStream bytestream)
         {
             text = bytestream.getString();
+            Debug.Log("Athp "+text);
         }
     }
 }

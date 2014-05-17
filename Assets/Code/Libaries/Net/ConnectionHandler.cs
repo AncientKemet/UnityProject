@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using UnityEngine;
 
 namespace OldBlood.Code.Libaries.Net
 {
@@ -13,7 +14,7 @@ namespace OldBlood.Code.Libaries.Net
         private Socket socket;
         private PacketExecutor packetExecutor;
         private List<BasePacket> outgoingPackets = new List<BasePacket>();
-        private int expectedNextLength;
+        private int expectedNextLength = -1;
 
         public ConnectionHandler(Socket socket, PacketExecutor packetExecutor) {
             this.socket = socket;
@@ -33,40 +34,50 @@ namespace OldBlood.Code.Libaries.Net
 
                 if (available > 0)
                 {
-                    if (expectedNextLength == -1)
-                    {
-                        //ignore the two bytes for the future
-                        available -= 2;
+                    Debug.Log("something came at size: "+available);
+                    if(available > 2){
+                        if (expectedNextLength == -1)
+                        {
+                            //ignore the two bytes for the future
+                            available -= 2;
 
-                        byte[] bytes = new byte[2];
+                            byte[] bytes = new byte[2];
 
-                        socket.Receive(bytes);
+                            socket.Receive(bytes, bytes.Length, 0);
 
-                        ByteStream _in = new ByteStream(bytes);
+                            ByteStream _in = new ByteStream(bytes);
 
-                        expectedNextLength = _in.getUnsignedShort();
+                            _in.Offset = 0;
+
+                            expectedNextLength = _in.getUnsignedShort();
+                            Debug.Log("expecting size: "+expectedNextLength);
+                        }
                     }
-
                     if (expectedNextLength != -1)
                     {
-                        if (available > expectedNextLength)
+                        if (available >= expectedNextLength)
                         {
                             //ignore the expected lenght for the future
                             available -= expectedNextLength;
 
                             byte[] bytes = new byte[expectedNextLength];
 
-                            socket.Receive(bytes);
+                            socket.Receive(bytes, expectedNextLength, 0);
 
                             ByteStream _in = new ByteStream(bytes);
-
+                            _in.Offset = 0;
                             int opcode = _in.getUnsignedByte();
 
-                            BasePacket packet = PacketManager.PacketForOpcode(opcode);
+                            Debug.Log("Opcode is: "+opcode);
 
+                            BasePacket packet = PacketManager.PacketForOpcode(opcode);
+                            Debug.Log("executing packet: "+packet);
                             packet.Deserialize(_in);
 
                             packetExecutor.ExecutePacket(packet);
+                            Debug.Log("executed packet: "+packet);
+
+                            expectedNextLength = -1;
                         }
                     }
                 }

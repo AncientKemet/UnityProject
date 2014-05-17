@@ -22,7 +22,6 @@ namespace OldBlood.Code.Core.Client.Net
 
         void Start()
         {
-            Server.KemetUnityServer.RunServer();
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             socket.Connect(IPAddress.Parse(adress), port);

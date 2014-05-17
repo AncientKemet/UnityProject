@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace OldBlood.Code.Libaries.Generic
 {
@@ -12,9 +13,10 @@ namespace OldBlood.Code.Libaries.Generic
             {
                 if(_t == null)
                 {
-                    _t = (T)Activator.CreateInstance(typeof(T), null);
+                    //Debug.Log("Creating instance of: "+typeof(T));
+                    _t = Activator.CreateInstance<T>();
                 }
-                    return _t;
+                return _t;
             }
         }
     }

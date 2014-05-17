@@ -13,6 +13,7 @@ namespace OldBlood.Code.Core.Server.Model.Extensions
     {
 
         private Socket socket;
+
         private ConnectionHandler connectionHandler;
 
         public ConnectionHandler ConnectionHandler { get { return connectionHandler; } }
@@ -28,5 +29,6 @@ namespace OldBlood.Code.Core.Server.Model.Extensions
             connectionHandler.ReadAndExecute();
             connectionHandler.FlushOutPackets();
         }
+
     }
 }
