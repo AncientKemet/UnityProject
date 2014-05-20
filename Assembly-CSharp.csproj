@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{E3054D71-AC50-4765-830C-C90EEF9D3FA2}</ProjectGuid>
+	<ProjectGuid>{A333A7A7-EE8B-487B-DDA4-9A46D7DA2442}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -55,6 +55,7 @@
      <Compile Include="Assets\Code\Core\Client\Net\PlayerPacketExecutor.cs" />
      <Compile Include="Assets\Code\Core\Client\Settings\GlobalConstants.cs" />
      <Compile Include="Assets\Code\Core\Client\Terrain\KemetTerrain.cs" />
+     <Compile Include="Assets\Code\Core\Client\UI\Scripts\KeepRelativePosition.cs" />
      <Compile Include="Assets\Code\Core\Client\Units\Extensions\CombatUnit.cs" />
      <Compile Include="Assets\Code\Core\Client\Units\Extensions\MoveableUnit.cs" />
      <Compile Include="Assets\Code\Core\Client\Units\Extensions\Player.cs" />
