@@ -34,7 +34,6 @@ namespace OldBlood.Code.Libaries.Net
 
                 if (available > 0)
                 {
-                    Debug.Log("something came at size: "+available);
                     if(available > 2){
                         if (expectedNextLength == -1)
                         {
@@ -50,7 +49,6 @@ namespace OldBlood.Code.Libaries.Net
                             _in.Offset = 0;
 
                             expectedNextLength = _in.getUnsignedShort();
-                            Debug.Log("expecting size: "+expectedNextLength);
                         }
                     }
                     if (expectedNextLength != -1)
@@ -68,14 +66,10 @@ namespace OldBlood.Code.Libaries.Net
                             _in.Offset = 0;
                             int opcode = _in.getUnsignedByte();
 
-                            Debug.Log("Opcode is: "+opcode);
-
                             BasePacket packet = PacketManager.PacketForOpcode(opcode);
-                            Debug.Log("executing packet: "+packet);
                             packet.Deserialize(_in);
 
                             packetExecutor.ExecutePacket(packet);
-                            Debug.Log("executed packet: "+packet);
 
                             expectedNextLength = -1;
                         }

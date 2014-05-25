@@ -1,45 +1,47 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
-public class Unit : MonoBehaviour
+namespace OldBlood.Code.Core.Client.Units
 {
-
-  private int _id = -1;
-
-  public int ID
-  {
-    get
+    public class Unit : MonoBehaviour
     {
-      return _id;
+
+        private int _id = -1;
+
+        public int ID
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+            }
+        }
+
+        void Start()
+        {
+            OnStart();
+        }
+
+        void Update()
+        {
+            OnUpdate();
+        }
+
+        void FixedUpdate()
+        {
+            OnFixedUpdate();
+        }
+
+        protected virtual void OnStart()
+        {}
+
+        protected virtual void OnUpdate()
+        {}
+
+        protected virtual void OnFixedUpdate()
+        {}
+
     }
-    set
-    {
-      _id = value;
-    }
-  }
-
-  void Start()
-  {
-    OnStart();
-  }
-
-  void Update()
-  {
-    OnUpdate();
-  }
-
-  void FixedUpdate()
-  {
-    OnFixedUpdate();
-  }
-
-  protected virtual void OnStart()
-  {}
-
-  protected virtual void OnUpdate()
-  {}
-
-  protected virtual void OnFixedUpdate()
-  {}
-
 }

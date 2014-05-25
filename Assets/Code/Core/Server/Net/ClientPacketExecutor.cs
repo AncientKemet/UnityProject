@@ -1,10 +1,12 @@
 ﻿using OldBlood.Code.Core.Server.Model.Extensions;
 using OldBlood.Code.Libaries.Net;
+using OldBlood.Code.Libaries.Net.Packets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using OldBlood.Code.Core.Server.Model.Extensions.PlayerExtensions;
 
 namespace OldBlood.Code.Core.Server.Net
 {
@@ -18,7 +20,10 @@ namespace OldBlood.Code.Core.Server.Net
 
         protected override void aExecutePacket(BasePacket packet)
         {
-            Debug.Log("WOOOT a packet!");
+            if(packet is AuthenticationPacket)
+            {
+                Frames.SendMessage(client, "Welcome to Ancient Kemet!");
+            }
         }
     }
 }

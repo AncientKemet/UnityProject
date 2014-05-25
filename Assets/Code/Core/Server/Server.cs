@@ -41,7 +41,7 @@ namespace OldBlood.Code.Core.Server
         {
             Socket newSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             newSocket.Blocking = false;
-            newSocket.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 59580));
+            newSocket.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5956));
             newSocket.Listen(10);
             return newSocket;
         }
@@ -52,10 +52,6 @@ namespace OldBlood.Code.Core.Server
         {
             get
             {
-                if(instance == null)
-                {
-                    instance = new Server();
-                }
                 return instance;
             }
             private set
@@ -70,11 +66,8 @@ namespace OldBlood.Code.Core.Server
 
         public void Stop()
         {
-            if(instance != null)
-            {
-            socket.Close();
-            Debug.Log("Stopping server.");
-            }
+                socket.Close();
+                Debug.Log("Stopping server.");
         }
     }
 }

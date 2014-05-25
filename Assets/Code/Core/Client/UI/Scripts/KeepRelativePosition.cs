@@ -1,54 +1,56 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-[ExecuteInEditMode]
-public class KeepRelativePosition : MonoBehaviour
+namespace OldBlood.Code.Core.Client.UI.Scripts
 {
-
-    [SerializeField]
-    private tk2dSlicedSprite parent;
-    [SerializeField]
-    private float configX = 0;
-    [SerializeField]
-    private float configY = 0;
-
-    void Start()
+    [ExecuteInEditMode]
+    public class KeepRelativePosition : MonoBehaviour
     {
 
-    }
-    
-    void Update()
-    {
-#if UNITY_EDITOR
-        if(parent == null){
-            parent = FindParent<tk2dSlicedSprite>();
-            configX = Mathf.Abs((parent.dimensions.x + parent.borderLeft + parent.borderRight) / (parent.transform.position.x - transform.position.x));
-            configY = Mathf.Abs((parent.dimensions.y + parent.borderTop + parent.borderBottom) / (parent.transform.position.y - transform.position.y));
+        [SerializeField]
+        private tk2dSlicedSprite parent;
+        [SerializeField]
+        private float configX = 0;
+        [SerializeField]
+        private float configY = 0;
+
+        void Start()
+        {
+
         }
+    
+        void Update()
+        {
+#if UNITY_EDITOR
+            if(parent == null){
+                parent = FindParent<tk2dSlicedSprite>();
+                configX = Mathf.Abs((parent.dimensions.x + parent.borderLeft + parent.borderRight) / (parent.transform.position.x - transform.position.x));
+                configY = Mathf.Abs((parent.dimensions.y + parent.borderTop + parent.borderBottom) / (parent.transform.position.y - transform.position.y));
+            }
 #endif
 
-        if(parent != null)
-        {
-            if(Application.isPlaying)
+            if(parent != null)
             {
-                transform.position = new Vector3(parent.transform.position.x + (parent.dimensions.x+ parent.borderLeft + parent.borderRight) / configX, parent.transform.position.y + (parent.dimensions.y+ parent.borderTop + parent.borderBottom) / configY, transform.position.z);
+                if(Application.isPlaying)
+                {
+                    transform.position = new Vector3(parent.transform.position.x + (parent.dimensions.x+ parent.borderLeft + parent.borderRight) / configX, parent.transform.position.y + (parent.dimensions.y+ parent.borderTop + parent.borderBottom) / configY, transform.position.z);
+                }
             }
         }
-    }
 
-    private T FindParent<T>() where T : Component
-    {
-        Transform p = transform.parent;
-        for (int i = 0; i < 10; i++)
+        private T FindParent<T>() where T : Component
         {
-            if(p == null){
-                return null;
-            }
-            if (p.GetComponent<T>() == null)
+            Transform p = transform.parent;
+            for (int i = 0; i < 10; i++)
             {
-                p = p.parent;
+                if(p == null){
+                    return null;
+                }
+                if (p.GetComponent<T>() == null)
+                {
+                    p = p.parent;
+                }
             }
+            return p.GetComponent<T>();
         }
-        return p.GetComponent<T>();
     }
 }

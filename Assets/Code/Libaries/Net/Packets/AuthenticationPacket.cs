@@ -24,7 +24,6 @@ namespace OldBlood.Code.Libaries.Net.Packets
         protected override void deSerialize(ByteStream bytestream)
         {
             text = bytestream.getString();
-            Debug.Log("Athp "+text);
         }
     }
 }

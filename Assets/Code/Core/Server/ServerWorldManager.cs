@@ -24,6 +24,7 @@ namespace OldBlood.Code.Core.Server
         public void AddWorld(World w)
         {
             worlds.Add(w);
+            w.ID = worlds.IndexOf(w);
         }
 
         public void ProgressWorlds()

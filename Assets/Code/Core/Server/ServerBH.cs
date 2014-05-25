@@ -2,19 +2,23 @@
 using System.Collections;
 using OldBlood.Code.Core.Server;
 
-public class ServerBH : MonoBehaviour {
+public class ServerBH : MonoBehaviour
+{
+
+    private Server server;
 
     void OnEnable()
     {
-        Server.Instance.StartServer();
+        server = new Server();;
+        server.StartServer();
     }
 
     void OnDisable()
     {
-        Server.Instance.Stop();
+        server.Stop();
     }
 	
 	void FixedUpdate () {
-        Server.Instance.ServerUpdate();
+        server.ServerUpdate();
 	}
 }
