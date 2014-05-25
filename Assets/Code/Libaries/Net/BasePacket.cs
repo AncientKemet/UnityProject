@@ -13,24 +13,29 @@ namespace OldBlood.Code.Libaries.Net
         private static Dictionary<int, Type> packetTypes = new Dictionary<int, Type>();
         private static bool _packetsWereLoaded = false;
 
+        /// <summary>
+        /// This method will return you a type of packet by OPCODE.
+        /// It will also traverse assembly to find all extensions of BasePacket, then storing it into dictionary<opcode, type>.
+        /// </summary>
+        /// <param name="opcode"> OPCODE of packet </param>
+        /// <returns>Type of packet with the specified OPCODE.</returns>
         public static BasePacket PacketForOpcode(int opcode)
         {
             if (!_packetsWereLoaded) {
                 _packetsWereLoaded = true;
-                Type BasePacketType = typeof(BasePacket);
+                Type basePacketType = typeof(BasePacket);
                 foreach (var type in Assembly.GetAssembly(typeof(PacketManager)).GetTypes())
                 {
-                    if(BasePacketType.IsAssignableFrom(type) && type != BasePacketType)
+                    int _opcode;
+                    if(basePacketType.IsAssignableFrom(type) && type != basePacketType)
                     {
                         object instance = Activator.CreateInstance(type);
-                        Debug.Log(instance);
                         var methodInfo = type.GetMethod("OPCODE");
-                        Debug.Log(methodInfo);
-                        int _opcode = (int)(
+                        _opcode = (int)(
                             methodInfo.
-                            Invoke(
-                            instance,
-                            new object[0]));
+                                Invoke(
+                                    instance,
+                                    new object[0]));
                         packetTypes[_opcode] = type;
                     }
                 }

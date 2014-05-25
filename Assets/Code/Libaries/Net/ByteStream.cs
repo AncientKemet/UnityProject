@@ -84,10 +84,17 @@ namespace OldBlood.Code.Libaries.Net
             }
         }
 
-        
-        public void addFloat(float f) {
+
+        public void addFloat4B(float f)
+        {
             addInt((int)(f * 1000));
         }
+
+        public void addFloat2B(float f)
+        {
+            addShort((int)(f * 100));
+        }
+
         
         public int getUnsignedByte() {
             return getByte() & 0xFF;
@@ -140,9 +147,15 @@ namespace OldBlood.Code.Libaries.Net
             }
             return s;
         }
-        
-        public float getFloat() {
-            return (float) getInt() / 1000f;
+
+        public float getFloat4B()
+        {
+            return (float)getInt() / 1000f;
+        }
+
+        public float getFloat2B()
+        {
+            return (float)getShort() / 100f;
         }
 
         public byte[] GetBuffer()
@@ -164,6 +177,71 @@ namespace OldBlood.Code.Libaries.Net
             byte[] bytes = new byte[str.Length * sizeof(char)];
             System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
             return bytes;
+        }
+
+        public void addFlag(params bool[] updates)
+        {
+            int i = 0;
+            if (updates.Length >= 1)
+            {
+                 i = (i | (updates[0] ? 0x01 : 0x00));
+            }
+            if (updates.Length >= 2)
+            {
+                i = (i | (updates[1] ? 0x02 : 0x00));
+            }
+            if (updates.Length >= 3)
+            {
+                i = (i | (updates[2] ? 0x04 : 0x00));
+            }
+            if (updates.Length >= 4)
+            {
+                i = (i | (updates[3] ? 0x08 : 0x00));
+            }
+            if (updates.Length >= 5)
+            {
+                i = (i | (updates[4] ? 0x10 : 0x00));
+            }
+            if (updates.Length >= 6)
+            {
+                i = (i | (updates[5] ? 0x20 : 0x00));
+            }
+            if (updates.Length >= 7)
+            {
+                i = (i | (updates[6] ? 0x40 : 0x00));
+            }
+            if (updates.Length >= 8)
+            {
+                i = (i | (updates[7] ? 0x80 : 0x00));
+            }
+            addByte(i);
+        }
+
+        public void addBytes(byte[] p)
+        {
+            stream.AddRange(p);
+        }
+
+        public byte[] getSubBuffer(int lenght)
+        {
+            byte[] bytes = new byte[lenght];
+            for (int i = 0; i < lenght; i++)
+            {
+                bytes[i] = (byte) getByte();
+            }
+            return bytes;
+        }
+
+        public void addPosition6B(Vector3 Position)
+        {
+            addFloat2B(Position.x);
+            addFloat2B(Position.y);
+            addFloat2B(Position.z);
+        }
+
+        internal Vector3 getPosition6B()
+        {
+            return new Vector3(getFloat2B(),getFloat2B(),getFloat2B());
         }
     }
 }

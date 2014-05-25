@@ -1,82 +1,84 @@
-﻿using UnityEngine;
-using System.Collections;
-using OldBlood.Code.Core.Client.Units.Extensions;
+﻿using OldBlood.Code.Core.Client.Units.Extensions;
+using UnityEngine;
 
-public class CameraController : Monosingleton<CameraController>
+namespace OldBlood.Code.Core.Client.Controls.Camera
 {
-
-    public enum CameraType
+    public class CameraController : Monosingleton<CameraController>
     {
-        Cinematic,
-        Locked
-    }
 
-    [SerializeField]
-    private GameObject
-        _objectToFollow;
-    [SerializeField]
-    private float
-        _cameraY = 10;
-    [SerializeField]
-    private float
-        _cameraToObjectDistance = 10;
-    [SerializeField]
-    private float
-        _rotation;
-    [SerializeField]
-    private CameraType
-        _type;
-
-    public float rotation
-    {
-        get
+        public enum CameraType
         {
-            return _rotation;
-        }
-        set
-        {
-            _rotation = value;
-        }
-    }
-
-    void LateUpdate()
-    {
-        if (_objectToFollow == null)
-        {
-            _objectToFollow = Player.MyPlayer.gameObject;
+            Cinematic,
+            Locked
         }
 
-        if (_objectToFollow != null)
-        {
+        [SerializeField]
+        private GameObject
+            _objectToFollow;
+        [SerializeField]
+        private float
+            _cameraY = 10;
+        [SerializeField]
+        private float
+            _cameraToObjectDistance = 10;
+        [SerializeField]
+        private float
+            _rotation;
+        [SerializeField]
+        private CameraType
+            _type;
 
-            //CINEMATIC CAMERA
-            if (_type == CameraType.Cinematic)
+        public float rotation
+        {
+            get
             {
-                Vector3 positionAboveObject = _objectToFollow.transform.position;
-                positionAboveObject.y += _cameraY;
+                return _rotation;
+            }
+            set
+            {
+                _rotation = value;
+            }
+        }
 
-                if (Vector3.Distance(transform.position, positionAboveObject) > _cameraToObjectDistance)
+        void LateUpdate()
+        {
+            if (_objectToFollow == null)
+            {
+                _objectToFollow = Player.MyPlayer.gameObject;
+            }
+
+            if (_objectToFollow != null)
+            {
+
+                //CINEMATIC CAMERA
+                if (_type == CameraType.Cinematic)
                 {
-                    if (Vector3.Distance(transform.position, positionAboveObject) > _cameraToObjectDistance * 2)
+                    Vector3 positionAboveObject = _objectToFollow.transform.position;
+                    positionAboveObject.y += _cameraY;
+
+                    if (Vector3.Distance(transform.position, positionAboveObject) > _cameraToObjectDistance)
                     {
-                        transform.position = Vector3.MoveTowards(transform.position, positionAboveObject, Time.deltaTime);
+                        if (Vector3.Distance(transform.position, positionAboveObject) > _cameraToObjectDistance * 2)
+                        {
+                            transform.position = Vector3.MoveTowards(transform.position, positionAboveObject, Time.deltaTime);
+                        }
+                        transform.position = Vector3.Lerp(transform.position, positionAboveObject, Time.deltaTime);
                     }
-                    transform.position = Vector3.Lerp(transform.position, positionAboveObject, Time.deltaTime);
                 }
+
+                //Locked CAMERA
+                if (_type == CameraType.Locked)
+                {
+                    float x = _objectToFollow.transform.position.x + _cameraToObjectDistance * Mathf.Cos(_rotation);
+                    float z = _objectToFollow.transform.position.z + _cameraToObjectDistance * Mathf.Sin(_rotation);
+                    Vector3 _targetPos = new Vector3(x, _objectToFollow.transform.position.y + _cameraY, z);
+
+                    transform.position = Vector3.Lerp(transform.position, _targetPos, Time.deltaTime * 10);
+
+                }
+                transform.LookAt(_objectToFollow.transform.position + Vector3.up);
             }
-
-            //Locked CAMERA
-            if (_type == CameraType.Locked)
-            {
-                float x = _objectToFollow.transform.position.x + _cameraToObjectDistance * Mathf.Cos(_rotation);
-                float z = _objectToFollow.transform.position.z + _cameraToObjectDistance * Mathf.Sin(_rotation);
-                Vector3 _targetPos = new Vector3(x, _objectToFollow.transform.position.y + _cameraY, z);
-
-                transform.position = Vector3.Lerp(transform.position, _targetPos, Time.deltaTime * 10);
-
-            }
-            transform.LookAt(_objectToFollow.transform.position + Vector3.up);
         }
-    }
 
+    }
 }

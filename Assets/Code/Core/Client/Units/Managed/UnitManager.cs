@@ -1,57 +1,59 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using OldBlood.Code.Core.Client.Settings;
+using UnityEngine;
 
-public class UnitManager : Monosingleton<UnitManager>
+namespace OldBlood.Code.Core.Client.Units.Managed
 {
-
-    private Unit[] units;
-
-    void Awake()
+    public class UnitManager : Monosingleton<UnitManager>
     {
-        units = new Unit[GlobalConstants.Instance.MAX_UNIT_AMOUNT];
-    }
 
-    public void RegisterUnit(Unit unit)
-    {
-        int id = FreeId;
-        unit.ID = id;
-        units [id] = unit;
-    }
-    
-    public void DeRegisterUnit(Unit unit)
-    {
-        if (units [unit.ID] == unit)
+        private Unit[] units;
+
+        void Awake()
         {
-            units [unit.ID] = null;
-        } else
-        {
-            Debug.LogError("Broken unit array.");
+            units = new Unit[GlobalConstants.Instance.MAX_UNIT_AMOUNT];
         }
-    }
 
-    public bool WasUnitRegistered(Unit unit)
-    {
-        return unit.ID != -1;
-    }
-
-    public Unit GetUnit(int id)
-    {
-        return units [id];
-    }
-
-    private int FreeId
-    {
-        get
+        public void RegisterUnit(Unit unit)
         {
-            for (int i = 0; i < units.Length; i++)
+            int id = FreeId;
+            unit.ID = id;
+            units [id] = unit;
+        }
+    
+        public void DeRegisterUnit(Unit unit)
+        {
+            if (units [unit.ID] == unit)
             {
-                if (units [i] == null)
-                {
-                    return i;
-                }
+                units [unit.ID] = null;
+            } else
+            {
+                Debug.LogError("Broken unit array.");
             }
-            return -1;
+        }
+
+        public bool WasUnitRegistered(Unit unit)
+        {
+            return unit.ID != -1;
+        }
+
+        public Unit GetUnit(int id)
+        {
+            return units [id];
+        }
+
+        private int FreeId
+        {
+            get
+            {
+                for (int i = 0; i < units.Length; i++)
+                {
+                    if (units [i] == null)
+                    {
+                        return i;
+                    }
+                }
+                return -1;
+            }
         }
     }
 }

@@ -6,27 +6,40 @@ namespace OldBlood.Code.Core.Server.Model
 {
     public abstract class WorldEntity
     {
+        private World _currentWorld = null;
+       
         public int ID {get;set;}
-        private List<EntityExtension> extensions = new List<EntityExtension>();
 
-        public void AddExtension(EntityExtension extension)
+        private Dictionary<Type, EntityExtension> extensions = new Dictionary<Type, EntityExtension>();
+
+        public Dictionary<Type, EntityExtension>.ValueCollection Extensions
         {
-            extensions.Add(extension);
+            get { return extensions.Values; }
         }
 
-        public T GetExtension<T>() where T : EntityExtension
+        public virtual World CurrentWorld
         {
-            foreach (var item in extensions)
+            get { return _currentWorld; }
+            set { _currentWorld = value; }
+        }
+
+        public void AddExt(EntityExtension extension)
+        {
+            extensions[extension.GetType()] = extension;
+        }
+
+        public T GetExt<T>() where T : EntityExtension
+        {
+            if (extensions.ContainsKey(typeof (T)))
             {
-                if (item is T)
-                    return item as T;
+                return extensions[typeof (T)] as T;
             }
             return null;
         }
 
         public virtual void Progress()
         {
-            foreach (var extension in extensions)
+            foreach (var extension in extensions.Values)
             {
                 extension.Progress();
             }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using OldBlood.Code.Core.Client.Units.Managed;
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace OldBlood.Code.Core.Client.Units.Extensions
