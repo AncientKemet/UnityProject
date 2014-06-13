@@ -1,19 +1,33 @@
-using System;
-using OldBlood.Code.Core.Server.Model.Extensions;
-using OldBlood.Code.Libaries.Net.Packets;
+using Code.Code.Libaries.Net.Packets;
+using Code.Core.Server.Model.Extensions.PlayerExtensions;
+using Code.Core.Server.Model.Extensions.PlayerExtensions.UIHelpers;
+using Code.Core.Server.Model.Extensions.UnitExts;
 using UnityEngine;
 
-namespace OldBlood.Code.Core.Server.Model.Entities
+namespace Code.Core.Server.Model.Entities
 {
-    public class Player : Unit
+    public class Player : Human
     {
+        private ServerClient _client;
 
-        public ServerClient client;
-
-        public Player(ServerClient client)
+        public ServerClient Client
         {
-            AddExt(client);
-            this.client = client;
+            get { return _client; }
+            set
+            {
+                _client = value;
+                AddExt(_client);
+            }
+        }
+
+        public PlayerInput PlayerInput { get; private set; }
+        public ClientUI ClientUi { get; private set; }
+
+        public override void Awake()
+        {
+            base.Awake();
+            AddExt(ClientUi = new ClientUI());
+            AddExt(PlayerInput = new PlayerInput());
         }
 
         public override void Progress()
@@ -25,8 +39,9 @@ namespace OldBlood.Code.Core.Server.Model.Entities
         {
             EnterWorldPacket enterWorldPacket = new EnterWorldPacket();
             enterWorldPacket.worldId = world.ID;
-            enterWorldPacket.Position = new Vector3( 50,50,50);
-            client.ConnectionHandler.SendPacket(enterWorldPacket);
+            enterWorldPacket.myUnitID = ID;
+            enterWorldPacket.Position = GetExt<UnitMovement>().Position;
+            Client.ConnectionHandler.SendPacket(enterWorldPacket);
         }
     }
 }

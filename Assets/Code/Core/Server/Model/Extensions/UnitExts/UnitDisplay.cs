@@ -1,40 +1,39 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
 
-namespace OldBlood.Code.Core.Server.Model.Extensions.UnitExts
+namespace Code.Core.Server.Model.Extensions.UnitExts
 {
-
-    public enum UnitDisplayType
-    {
-        Invisible = 0,
-        Human = 1
-    }
-
+    
     public class UnitDisplay : UnitUpdateExt
     {
-        private UnitDisplayType _displayType;
-
-        public UnitDisplayType DisplayType
+        private int _modelId = 1;
+        
+        public int ModelID
         {
-            get { return _displayType; }
-            set { _displayType = value;
+            get { return _modelId; }
+            set { _modelId = value;
                 _wasUpdate = true;
             }
         }
-
 
         public override byte UpdateFlag()
         {
             return 0x02;
         }
 
-        protected override void pSerializeState(Libaries.Net.ByteStream packet)
+        protected override void pSerializeState(Code.Libaries.Net.ByteStream packet)
         {
-            packet.addByte((int) DisplayType);
+            packet.addByte((int) ModelID);
         }
 
-        protected override void pSerializeUpdate(Libaries.Net.ByteStream packet)
+        protected override void pSerializeUpdate(Code.Libaries.Net.ByteStream packet)
         {
-            packet.addByte((int)DisplayType);
+            packet.addByte((int)ModelID);
+        }
+
+        protected override void OnExtensionWasAdded()
+        {
+            base.OnExtensionWasAdded();
+            _wasUpdate = true;
         }
     }
 }

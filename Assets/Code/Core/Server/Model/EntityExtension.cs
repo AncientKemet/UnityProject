@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace OldBlood.Code.Core.Server.Model
+﻿namespace Code.Core.Server.Model
 {
     public abstract class EntityExtension
     {
-        public WorldEntity entity { get; set; }
+
+        private WorldEntity _entity;
+
+        public WorldEntity entity { get { return _entity; }
+            set { _entity = value; OnExtensionWasAdded(); }
+        }
+
+        protected virtual void OnExtensionWasAdded()
+        {
+
+        }
 
         public abstract void Progress();
     }

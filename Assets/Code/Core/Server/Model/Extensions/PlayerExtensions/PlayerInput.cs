@@ -1,0 +1,50 @@
+﻿using System.Collections.Generic;
+using Code.Core.Server.Model.Entities;
+using Code.Core.Shared.NET;
+using UnityEngine;
+
+namespace Code.Core.Server.Model.Extensions.PlayerExtensions
+{
+    public class PlayerInput : EntityExtension
+    {
+        public Player Player { get; private set; }
+
+        private List<PacketEnums.INPUT_TYPES> inputs = new List<PacketEnums.INPUT_TYPES>();
+
+        public override void Progress()
+        {
+            foreach (PacketEnums.INPUT_TYPES input in inputs)
+            {
+                if (input == PacketEnums.INPUT_TYPES.ToogleRun)
+                {
+                    Player.unitMovement.Running = !Player.unitMovement.Running;
+                    continue;
+                }
+                if (input == PacketEnums.INPUT_TYPES.StopWalk)
+                {
+                    Player.unitMovement.StopWalking();
+                    continue;
+                }
+                if (input == PacketEnums.INPUT_TYPES.ContinueWalk)
+                {
+                    Player.unitMovement.ContinueWalking();
+                    continue;
+                }
+                //we have no idea how to react to this
+                Debug.LogError("Unknown input type: "+input);
+            }
+            inputs.Clear();
+        }
+
+        protected override void OnExtensionWasAdded()
+        {
+            base.OnExtensionWasAdded();
+            Player = entity as Player;
+        }
+
+        public void AddInput(PacketEnums.INPUT_TYPES type)
+        {
+            inputs.Add(type);
+        }
+    }
+}

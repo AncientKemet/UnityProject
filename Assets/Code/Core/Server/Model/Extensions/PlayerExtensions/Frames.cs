@@ -1,8 +1,6 @@
-using System;
-using OldBlood.Code.Core.Server.Model.Entities;
-using OldBlood.Code.Libaries.Net.Packets;
+using Code.Code.Libaries.Net.Packets;
 
-namespace OldBlood.Code.Core.Server.Model.Extensions.PlayerExtensions
+namespace Code.Core.Server.Model.Extensions.PlayerExtensions
 {
     public static class Frames
     {

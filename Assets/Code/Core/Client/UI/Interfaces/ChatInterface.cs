@@ -1,4 +1,4 @@
-﻿namespace OldBlood.Code.Core.Client.UI.Interfaces
+﻿namespace Code.Core.Client.UI.Interfaces
 {
     public class ChatInterface : UIInterface<ChatInterface> {
 

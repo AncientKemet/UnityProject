@@ -340,8 +340,8 @@ public class tk2dTextMesh : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBui
 
 	/// <summary>
 	/// Gets or sets the sorting order
-	/// The sorting order lets you override draw order for sprites which are at the same z position
-	/// It is similar to offsetting in z - the sprite stays at the original position
+	/// The sorting order lets you override draw order for sprites which are at the same z DirecionVector
+	/// It is similar to offsetting in z - the sprite stays at the original DirecionVector
 	/// This corresponds to the renderer.sortingOrder property in Unity 4.3
 	/// </summary>
 	public int SortingOrder { get { return data.renderLayer; } set { if (data.renderLayer != value) { data.renderLayer = value; SetNeedUpdate(UpdateFlags.UpdateText); } } }

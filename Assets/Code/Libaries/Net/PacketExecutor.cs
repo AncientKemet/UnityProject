@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace OldBlood.Code.Libaries.Net
+namespace Code.Code.Libaries.Net
 {
     public abstract class PacketExecutor
     {

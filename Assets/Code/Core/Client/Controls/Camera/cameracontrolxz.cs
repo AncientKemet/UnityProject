@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace OldBlood.Code.Core.Client.Controls.Camera
+namespace Code.Core.Client.Controls.Camera
 {
     public class cameracontrolxz : MonoBehaviour {
         int width=Screen.width, height=Screen.height;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace OldBlood.Code.Libaries.Net.Packets
+namespace Code.Code.Libaries.Net.Packets
 {
     class AuthenticationPacket : BasePacket
     {

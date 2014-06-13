@@ -8,11 +8,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
-namespace OldBlood.Code.Libaries.Net.Packets
+namespace Code.Code.Libaries.Net.Packets
 {
     public class EnterWorldPacket : BasePacket
     {
         public int worldId = -1;
+        public int myUnitID = -1;
         public UnityEngine.Vector3 Position;
 
         #region implemented abstract members of BasePacket
@@ -25,12 +26,14 @@ namespace OldBlood.Code.Libaries.Net.Packets
         protected override void enSerialize(ByteStream bytestream)
         {
             bytestream.addShort(worldId);
+            bytestream.addShort(myUnitID);
             bytestream.addPosition6B(Position);
         }
 
         protected override void deSerialize(ByteStream bytestream)
         {
             worldId = bytestream.getUnsignedShort();
+            myUnitID = bytestream.getShort();
             Position = bytestream.getPosition6B();
         }
 

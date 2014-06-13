@@ -4,7 +4,7 @@ using System.Collections;
 [AddComponentMenu("2D Toolkit/Camera/tk2dCameraAnchor")]
 [ExecuteInEditMode]
 /// <summary>
-/// Anchors children to anchor position, offset by number of pixels
+/// Anchors children to anchor DirecionVector, offset by number of pixels
 /// </summary>
 public class tk2dCameraAnchor : MonoBehaviour 
 {

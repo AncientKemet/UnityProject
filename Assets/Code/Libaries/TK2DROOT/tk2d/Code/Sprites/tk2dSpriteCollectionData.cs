@@ -59,7 +59,7 @@ public class tk2dSpriteDefinition
 	public Vector4[] tangents;
 	
 	/// <summary>
-	/// Array of UVs for sprite geometry, will match the position count.
+	/// Array of UVs for sprite geometry, will match the DirecionVector count.
 	/// </summary>
     public Vector2[] uvs;
 	/// <summary>

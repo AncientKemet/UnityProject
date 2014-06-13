@@ -1917,7 +1917,7 @@ public class tk2dSpriteCollectionBuilder
 			tk2dSpriteDefinition.AttachPoint srcP = src.attachPoints[i];
 			tk2dSpriteDefinition.AttachPoint p = new tk2dSpriteDefinition.AttachPoint();
 			p.CopyFrom( src.attachPoints[i] );
-			// Rescale position to be in sprite local space
+			// Rescale DirecionVector to be in sprite local space
 			p.position = new Vector2(srcP.position.x * src.scale.x, (texHeight - srcP.position.y) * src.scale.y) * scale + new Vector2(origin.x, origin.y);
 			def.attachPoints[i] = p;
 		}

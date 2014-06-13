@@ -1,10 +1,10 @@
-
 using System;
 using System.Collections.Generic;
+using Code.Libaries.UnityExtensions;
 
-namespace OldBlood.Code.Core.Server.Model
+namespace Code.Core.Server.Model
 {
-    public abstract class WorldEntity
+    public abstract class WorldEntity : ServerMonoBehaviour
     {
         private World _currentWorld = null;
        
@@ -25,6 +25,7 @@ namespace OldBlood.Code.Core.Server.Model
 
         public void AddExt(EntityExtension extension)
         {
+            extension.entity = this;
             extensions[extension.GetType()] = extension;
         }
 
@@ -44,6 +45,7 @@ namespace OldBlood.Code.Core.Server.Model
                 extension.Progress();
             }
         }
+
     }
 }
 

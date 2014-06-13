@@ -1,14 +1,12 @@
-﻿using OldBlood.Code.Core.Server.Model.Extensions;
-using OldBlood.Code.Libaries.Net;
-using OldBlood.Code.Libaries.Net.Packets;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Code.Code.Libaries.Net;
+using Code.Code.Libaries.Net.Packets;
+using Code.Core.Server.Model.Extensions.PlayerExtensions;
+using Code.Core.Server.Model.Extensions.PlayerExtensions.UIHelpers;
+using Code.Core.Server.Model.Extensions.UnitExts;
+using Code.Libaries.Net.Packets.ForServer;
 using UnityEngine;
-using OldBlood.Code.Core.Server.Model.Extensions.PlayerExtensions;
 
-namespace OldBlood.Code.Core.Server.Net
+namespace Code.Core.Server.Net
 {
     public class ClientPacketExecutor : PacketExecutor
     {
@@ -20,10 +18,42 @@ namespace OldBlood.Code.Core.Server.Net
 
         protected override void aExecutePacket(BasePacket packet)
         {
+
             if(packet is AuthenticationPacket)
             {
                 Frames.SendMessage(client, "Welcome to Ancient Kemet!");
+                return;
             }
+
+            if (packet is UIInterfaceEvent)
+            {
+                ClientUI ui = client.entity.GetExt<ClientUI>();
+                if (ui != null)
+                {
+                    ui.OnUIEvent(packet as UIInterfaceEvent);
+                }
+                return;;
+            }
+
+            if (packet is WalkRequestPacket)
+            {
+                WalkRequestPacket update = packet as WalkRequestPacket;
+                UnitMovement mov = client.Player.GetExt<UnitMovement>();
+                if (mov != null)
+                {
+                    mov.WalkWay(update.DirecionVector);
+                }
+                return;
+            }
+
+            if (packet is InputEventPacket)
+            {
+                InputEventPacket inputEventPacket = packet as InputEventPacket;
+                client.Player.PlayerInput.AddInput(inputEventPacket.type);
+                return;
+            }
+
+            Debug.LogError("Unable to decode packet from Client: "+packet.GetType().Name);
         }
     }
 }

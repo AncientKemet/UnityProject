@@ -2,148 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OldBlood.Code.Core.Client.Units.Extensions
+namespace Code.Core.Client.Units.Extensions
 {
-    public class CombatUnit : MoveableUnit
+    public class CombatUnit : MonoBehaviour
     {
-
-        List<CombatStatBuff> modifiers = new List<CombatStatBuff>();
-
         [SerializeField]
-        private float
-            _baseHealth = 100f;
-        [SerializeField]
-        private float
-            _baseresource = 100f;
-        [SerializeField] 
-        private float
-            _baseArmor = 0;
-        [SerializeField] 
-        private float
-            _baseMagicResist = 0;
-        [SerializeField]
-        private float
-            _baseattackdamage = 0;
-        [SerializeField]
-        private float
-            _baseattackspeed = 0;
-        [SerializeField]
-        private float
-            _baseattackrange = 0;
-        private float _currenthealth;
-        private float _currentresource;
+        private tk2dSlicedSprite healthBar, energyBar;
 
-        public float CurrentArmor
+        private float _fullHealthBarSize, _fullEnergyBarSize;
+
+        private void Awake()
         {
-            get
-            {
-                float _calculatedValue = _baseArmor;
-
-                foreach (CombatStatBuff _bonusFlatArmorBuff in GetAllBuffsOfType(CombatStatBuff.TYPE.FLAT_ARMOR))
-                {
-                    _calculatedValue += _bonusFlatArmorBuff.value;
-                }
-
-                foreach (CombatStatBuff _buff in GetAllBuffsOfType(CombatStatBuff.TYPE.BONUS_FLAT_ARMOR_OVER_TIME))
-                {
-                    _calculatedValue += _buff.value * (( Time.time - _buff.startTime) / (_buff.duration));
-                }
-
-                foreach (CombatStatBuff _modifier in GetAllBuffsOfType(CombatStatBuff.TYPE.PERCENTAGE_ARMOR))
-                {
-                    _calculatedValue *= _modifier.value;
-                }
-      
-                return _calculatedValue;
-            }
+            _fullHealthBarSize = 170;
+            _fullEnergyBarSize = 170;
         }
 
-        /// <summary>
-        /// Gets the current attack speed.
-        /// </summary>
-        /// <value>The current attack speed.</value>
-        public float CurrentAttackSpeed
+        public void SetHealth(float health)
         {
-            get
-            {
-                float _calculatedValue = _baseattackspeed;
-
-                foreach (CombatStatBuff _modifier in GetAllBuffsOfType(CombatStatBuff.TYPE.ATTACK_SPEED))
-                {
-                    _calculatedValue *= _modifier.value;
-                }
-                return _calculatedValue;
-            }
+            health /= 100f;
+            healthBar.dimensions = new Vector2(_fullHealthBarSize * health, healthBar.dimensions.y);
+            healthBar.ForceBuild();
         }
 
-        public void AddBuff(CombatStatBuff buff)
+        public void SetEnergy(float energy)
         {
-            modifiers.Add(buff);
-            buff.startTime = Time.time;
-            StartCoroutine(StartRemovingBuff(buff, this));
+            energy /= 100f;
+            energyBar.dimensions = new Vector2(_fullEnergyBarSize * energy, energyBar.dimensions.y);
+            energyBar.ForceBuild();
         }
-
-        /// <summary>
-        /// Appends the health change.
-        /// </summary>
-        /// <param name="_change">_change.</param>
-        public void AppendHealthChange(HealthChange _change)
-        {
-            if (_change is Damage)
-            {
-                _currenthealth -= _change.value;
-            } 
-    
-            if (_change is Heal)
-            {
-                _currenthealth += _change.value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the type of the all buffs of.
-        /// </summary>
-        /// <returns>The all buffs of type.</returns>
-        /// <param name="type">Type.</param>
-        public List<CombatStatBuff> GetAllBuffsOfType(CombatStatBuff.TYPE type)
-        {
-            List<CombatStatBuff> list = new List<CombatStatBuff>();
-            foreach (var item in modifiers)
-            {
-                if (item.type == type)
-                {
-                    list.Add(item);
-                }
-            }
-            return list;
-        }
-
-        IEnumerator StartRemovingBuff(CombatStatBuff buff, CombatUnit combatUnit)
-        {
-            yield return new WaitForSeconds(buff.duration);
-            if (combatUnit != null)
-            {
-                combatUnit.modifiers.Remove(buff);
-            }
-        }
-  
-        public class CombatStatBuff
-        {
-
-            public enum TYPE
-            {
-                PERCENTAGE_ARMOR, FLAT_ARMOR, BONUS_FLAT_ARMOR_OVER_TIME,
-                ATTACK_SPEED
-            }
-
-            public CombatStatBuff.TYPE type;
-            public float value;
-            public float duration;
-            public float startTime;
-
-        }
-
-
-  
     }
 }

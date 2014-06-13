@@ -1,7 +1,6 @@
 using System;
-using UnityEngine;
 
-namespace OldBlood.Code.Libaries.Generic
+namespace Code.Libaries.Generic
 {
     public class GenProperty<T> 
     {

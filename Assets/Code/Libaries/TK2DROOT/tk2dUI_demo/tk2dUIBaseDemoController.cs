@@ -148,10 +148,10 @@ public class tk2dUIBaseDemoController : MonoBehaviour {
 
 	protected void ShowWindow(Transform t) {
 #if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
-		Vector3 v = t.position;
+		Vector3 v = t.DirecionVector;
 		v.y = v.y % 1;
 		v.x = v.x % 1;
-		t.position = v;
+		t.DirecionVector = v;
 #else
 		t.gameObject.SetActive( true );
 #endif
@@ -159,9 +159,9 @@ public class tk2dUIBaseDemoController : MonoBehaviour {
 
 	protected void HideWindow(Transform t) {
 #if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
-		Vector3 v = t.position;
+		Vector3 v = t.DirecionVector;
 		v.y = (v.y % 1) + 100;
-		t.position = v;
+		t.DirecionVector = v;
 #else
 		t.gameObject.SetActive( false );
 #endif

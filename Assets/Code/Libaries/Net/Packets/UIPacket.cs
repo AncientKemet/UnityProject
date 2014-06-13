@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
-namespace OldBlood.Code.Libaries.Net.Packets
+namespace Code.Code.Libaries.Net.Packets
 {
     public class UIPacket : BasePacket
     {

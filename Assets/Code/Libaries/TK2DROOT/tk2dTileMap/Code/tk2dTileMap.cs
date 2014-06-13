@@ -267,8 +267,8 @@ public class tk2dTileMap : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBuil
 	}
 	
 	/// <summary>
-	/// Gets the tile coordinate at position. This can be used to obtain tile or color data explicitly from layers
-	/// Returns true if the position is within the tilemap bounds
+	/// Gets the tile coordinate at DirecionVector. This can be used to obtain tile or color data explicitly from layers
+	/// Returns true if the DirecionVector is within the tilemap bounds
 	/// </summary>
 	public bool GetTileAtPosition(Vector3 position, out int x, out int y)
 	{
@@ -280,9 +280,9 @@ public class tk2dTileMap : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBuil
 	}
 	
 	/// <summary>
-	/// Gets the tile coordinate at position. This can be used to obtain tile or color data explicitly from layers
+	/// Gets the tile coordinate at DirecionVector. This can be used to obtain tile or color data explicitly from layers
 	/// The fractional value returned is the fraction into the current tile
-	/// Returns true if the position is within the tilemap bounds
+	/// Returns true if the DirecionVector is within the tilemap bounds
 	/// </summary>
 	public bool GetTileFracAtPosition(Vector3 position, out float x, out float y)
 	{
@@ -347,7 +347,7 @@ public class tk2dTileMap : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBuil
 	}
 	
 	/// <summary>
-	/// Returns the tile position in world space
+	/// Returns the tile DirecionVector in world space
 	/// </summary>
 	public Vector3 GetTilePosition(int x, int y)
 	{
@@ -374,7 +374,7 @@ public class tk2dTileMap : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBuil
 	}
 	
 	/// <summary>
-	/// Gets the tile at position. This can be used to obtain tile data, etc
+	/// Gets the tile at DirecionVector. This can be used to obtain tile data, etc
 	/// -1 = no data or empty tile
 	/// </summary>
 	public int GetTileIdAtPosition(Vector3 position, int layer)
@@ -398,7 +398,7 @@ public class tk2dTileMap : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBuil
 	}
 	
 	/// <summary>
-	/// Gets the tile at position. This can be used to obtain tile data, etc
+	/// Gets the tile at DirecionVector. This can be used to obtain tile data, etc
 	/// -1 = no data or empty tile
 	/// </summary>
 	public Color GetInterpolatedColorAtPosition(Vector3 position)

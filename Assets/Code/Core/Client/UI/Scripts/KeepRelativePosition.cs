@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace OldBlood.Code.Core.Client.UI.Scripts
+namespace Code.Core.Client.UI.Scripts
 {
     [ExecuteInEditMode]
     public class KeepRelativePosition : MonoBehaviour

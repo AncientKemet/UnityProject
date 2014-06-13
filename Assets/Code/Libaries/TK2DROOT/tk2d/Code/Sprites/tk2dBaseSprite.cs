@@ -137,8 +137,8 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 	[SerializeField] protected int renderLayer = 0;
 	/// <summary>
 	/// Gets or sets the sorting order
-	/// The sorting order lets you override draw order for sprites which are at the same z position
-	/// It is similar to offsetting in z - the sprite stays at the original position
+	/// The sorting order lets you override draw order for sprites which are at the same z DirecionVector
+	/// It is similar to offsetting in z - the sprite stays at the original DirecionVector
 	/// This corresponds to the renderer.sortingOrder property in Unity 4.3
 	/// </summary>
 	public int SortingOrder {
@@ -424,7 +424,7 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 	
 	/// <summary>
 	/// Gets untrimmed local space bounds of the sprite. This is the size of the sprite before 2D Toolkit trims away empty space in the sprite.
-	/// Use this when you need to position sprites in a grid, etc, when the trimmed bounds is not sufficient.
+	/// Use this when you need to DirecionVector sprites in a grid, etc, when the trimmed bounds is not sufficient.
 	/// </summary>
 	/// <returns>
 	/// Local space untrimmed bounds

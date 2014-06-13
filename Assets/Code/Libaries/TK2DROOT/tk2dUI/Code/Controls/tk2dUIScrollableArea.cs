@@ -157,7 +157,7 @@ public class tk2dUIScrollableArea : MonoBehaviour
     private float percent = 0; //0-1
 
     /// <summary>
-    /// Scroll position percent 0-1
+    /// Scroll DirecionVector percent 0-1
     /// </summary>
     public float Value
     {

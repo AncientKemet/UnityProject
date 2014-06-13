@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using Code.Core.Client.UI.Controls;
 
-namespace OldBlood.Code.Core.Client.UI
+namespace Code.Core.Client.UI
 {
-    public class UIInterface<T> :MonoBehaviour where T : MonoBehaviour
+
+    public class UIInterface<T> : MonoBehaviour where T : MonoBehaviour
     {
+        public int ID = 999;
         private static T _instance;
 
         public static T I
@@ -21,13 +25,15 @@ namespace OldBlood.Code.Core.Client.UI
         private bool _isVisible = true;
 
         [SerializeField]
-        private tk2dCameraAnchor anchor;
+        private InterfaceAnchor
+            anchor;
 
         public bool Visible
         { 
             get { return _isVisible; } 
-            set { 
-                if(_isVisible != value)
+            set
+            { 
+                if (_isVisible != value)
                 {
                     _isVisible = value;
                     OnVisibiltyChanged();
@@ -35,13 +41,25 @@ namespace OldBlood.Code.Core.Client.UI
                 }
             }
         }
+
         private void Awake()
         {
             I = this.GetComponent<T>();
         }
 
+        public List<InterfaceButton> Buttons; 
+
         private void Start()
         {
+            int counter = 0;
+            foreach (var button in GetComponentsInChildren<InterfaceButton>())
+            {
+                Buttons.Add(button);
+                button.interfaceID = ID;
+                button.index = counter;
+
+                counter++;
+            }
             OnStart();
         }
 
@@ -60,10 +78,20 @@ namespace OldBlood.Code.Core.Client.UI
             OnLateUpdate();
         }
 
-        protected virtual void OnStart(){}
-        protected virtual void OnUpdate(){}
-        protected virtual void OnFixedUpdate(){}
-        protected virtual void OnLateUpdate(){}
-        protected virtual void OnVisibiltyChanged(){}
+        protected virtual void OnStart()
+        {
+        }
+        protected virtual void OnUpdate()
+        {
+        }
+        protected virtual void OnFixedUpdate()
+        {
+        }
+        protected virtual void OnLateUpdate()
+        {
+        }
+        protected virtual void OnVisibiltyChanged()
+        {
+        }
     }
 }

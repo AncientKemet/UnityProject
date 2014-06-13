@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace OldBlood.Code.Core.Client.Controls.Camera
+namespace Code.Core.Client.Controls.Camera
 {
     public class cameracontroly : MonoBehaviour {
         float zoomSpeed = 20.0f,distanceMin=200.0f,distanceMax=500.0f;

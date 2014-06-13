@@ -1,53 +1,55 @@
-﻿using OldBlood.Code.Core.Client.Settings;
+﻿using System;
+using Code.Core.Client.Settings;
+using Code.Libaries.Generic;
 using UnityEngine;
 
-namespace OldBlood.Code.Core.Client.Units.Managed
+namespace Code.Core.Client.Units.Managed
 {
-    public class UnitManager : Monosingleton<UnitManager>
+    public class UnitManager : MonoSingleton<UnitManager>
     {
 
-        private Unit[] units;
+        private PlayerUnit[] _playerUnits;
 
         void Awake()
         {
-            units = new Unit[GlobalConstants.Instance.MAX_UNIT_AMOUNT];
+            _playerUnits = new PlayerUnit[GlobalConstants.Instance.MAX_UNIT_AMOUNT];
         }
 
-        public void RegisterUnit(Unit unit)
+        public void RegisterUnit(PlayerUnit PlayerUnit)
         {
             int id = FreeId;
-            unit.ID = id;
-            units [id] = unit;
+            PlayerUnit.Id = id;
+            _playerUnits [id] = PlayerUnit;
         }
     
-        public void DeRegisterUnit(Unit unit)
+        public void DeRegisterUnit(PlayerUnit playerUnit)
         {
-            if (units [unit.ID] == unit)
+            if (_playerUnits [playerUnit.Id] == playerUnit)
             {
-                units [unit.ID] = null;
+                _playerUnits [playerUnit.Id] = null;
             } else
             {
-                Debug.LogError("Broken unit array.");
+                Debug.LogError("Broken PlayerUnit array.");
             }
         }
 
-        public bool WasUnitRegistered(Unit unit)
+        public bool WasUnitRegistered(PlayerUnit playerUnit)
         {
-            return unit.ID != -1;
+            return playerUnit.Id != -1;
         }
 
-        public Unit GetUnit(int id)
+        public PlayerUnit GetUnit(int id)
         {
-            return units [id];
+            return _playerUnits [id];
         }
 
         private int FreeId
         {
             get
             {
-                for (int i = 0; i < units.Length; i++)
+                for (int i = 0; i < _playerUnits.Length; i++)
                 {
-                    if (units [i] == null)
+                    if (_playerUnits [i] == null)
                     {
                         return i;
                     }
@@ -55,5 +57,22 @@ namespace OldBlood.Code.Core.Client.Units.Managed
                 return -1;
             }
         }
+
+        public PlayerUnit this[int key]
+        {
+            get
+            {
+                if (_playerUnits.Length > key)
+                {
+                    if (_playerUnits[key] == null)
+                    {
+                        _playerUnits[key] = UnitFactory.Instance.CreateNewUnit(key);
+                    }
+                    return _playerUnits[key];
+                }
+                throw new Exception("Bad index");
+            }
+        }
+
     }
 }

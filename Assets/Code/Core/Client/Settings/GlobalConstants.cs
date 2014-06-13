@@ -1,6 +1,8 @@
-﻿namespace OldBlood.Code.Core.Client.Settings
+﻿using Code.Libaries.Generic;
+
+namespace Code.Core.Client.Settings
 {
-    public class GlobalConstants : Monosingleton<GlobalConstants> {
+    public class GlobalConstants : MonoSingleton<GlobalConstants> {
 
         public int MAX_UNIT_AMOUNT = 1024;
     }

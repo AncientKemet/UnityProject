@@ -190,7 +190,7 @@ public class tk2dUIManager : MonoBehaviour
     private tk2dUIItem[] pressedUIItems = new tk2dUIItem[MAX_MULTI_TOUCH_COUNT]; //pressed UIItem on the this frame
 
     private int touchCounter = 0; //touchs counter
-    private Vector2 mouseDownFirstPos = Vector2.zero; //used to determine mouse position deltas while in multi-touch
+    private Vector2 mouseDownFirstPos = Vector2.zero; //used to determine mouse DirecionVector deltas while in multi-touch
     //end multi-touch specifics
 
     private const string MOUSE_WHEEL_AXES_NAME = "Mouse ScrollWheel"; //Input name of mouse scroll wheel
@@ -259,7 +259,6 @@ public class tk2dUIManager : MonoBehaviour
 
     void Start() {
         if (uiCamera != null && uiCamera.GetComponent<tk2dUICamera>() == null) {
-            Debug.Log("It is no longer necessary to hook up a camera to the tk2dUIManager. You can simply attach a tk2dUICamera script to the cameras that interact with UI.");
 
             // Handle registration properly
             tk2dUICamera cam = uiCamera.gameObject.AddComponent<tk2dUICamera>();
@@ -322,6 +321,8 @@ public class tk2dUIManager : MonoBehaviour
         resultTouch = new tk2dUITouch();
         hitUIItem = null;
 
+        int mouseButton = 0;
+
         if (inputEnabled)
         {
             if (Input.touchCount > 0)
@@ -346,14 +347,19 @@ public class tk2dUIManager : MonoBehaviour
             }
             else
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
                 {
                     primaryTouch = new tk2dUITouch(TouchPhase.Began, tk2dUITouch.MOUSE_POINTER_FINGER_ID, Input.mousePosition, Vector2.zero, 0);
                     isPrimaryTouchFound = true;
                     isAnyPressBeganRecorded = true;
                 }
-                else if (Input.GetMouseButton(0) || Input.GetMouseButtonUp(0))
+                else if (Input.GetMouseButton(0) || Input.GetMouseButtonUp(0) || Input.GetMouseButton(1) || Input.GetMouseButtonUp(1))
                 {
+                    if (Input.GetMouseButton(0) || Input.GetMouseButtonUp(0))
+                        mouseButton = 0;
+                    else
+                        mouseButton = 1;
+
                     Vector2 deltaPosition = Vector2.zero;
                     TouchPhase mousePhase = TouchPhase.Moved;
                     if (pressedUIItem != null)
@@ -395,7 +401,7 @@ public class tk2dUIManager : MonoBehaviour
                     pressedUIItem.CurrentOverUIItem(hitUIItem);
                     if (pressedUIItem != hitUIItem)
                     {
-                        pressedUIItem.Release();
+                        pressedUIItem.Release(mouseButton);
                         pressedUIItem = null;
                     }
                     else
@@ -417,7 +423,7 @@ public class tk2dUIManager : MonoBehaviour
                 {
                     pressedUIItem.CurrentOverUIItem(hitUIItem);
                     pressedUIItem.UpdateTouch(resultTouch);
-                    pressedUIItem.Release();
+                    pressedUIItem.Release(mouseButton);
                     pressedUIItem = null;
                 }
             }
@@ -435,7 +441,7 @@ public class tk2dUIManager : MonoBehaviour
             if (pressedUIItem != null)
             {
                 pressedUIItem.CurrentOverUIItem(null);
-                pressedUIItem.Release();
+                pressedUIItem.Release(1);
                 pressedUIItem = null;
             }
         }
@@ -498,6 +504,8 @@ public class tk2dUIManager : MonoBehaviour
         bool wasPrevTouchFound = false;
         bool isNewlyPressed = false;
 
+        int mouseButton = 0;
+
         touchCounter = 0;
         if (inputEnabled)
         {
@@ -518,14 +526,19 @@ public class tk2dUIManager : MonoBehaviour
             }
             else
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
                 {
                     allTouches[touchCounter] = new tk2dUITouch(TouchPhase.Began, tk2dUITouch.MOUSE_POINTER_FINGER_ID, Input.mousePosition, Vector2.zero, 0);
                     mouseDownFirstPos = Input.mousePosition;
                     touchCounter++;
                 }
-                else if (Input.GetMouseButton(0) || Input.GetMouseButtonUp(0))
+                else if (Input.GetMouseButton(0) || Input.GetMouseButtonUp(0) || Input.GetMouseButton(1) || Input.GetMouseButtonUp(1))
                 {
+                    if (Input.GetMouseButton(0) || Input.GetMouseButtonUp(0))
+                        mouseButton = 0;
+                    else
+                        mouseButton = 1;
+
                     Vector2 deltaPosition = mouseDownFirstPos - new Vector2(Input.mousePosition.x, Input.mousePosition.y);
                     TouchPhase mousePhase = TouchPhase.Moved;
 
@@ -570,7 +583,7 @@ public class tk2dUIManager : MonoBehaviour
 
                             if (prevPressedItem != currPressedItem)
                             {
-                                prevPressedItem.Release();
+                                prevPressedItem.Release(mouseButton);
                                 prevPressedUIItemList.RemoveAt(f);
                                 f--;
                             }
@@ -579,7 +592,7 @@ public class tk2dUIManager : MonoBehaviour
                         {
                             prevPressedItem.CurrentOverUIItem(currPressedItem);
                             prevPressedItem.UpdateTouch(currTouch);
-                            prevPressedItem.Release();
+                            prevPressedItem.Release(mouseButton);
                             prevPressedUIItemList.RemoveAt(f);
                             f--;
                         }
@@ -595,7 +608,7 @@ public class tk2dUIManager : MonoBehaviour
                 if(!wasPrevTouchFound)
                 {
                     prevPressedItem.CurrentOverUIItem(null);
-                    prevPressedItem.Release();
+                    prevPressedItem.Release(mouseButton);
                     prevPressedUIItemList.RemoveAt(f);
                     f--;
                 }

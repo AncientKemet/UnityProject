@@ -23,6 +23,11 @@ public class tk2dUIItem : MonoBehaviour
     public event System.Action OnClick;
 
     /// <summary>
+    /// Right click
+    /// </summary>
+    public event System.Action OnRightClick;
+
+    /// <summary>
     /// After on down, when touch/click is released (this could be anywhere)
     /// </summary>
     public event System.Action OnRelease;
@@ -251,7 +256,7 @@ public class tk2dUIItem : MonoBehaviour
     /// Touch is released, if called without Exit being called means that it was released on top of button without leaving it.
     /// Only call manually if you need to simulate a touch.
     /// </summary>
-    public void Release()
+    public void Release(int button)
     {
         if (isPressed)
         {
@@ -261,18 +266,20 @@ public class tk2dUIItem : MonoBehaviour
             if (OnUpUIItem != null) { OnUpUIItem(this); }
             DoSendMessage( SendMessageOnUpMethodName );
 
-            if (OnClick != null) { OnClick(); }
+            if (button == 0 && OnClick != null) { OnClick(); }
+            if (button == 1 && OnRightClick != null) { OnRightClick(); }
             if (OnClickUIItem != null) { OnClickUIItem(this); }
             DoSendMessage( SendMessageOnClickMethodName );
         }
 
         if (OnRelease != null) { OnRelease(); }
+        if (button == 1 && OnRightClick != null) { OnRightClick(); }
         if (OnReleaseUIItem != null) { OnReleaseUIItem(this); }
         DoSendMessage( SendMessageOnReleaseMethodName );
 
         if (parentUIItem != null)
         {
-            parentUIItem.Release();
+            parentUIItem.Release(button);
         }
     }
 

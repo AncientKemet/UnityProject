@@ -46,7 +46,7 @@ public class tk2dUIDemo5Controller : tk2dUIBaseDemoController {
 		manualScrollableArea.ContentLength = x;
 
 		// And some initial entries to the automatic layout list
-		// ContentLayoutContainer.AddLayoutAtIndex inserts the layout at a position at the index
+		// ContentLayoutContainer.AddLayoutAtIndex inserts the layout at a DirecionVector at the index
 		// The main difference is that we don't need to calculate offset correctly - we simply insert
 		// as needed and the layout container deals with the rest.
 		for (int i = 0; i < 10; ++i) {

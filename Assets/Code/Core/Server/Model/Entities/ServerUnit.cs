@@ -1,0 +1,143 @@
+using System.Collections.Generic;
+using Code.Code.Libaries.Net;
+using Code.Core.Server.Model.Extensions;
+using Code.Core.Server.Model.Extensions.UnitExts;
+using Code.Libaries.Generic.Trees;
+using Code.Libaries.Net.Packets.ForClient;
+using UnityEngine;
+
+namespace Code.Core.Server.Model.Entities
+{
+    public class ServerUnit : WorldEntity, IQuadTreeObject
+    {
+        public UnitMovement unitMovement;
+        public UnitCombat unitCombat;
+        public UnitDisplay unitDisplay;
+
+        private List<UnitUpdateExt> _updateExtensions;
+
+        public override World CurrentWorld
+        {
+            get { return base.CurrentWorld; }
+            set
+            {
+                if (base.CurrentWorld != null)
+                {
+                    if (CurrentBranch != null)
+                    {
+                        CurrentBranch.RemoveObject(this);
+                    }
+                }
+                base.CurrentWorld = value;
+                value.Tree.AddObject(this);
+            }
+        }
+
+        public virtual void Awake()
+        {
+            _updateExtensions = new List<UnitUpdateExt>();;
+
+            AddExt(unitMovement = new UnitMovement());
+            AddExt(unitCombat = new UnitCombat());
+            AddExt(unitDisplay = new UnitDisplay());
+
+            //in the end find all updatable extensions
+            foreach (EntityExtension extension in Extensions)
+            {
+                if (extension is UnitUpdateExt)
+                {
+                    _updateExtensions.Add(extension as UnitUpdateExt);
+                }
+            }
+        }
+
+        public override void Progress()
+        {
+            ReCreateUpdatePacket();
+
+            if (_updatePacket != null)
+            {
+                SendPacketToPlayersAround(_updatePacket);
+            }
+
+            base.Progress();
+        }
+
+        private void SendPacketToPlayersAround(BasePacket packet)
+        {
+            foreach (IQuadTreeObject objectAround in CurrentBranch.ObjectsVisible)
+            {
+                Player playerAround = objectAround as Player;
+                if (playerAround != null)
+                {
+                    playerAround.Client.ConnectionHandler.SendPacket(packet);
+                }
+            }
+        }
+
+        #region QUAD TREE IMPL
+        private QuadTree _currentBranch;
+        private Vector2 _quadTreePos = Vector2.zero;
+
+        public QuadTree CurrentBranch
+        {
+            get { return _currentBranch; }
+            set { _currentBranch = value; }
+        }
+
+
+        public Vector2 GetPosition()
+        {
+            return _quadTreePos + new Vector2(0.01f, 0.01f);
+        }
+
+        public Vector2 PositionChange()
+        {
+            Vector2 r = new Vector2(unitMovement.Position.x, unitMovement.Position.z) - _quadTreePos;
+            _quadTreePos = new Vector2(unitMovement.Position.x, unitMovement.Position.z);
+            return r;
+        }
+        #endregion QUAD TREE IMPL
+
+        #region UPDATE_PACKET
+        private UnitUpdatePacket _updatePacket;
+
+        private void ReCreateUpdatePacket()
+        {
+
+            _updatePacket = null;
+            //Crate mask
+            int mask = 0;
+            foreach (UnitUpdateExt updateExtension in _updateExtensions)
+            {
+                if (updateExtension.WasUpdate())
+                {
+                    mask = mask | updateExtension.UpdateFlag();
+                }
+            }
+
+            if (mask == 0)
+                return;
+
+            _updatePacket = new UnitUpdatePacket();
+            _updatePacket.UnitID = ID;
+
+            //add mask
+            _updatePacket.SubPacketData.addByte(mask);
+
+            //serialize the rest of the packet
+            foreach (UnitUpdateExt updateExtension in _updateExtensions)
+            {
+                if (updateExtension.WasUpdate())
+                {
+                    updateExtension.SerializeUpdate(_updatePacket.SubPacketData);
+                }
+            }
+
+        }
+
+        #endregion
+
+    }
+}
+

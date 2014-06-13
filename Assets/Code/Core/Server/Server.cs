@@ -1,13 +1,11 @@
-﻿using System.Collections;
+﻿using System.Net;
 using System.Net.Sockets;
-using System.Net;
 using System.Threading;
-using OldBlood.Code.Libaries.Generic;
-using OldBlood.Code.Core.Server;
+using Code.Core.Shared.NET;
+using Code.Libaries.Generic;
 using UnityEngine;
-using UnityEditor;
 
-namespace OldBlood.Code.Core.Server
+namespace Code.Core.Server
 {
     public class Server
     {
@@ -16,7 +14,6 @@ namespace OldBlood.Code.Core.Server
         public GenProperty<ServerWorldManager> swm = new GenProperty<ServerWorldManager>();
 
         private Socket socket;
-        private Thread thread;
 
         public Server()
         {
@@ -26,22 +23,20 @@ namespace OldBlood.Code.Core.Server
         public void StartServer()
         {
             socket = CreateServerSocket();
-            //thread = new Thread(ServerUpdate);
-            //thread.Start();
             Debug.Log("Server running.");
         }
 
         public void ServerUpdate()
         {
-                scm.Get.AcceptConnections(socket);
-                swm.Get.ProgressWorlds();
+            scm.Get.AcceptConnections(socket);
+            swm.Get.ProgressWorlds();
         }
 
         static Socket CreateServerSocket()
         {
             Socket newSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             newSocket.Blocking = false;
-            newSocket.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5956));
+            newSocket.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), NetworkConfig.I.port));
             newSocket.Listen(10);
             return newSocket;
         }
@@ -66,8 +61,8 @@ namespace OldBlood.Code.Core.Server
 
         public void Stop()
         {
-                socket.Close();
-                Debug.Log("Stopping server.");
+            socket.Close();
+            Debug.Log("Stopping server.");
         }
     }
 }

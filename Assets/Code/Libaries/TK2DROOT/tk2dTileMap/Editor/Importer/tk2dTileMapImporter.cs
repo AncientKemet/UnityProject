@@ -210,7 +210,7 @@ namespace tk2dEditor.TileMap
 			{
 				if (EditorUtility.DisplayDialog("Unable to load required module zlib.net",
 					"You can get zlib.net by clicking \"Download\" button.\n\n" +
-					"You can also manually get it from http://www.componentace.com/zlib_.NET.htm, and copy the zip file into your Assets folder", 
+					"You can also manually get it from http://www.componentace.com/zlib_.ClientCommunicator.htm, and copy the zip file into your Assets folder", 
 					"Download", "Cancel"))
 				{
 					Application.OpenURL("http://www.2dtoolkit.com/external/zlib/");

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 // Hideous überclass to work around Unity not supporting inheritence
@@ -263,7 +263,7 @@ public class tk2dStaticSpriteBatcher : MonoBehaviour, tk2dRuntime.ISpriteCollect
 	}
 
 	/// <summary>
-	/// Update matrices, if the sprite batcher has been built using .position, etc.
+	/// Update matrices, if the sprite batcher has been built using .DirecionVector, etc.
 	/// It is far more efficient to simply set the matrices when building at runtime
 	/// so do that if possible.
 	/// </summary>

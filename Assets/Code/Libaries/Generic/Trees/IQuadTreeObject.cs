@@ -1,12 +1,12 @@
-﻿using OldBlood.Code.Libaries.Generic.Trees;
-using UnityEngine;
-using System.Collections;
-using System;
+﻿using UnityEngine;
 
-public interface IQuadTreeObject
+namespace Code.Libaries.Generic.Trees
 {
-    QuadTree CurrentBranch { get; set; }
+    public interface IQuadTreeObject
+    {
+        QuadTree CurrentBranch { get; set; }
 
-    Vector2 GetPosition();
-    Vector2 PositionChange();
+        Vector2 GetPosition();
+        Vector2 PositionChange();
+    }
 }

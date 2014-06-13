@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Maintains a screen resolution camera. 
 /// Whole number increments seen through this camera represent one pixel.
-/// For example, setting an object to 300, 300 will position it at exactly that pixel position.
+/// For example, setting an object to 300, 300 will DirecionVector it at exactly that pixel DirecionVector.
 /// </summary>
 public class tk2dCamera : MonoBehaviour 
 {
@@ -301,7 +301,7 @@ public class tk2dCamera : MonoBehaviour
 	Rect _nativeScreenExtents;
 	Rect unitRect = new Rect(0, 0, 1, 1);
 
-	// Gives you the size of one pixel in world units at the native resolution
+	// Gives you the size of one pixel in world _playerUnits at the native resolution
 	// For perspective cameras, it is dependent on the distance to the camera.
 	public float GetSizeAtDistance(float distance) {
 		tk2dCameraSettings cameraSettings = SettingsRoot.CameraSettings;
@@ -428,7 +428,7 @@ public class tk2dCamera : MonoBehaviour
 
 	public Matrix4x4 OrthoOffCenter(Vector2 scale, float left, float right, float bottom, float top, float near, float far) {
 		// Additional half texel offset
-		// Takes care of texture unit offset, if necessary.
+		// Takes care of texture PlayerUnit offset, if necessary.
 		
 		float x =  (2.0f) / (right - left) * scale.x;
 		float y = (2.0f) / (top - bottom) * scale.y;

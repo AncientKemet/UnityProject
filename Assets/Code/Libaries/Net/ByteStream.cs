@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OldBlood.Code.Libaries.Net
+namespace Code.Code.Libaries.Net
 {
     public class ByteStream
     {

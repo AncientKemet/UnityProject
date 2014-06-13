@@ -1,8 +1,9 @@
+using Code.Libaries.Generic;
 using UnityEngine;
 
-namespace OldBlood.Code.Core.Client.Units.Models
+namespace Code.Core.Client.Units.Models
 {
-    public class ModelFactory : Monosingleton<ModelFactory>
+    public class ModelFactory : MonoSingleton<ModelFactory>
     {
         public Animator humanMaleModel;
     }

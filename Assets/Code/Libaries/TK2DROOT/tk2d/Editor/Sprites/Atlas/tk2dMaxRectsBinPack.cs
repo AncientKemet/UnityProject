@@ -1,4 +1,4 @@
-// Atlasing code is adapted from Jukka Jylänki's public domain code.
+﻿// Atlasing code is adapted from Jukka Jylänki's public domain code.
 // MaxRectsBinPack.cs is a direct translation to C#
 
 using System;
@@ -100,7 +100,7 @@ namespace tk2dEditor.Atlas
 		public Rect Insert(int width, int height, FreeRectChoiceHeuristic method)
 		{
 			Rect newNode = new Rect();
-			int score1 = 0; // Unused in this function. We don't need to know the score after finding the position.
+			int score1 = 0; // Unused in this function. We don't need to know the score after finding the DirecionVector.
 			int score2 = 0;
 			switch (method)
 			{

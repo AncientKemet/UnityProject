@@ -15,7 +15,7 @@ public static class tk2dEditorUtility
 			undoCallback.SetValue(null, (EditorApplication.CallbackFunction)OnUndoRedo);
 		}
 		else {
-			Debug.LogError("tk2d Undo/Redo callback failed. Undo/Redo not supported in this version of Unity.");
+
 		}
 	}
 

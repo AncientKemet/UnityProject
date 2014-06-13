@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using OldBlood.Code.Core.Client.Controls;
+using Code.Core.Client.Controls;
 using UnityEngine;
 
-namespace OldBlood.Code.Core.Client.UI.Interfaces
+namespace Code.Core.Client.UI.Interfaces
 {
     public class ChatPanel : UIInterface<ChatPanel> {
 

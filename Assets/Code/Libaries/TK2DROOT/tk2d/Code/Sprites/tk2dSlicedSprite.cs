@@ -65,7 +65,7 @@ public class tk2dSlicedSprite : tk2dBaseSprite
 	}
 	
 	/// <summary>
-	/// The anchor position for this sliced sprite
+	/// The anchor DirecionVector for this sliced sprite
 	/// </summary>
 	public Anchor anchor
 	{

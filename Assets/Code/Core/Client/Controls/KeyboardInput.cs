@@ -1,45 +1,62 @@
-﻿using OldBlood.Code.Core.Client.Controls.Camera;
+﻿using Code.Core.Client.Controls.Camera;
+using Code.Core.Client.Net;
+using Code.Core.Shared.NET;
+using Code.Libaries.Generic;
+using Code.Libaries.Net.Packets.ForServer;
 using UnityEngine;
 
-namespace OldBlood.Code.Core.Client.Controls
+namespace Code.Core.Client.Controls
 {
-    public class KeyboardInput : Monosingleton<KeyboardInput> {
+    public class KeyboardInput : MonoSingleton<KeyboardInput> {
 
-        private KeyboardImputListener _listener;
+        private KeyboardImputListener _fullListener;
 
-        public KeyboardImputListener listener
+        public KeyboardImputListener FullListener
         {
             get
             {
-                return _listener;
+                return _fullListener;
             }
             set
             {
-                if(_listener != null)
+                if(_fullListener != null)
                 {
-                    _listener.ListenerWasDeclined();
+                    _fullListener.ListenerWasDeclined();
                 }
-                _listener = value;
+                _fullListener = value;
             }
         }
 
         void Update ()
         {
-            if(_listener == null)
+            if(_fullListener == null)
             {
                 bool rotateLeft = Input.GetKey(KeyCode.A);
                 bool rotateRight = Input.GetKey(KeyCode.S);
+                bool shiftDown = Input.GetKeyDown(KeyCode.LeftShift);
+                bool dontWalk = Input.GetKeyDown(KeyCode.Space);
+                bool canWak = Input.GetKeyUp(KeyCode.Space);
 
                 if(rotateLeft)
-                    CameraController.Instance.rotation += .05f * Time.deltaTime;
+                    CameraController.Instance.rotation += 1.5f * Time.deltaTime;
 
                 if(rotateRight)
-                    CameraController.Instance.rotation -= .05f * Time.deltaTime;
+                    CameraController.Instance.rotation -= 1.5f * Time.deltaTime;
+
+                if (shiftDown)
+                    ClientCommunicator.Instance.SendToServer(new InputEventPacket(PacketEnums.INPUT_TYPES.ToogleRun));
+
+                if (dontWalk)
+                    ClientCommunicator.Instance.SendToServer(new InputEventPacket(PacketEnums.INPUT_TYPES.StopWalk));
+
+                if (canWak)
+                    ClientCommunicator.Instance.SendToServer(new InputEventPacket(PacketEnums.INPUT_TYPES.ContinueWalk));
+
             }
             else
             {
                 foreach (var c in Input.inputString.ToCharArray()) {
-                    _listener.KeyWasPressed(c);
+                    _fullListener.KeyWasPressed(c);
                 }
             }
         }
@@ -48,13 +65,13 @@ namespace OldBlood.Code.Core.Client.Controls
         {
             public void Attach()
             {
-                KeyboardInput.Instance.listener = this;
+                KeyboardInput.Instance.FullListener = this;
             }
         
             public void Deattach()
             {
-                if(KeyboardInput.Instance.listener == this){
-                    KeyboardInput.Instance.listener = null;
+                if(KeyboardInput.Instance.FullListener == this){
+                    KeyboardInput.Instance.FullListener = null;
                 }
             }
         

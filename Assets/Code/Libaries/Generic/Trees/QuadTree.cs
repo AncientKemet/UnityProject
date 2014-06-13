@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace OldBlood.Code.Libaries.Generic.Trees
+namespace Code.Libaries.Generic.Trees
 {
     /// <summary>
     /// Quad tree.
@@ -291,7 +291,6 @@ namespace OldBlood.Code.Libaries.Generic.Trees
         public void Update()
         {
             float time = Time.realtimeSinceStartup;
-
             if (!_isDivided)
             {
                 if (objects.Count == 0)
@@ -432,6 +431,10 @@ namespace OldBlood.Code.Libaries.Generic.Trees
                 QuadTree t = GetTreeFor(o.GetPosition());
                 if (t != null)
                     t.AddObject(o);
+                else
+                {
+                    Debug.LogError("Failed to find sub tree for DirecionVector: "+ o.GetPosition());
+                }
             }
         }
 
@@ -466,7 +469,7 @@ namespace OldBlood.Code.Libaries.Generic.Trees
 
         private bool ContainsPoint(Vector2 point)
         {
-            if (shortBoundary.x < point.x && shortBoundary.y < point.y && longBoundary.x > point.x && longBoundary.y > point.y)
+            if (shortBoundary.x <= point.x && shortBoundary.y <= point.y && longBoundary.x > point.x && longBoundary.y > point.y)
                 return true;
             return false;
         }
@@ -480,6 +483,10 @@ namespace OldBlood.Code.Libaries.Generic.Trees
             {
                 Gizmos.color = Color.white;
                 Gizmos.DrawWireCube(_position + _size / 2, _size);
+                foreach (var o in objects)
+                {
+                    Gizmos.DrawCube(o.GetPosition(), Vector3.one);
+                }
             }
             else
             {

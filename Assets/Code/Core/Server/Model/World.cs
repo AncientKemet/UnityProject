@@ -1,18 +1,19 @@
-using System;
 using System.Collections.Generic;
-using OldBlood.Code.Core.Server.Model.Entities;
-using OldBlood.Code.Libaries.Generic.Trees;
+using Code.Core.Server.Model.Entities;
+using Code.Libaries.Generic.Trees;
+using Code.Libaries.UnityExtensions;
 using UnityEngine;
+using Code.Core.Server.Model.Extensions.UnitExts;
 
-namespace OldBlood.Code.Core.Server.Model
+namespace Code.Core.Server.Model
 {
-    public class World
+    public class World : ServerMonoBehaviour
     {
-        private readonly List<WorldEntity> entities = new List<WorldEntity>();
-        public readonly List<Unit> Units = new List<Unit>();
-        public readonly List<Player> Players = new List<Player>();
+        private List<WorldEntity> entities;
+        public List<ServerUnit> Units;
+        public List<Player> Players;
 
-        public QuadTree Tree = new QuadTree(6, Vector2.zero, Vector2.one * 2048);
+        public QuadTree Tree;
 
         public void AddEntity(WorldEntity entity)
         {
@@ -20,10 +21,10 @@ namespace OldBlood.Code.Core.Server.Model
             entity.ID = entities.IndexOf(entity);
             entity.CurrentWorld = this;
 
-            if (entity is Unit)
+            if (entity is ServerUnit)
             {
-                Unit unit = entity as Unit;
-                Units.Add(unit);
+                ServerUnit serverUnit = entity as ServerUnit;
+                Units.Add(serverUnit);
             }
 
             if (entity is Player)
@@ -32,35 +33,51 @@ namespace OldBlood.Code.Core.Server.Model
                 Players.Add(player);
                 player.OnEnteredWorld(this);
             }
+
+            entity.transform.parent = transform;
         }
 
         public void RemoveEntity(WorldEntity entity)
         {
             entities.Remove(entity);
 
-            if (entity is Unit)
+            if (entity is ServerUnit)
             {
-                Unit unit = entity as Unit;
-                Units.Remove(unit);
+                ServerUnit serverUnit = entity as ServerUnit;
+                Units.Remove(serverUnit);
             }
         }
 
         public void Progress()
         {
-            Tree.Update();
             foreach (var e in entities)
             {
                 e.Progress();
             }
+            Tree.Update();
         }
 
         #region Constructor
-        private World()
-        { }
+
+        private static World CreateWorldInstance()
+        {
+            World world = CreateInstance<World>(null);
+
+            world.entities = new List<WorldEntity>();
+            world.Units = new List<ServerUnit>();
+            world.Players = new List<Player>();
+            world.Tree = new QuadTree(2, Vector2.zero, Vector2.one * 256);
+
+            /*Npc npc = CreateInstance<Npc>(world);
+            npc.GetExt<UnitMovement>().Teleport(new Vector3(50,0,50));
+            world.AddEntity(npc);*/
+
+            return world;
+        }
 
         public static World CreateWorld(ServerWorldManager manager)
         {
-            World w = new World();
+            World w = CreateWorldInstance();
             manager.AddWorld(w);
             return w;
         }

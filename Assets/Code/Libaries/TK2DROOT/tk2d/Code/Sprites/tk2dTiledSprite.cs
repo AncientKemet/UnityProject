@@ -45,7 +45,7 @@ public class tk2dTiledSprite : tk2dBaseSprite
 	}
 	
 	/// <summary>
-	/// The anchor position for this tiled sprite
+	/// The anchor DirecionVector for this tiled sprite
 	/// </summary>
 	public Anchor anchor
 	{

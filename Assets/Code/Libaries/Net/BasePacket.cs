@@ -5,12 +5,12 @@ using System.Reflection;
 using System.Text;
 using UnityEngine;
 
-namespace OldBlood.Code.Libaries.Net
+namespace Code.Code.Libaries.Net
 {
 
-    public static class PacketManager 
+    public static class PacketManager
     {
-        private static Dictionary<int, Type> packetTypes = new Dictionary<int, Type>();
+        public static Dictionary<int, Type> packetTypes = new Dictionary<int, Type>();
         private static bool _packetsWereLoaded = false;
 
         /// <summary>
@@ -21,13 +21,14 @@ namespace OldBlood.Code.Libaries.Net
         /// <returns>Type of packet with the specified OPCODE.</returns>
         public static BasePacket PacketForOpcode(int opcode)
         {
-            if (!_packetsWereLoaded) {
+            if (!_packetsWereLoaded)
+            {
                 _packetsWereLoaded = true;
                 Type basePacketType = typeof(BasePacket);
                 foreach (var type in Assembly.GetAssembly(typeof(PacketManager)).GetTypes())
                 {
                     int _opcode;
-                    if(basePacketType.IsAssignableFrom(type) && type != basePacketType)
+                    if (basePacketType.IsAssignableFrom(type) && type != basePacketType)
                     {
                         object instance = Activator.CreateInstance(type);
                         var methodInfo = type.GetMethod("OPCODE");
@@ -40,9 +41,9 @@ namespace OldBlood.Code.Libaries.Net
                     }
                 }
             }
-                BasePacket packetInstance = (BasePacket)Activator.CreateInstance(packetTypes[opcode]);
-                return packetInstance;
-           
+            BasePacket packetInstance = (BasePacket)Activator.CreateInstance(packetTypes[opcode]);
+            return packetInstance;
+
         }
     }
 
@@ -63,7 +64,7 @@ namespace OldBlood.Code.Libaries.Net
             deSerialize(bytestream);
         }
 
-        public void Serialize(ByteStream bytestream) 
+        public void Serialize(ByteStream bytestream)
         {
             //add empty short for the size of packet
             bytestream.addShort(0);

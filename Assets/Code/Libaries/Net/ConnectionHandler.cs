@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 
-namespace OldBlood.Code.Libaries.Net
+namespace Code.Code.Libaries.Net
 {
     public class ConnectionHandler
     {
@@ -34,7 +34,8 @@ namespace OldBlood.Code.Libaries.Net
 
                 if (available > 0)
                 {
-                    if(available > 2){
+                    if(available > 2)
+                    {
                         if (expectedNextLength == -1)
                         {
                             //ignore the two bytes for the future

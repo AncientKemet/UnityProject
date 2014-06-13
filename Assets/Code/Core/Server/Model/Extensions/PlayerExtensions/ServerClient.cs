@@ -1,22 +1,32 @@
-﻿using OldBlood.Code.Core.Server.Model;
-using OldBlood.Code.Core.Server.Net;
-using OldBlood.Code.Libaries.Net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
+﻿using System.Net.Sockets;
+using Code.Code.Libaries.Net;
+using Code.Core.Server.Model.Entities;
+using Code.Core.Server.Net;
 
-namespace OldBlood.Code.Core.Server.Model.Extensions
+namespace Code.Core.Server.Model.Extensions.PlayerExtensions
 {
     public class ServerClient : EntityExtension
     {
 
         private Socket socket;
+        private Player player;
 
         private ConnectionHandler connectionHandler;
 
         public ConnectionHandler ConnectionHandler { get { return connectionHandler; } }
+
+        public Player Player
+        {
+            get
+            {
+                if (player == null)
+                {
+                    if (entity is Player)
+                        player = entity as Player;
+                }
+                return player;
+            }
+        }
 
         public ServerClient(Socket _socket)
         {
