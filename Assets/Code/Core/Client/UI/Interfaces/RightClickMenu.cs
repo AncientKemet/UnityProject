@@ -96,8 +96,8 @@ namespace Code.Core.Client.UI.Interfaces
             button.transform.parent = transform;
             button.transform.localPosition = new Vector3(0, -buttonIndex, -1) + buttonOffset;
 
-            if (action.Action != null)
-                button.GetComponent<Clickable>().OnLeftClick += action.Action;
+            /*if (action.Action != null)
+                button.GetComponent<Clickable>().OnLeftClick += action.Action;*/
 
             buttons.Add(button);
         }

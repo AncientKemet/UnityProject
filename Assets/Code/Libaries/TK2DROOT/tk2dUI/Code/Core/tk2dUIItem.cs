@@ -53,7 +53,7 @@ public class tk2dUIItem : MonoBehaviour
     public event System.Action<tk2dUIItem> OnUpUIItem;
 
     /// <summary>
-    /// Same as OnClick above, except returns this tk2dUIItem 
+    /// Same as SendClickPacket above, except returns this tk2dUIItem 
     /// </summary>
     public event System.Action<tk2dUIItem> OnClickUIItem;
 
@@ -88,7 +88,7 @@ public class tk2dUIItem : MonoBehaviour
     public string SendMessageOnUpMethodName = "";
 
     /// <summary>
-    /// Function name to SendMessage OnClick
+    /// Function name to SendMessage SendClickPacket
     /// </summary>
     public string SendMessageOnClickMethodName = "";
     /// <summary>

@@ -17,17 +17,17 @@ namespace Code.Core.Server.Model.Extensions.PlayerExtensions
             {
                 if (input == PacketEnums.INPUT_TYPES.ToogleRun)
                 {
-                    Player.unitMovement.Running = !Player.unitMovement.Running;
+                    Player.Movement.Running = !Player.Movement.Running;
                     continue;
                 }
                 if (input == PacketEnums.INPUT_TYPES.StopWalk)
                 {
-                    Player.unitMovement.StopWalking();
+                    Player.Movement.StopWalking();
                     continue;
                 }
                 if (input == PacketEnums.INPUT_TYPES.ContinueWalk)
                 {
-                    Player.unitMovement.ContinueWalking();
+                    Player.Movement.ContinueWalking();
                     continue;
                 }
                 //we have no idea how to react to this

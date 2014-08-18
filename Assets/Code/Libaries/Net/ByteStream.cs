@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,7 +51,8 @@ namespace Code.Code.Libaries.Net
                 return (int)stream[_offset++]; 
             }else{
                 Debug.LogError("Readigngdsg streamsize: "+stream.Count+" off: "+Offset);
-                return 0;
+                Application.Quit();
+                throw new Exception("Broken bytestream.");
             }
         }
 
@@ -77,7 +79,10 @@ namespace Code.Code.Libaries.Net
             addByte((int) l);
         }
         
-        public void addString(String s) {
+        public void addString(String s)
+        {
+            if (s == null)
+                s = "null";
             addShort(s.Length);
             foreach (char c in s.ToCharArray()) {
                 addByte((byte)c);
@@ -242,6 +247,16 @@ namespace Code.Code.Libaries.Net
         internal Vector3 getPosition6B()
         {
             return new Vector3(getFloat2B(),getFloat2B(),getFloat2B());
+        }
+
+        internal BitArray GetBitArray()
+        {
+            return new BitArray(new[] { getByte() });
+        }
+
+        public int GetSize()
+        {
+            return stream.Count;
         }
     }
 }

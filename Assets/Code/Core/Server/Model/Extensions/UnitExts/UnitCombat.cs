@@ -6,6 +6,7 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
 
         public float Health { get; private set; }
         public float Energy { get; private set; }
+        public float EnergyRatio { get { return Energy/100f; } }
 
         private int RegenTick = 0;
         const int RegenUpdateTick = 3;
@@ -20,7 +21,7 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
             {   
                 RegenTick = 0;
 
-                Energy += 0.3f;
+                Energy += 0.05f;
                 Energy = Mathf.Clamp(Energy, 0, 100);
                 Health += 0.01f;
                 Health = Mathf.Clamp(Health, 0, 100);
@@ -44,19 +45,19 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
 
         protected override void pSerializeState(Code.Libaries.Net.ByteStream packet)
         {
-            packet.addShort((int)Health);
-            packet.addShort((int)Energy);
+            packet.addByte((int)Health);
+            packet.addByte((int)Energy);
         }
 
         protected override void pSerializeUpdate(Code.Libaries.Net.ByteStream packet)
         {
-            packet.addShort((int)Health);
-            packet.addShort((int)Energy);
+            packet.addByte((int)Health);
+            packet.addByte((int)Energy);
         }
 
-        internal void ReduceEnergy(float speed)
+        internal void ReduceEnergy(float amount)
         {
-            Energy -= speed;
+            Energy -= amount;
             Energy = Mathf.Clamp(Energy, 0, 100);
             _wasUpdate = true;
         }

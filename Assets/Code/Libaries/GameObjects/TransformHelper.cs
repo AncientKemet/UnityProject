@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -34,6 +36,21 @@ namespace Code.Libaries.GameObjects
             }
             return null;
         }
+
+        public static List<Transform> GetChildren(Transform transform)
+        {
+            List<Transform> list = new List<Transform>();
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                list.Add(transform.GetChild(i));
+                list.AddRange(GetChildren(transform.GetChild(i)));
+            }
+
+            return list;
+        }
+
+        
     }
 }
 

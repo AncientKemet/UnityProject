@@ -9,8 +9,11 @@ namespace Code.Libaries.Generic.Managers
 {
     public class ContentManager : SIAsset<ContentManager>
     {
-        public List<Item> InventoryItems;
+        public List<Item> Items;
         public List<GameObject> Models;
+        public List<Spell> Spells;
+        public List<Buff> Buffs;
+        public List<GameObject> Effects;
 
 #if UNITY_EDITOR
         [MenuItem("Kemet/Open/ContentManager")]
@@ -19,6 +22,11 @@ namespace Code.Libaries.Generic.Managers
             Selection.activeObject = I;
         }
 #endif
+
+        public void CreateEffect(int i, Vector3 position)
+        {
+            Instantiate(Effects[i], position, Quaternion.identity);
+        }
     }
 }
 

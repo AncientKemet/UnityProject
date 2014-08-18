@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Code.Core.Client.Net;
 using Code.Core.Client.UI.Controls;
+using Code.Core.Client.UI.Interfaces.UpperLeft;
 using Code.Core.Client.Units;
 using Code.Core.Client.Units.Extensions;
 using Code.Core.Shared.NET;
@@ -34,12 +36,17 @@ namespace Code.Core.Client.Terrain
 
         private void Start()
         {
-            /*var clickable = GetComponent<Clickable>();
-            clickable.OnRightMouseHold += MoveMyPlayerToMouse;*/
+            var clickable = GetComponent<Clickable>();
+            clickable.OnLeftClick+= delegate { UnitSelectionInterface.I.Unit = null; };
+            clickable.OnRightMouseHold += () => { isHolding = true; };
+            clickable.OnRightClick += () => { isHolding = false; };
         }
+
+        public bool isHolding { get; private set; }
 
         private void Update()
         {
+            if (isHolding)
             if (Input.GetMouseButton(1))
             {
                 if (PlayerUnit.MyPlayerUnit != null)
@@ -47,8 +54,8 @@ namespace Code.Core.Client.Terrain
                     RaycastHit hit;
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     float distance = 1000;
-                    int layerMask = 1 << 7;
-                    layerMask = ~layerMask;
+                    int layerMask = 1 << 8;
+                    //layerMask = ~layerMask;
                     if (Physics.Raycast(ray, out hit, distance, layerMask))
                     {
                         SendPacket(hit, true);

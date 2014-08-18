@@ -13,7 +13,7 @@ namespace Code.Libaries.UnityExtensions
 
         public static T CreateInstance<T>(World world) where T : ServerMonoBehaviour
         {
-            T t = new GameObject("ServerComponentInstance").AddComponent<T>();
+            T t = new GameObject(typeof(T).Name).AddComponent<T>();
 
             if (world == null)
             {

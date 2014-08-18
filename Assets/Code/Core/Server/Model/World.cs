@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Code.Core.Server.Model.Entities;
 using Code.Libaries.Generic.Trees;
@@ -17,14 +18,31 @@ namespace Code.Core.Server.Model
 
         public void AddEntity(WorldEntity entity)
         {
-            entities.Add(entity);
-            entity.ID = entities.IndexOf(entity);
+            bool foundNullIndex = false;
+            for (int i = 0; i < entities.Count; i++)
+            {
+                if (entities[i] == null)
+                {
+                    entities[i] = entity;
+                    entity.ID = i;
+                    foundNullIndex = true;
+                    break;
+                }
+            }
+
+            if (!foundNullIndex)
+            {
+                entities.Add(entity);
+                entity.ID = entities.IndexOf(entity);
+            }
+
             entity.CurrentWorld = this;
 
             if (entity is ServerUnit)
             {
                 ServerUnit serverUnit = entity as ServerUnit;
                 Units.Add(serverUnit);
+                //Debug.Log("Added server unit: "+serverUnit+" id: "+serverUnit.ID);
             }
 
             if (entity is Player)
@@ -39,19 +57,14 @@ namespace Code.Core.Server.Model
 
         public void RemoveEntity(WorldEntity entity)
         {
-            entities.Remove(entity);
-
-            if (entity is ServerUnit)
-            {
-                ServerUnit serverUnit = entity as ServerUnit;
-                Units.Remove(serverUnit);
-            }
+            entities[entity.ID] = null;
         }
 
         public void Progress()
         {
             foreach (var e in entities)
             {
+                if(e != null)
                 e.Progress();
             }
             Tree.Update();
@@ -69,7 +82,7 @@ namespace Code.Core.Server.Model
             world.Tree = new QuadTree(2, Vector2.zero, Vector2.one * 256);
 
             /*Npc npc = CreateInstance<Npc>(world);
-            npc.GetExt<UnitMovement>().Teleport(new Vector3(50,0,50));
+            npc.GetExt<Movement>().Teleport(new Vector3(50,0,50));
             world.AddEntity(npc);*/
 
             return world;
@@ -84,6 +97,19 @@ namespace Code.Core.Server.Model
         #endregion
 
         public int ID { get; set; }
+
+        public ServerUnit this[int unitId]
+        {
+            get
+            {
+                if (unitId > entities.Count-1 || unitId < 0)
+                {
+                    //throw  new Exception("Wrong unit index: "+unitId);
+                    return null;
+                }
+                return entities[unitId] as ServerUnit;
+            }
+        }
     }
 }
 

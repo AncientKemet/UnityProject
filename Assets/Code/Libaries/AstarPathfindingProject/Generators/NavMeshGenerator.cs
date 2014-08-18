@@ -58,7 +58,7 @@ and have a low memory footprint because of their smaller size to describe the sa
 		/** More accurate nearest node queries.
 		 * When on, looks for the closest point on every triangle instead of if point is inside the node triangle in XZ space.
 		 * This is slower, but a lot better if your mesh contains overlaps (e.g bridges over other areas of the mesh).
-		 * Note that for maximum effect the Full Get Nearest Node Search setting should be toggled in A* Inspector Settings.
+		 * Note that for maximum effect the Walk Get Nearest Node Search setting should be toggled in A* Inspector Settings.
 		 */
 		public bool accurateNearestNode = true;
 		

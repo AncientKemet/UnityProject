@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using UnityEngine;
 
 namespace Code.Code.Libaries.Net
 {
@@ -53,6 +50,8 @@ namespace Code.Code.Libaries.Net
 
         protected abstract void enSerialize(ByteStream bytestream);
         protected abstract void deSerialize(ByteStream bytestream);
+
+        public int Size { get; set; }
 
         public int OPCODE()
         {

@@ -18,6 +18,7 @@ namespace Code.Core.Server.Model.Extensions
         /// 0x01 - movement
         /// 0x02 - display
         /// 0x04 - combat
+        /// 0x08 - animaion
         /// ...
         /// </summary>
         /// <returns>Byte flag</returns>

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Code.Core.Shared.Content
 {
     [Serializable]
-    public abstract class ContentItem
+    public class ContentItem : MonoBehaviour
     {
     }
 }

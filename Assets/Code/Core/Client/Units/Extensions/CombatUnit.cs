@@ -20,15 +20,21 @@ namespace Code.Core.Client.Units.Extensions
         public void SetHealth(float health)
         {
             health /= 100f;
-            healthBar.dimensions = new Vector2(_fullHealthBarSize * health, healthBar.dimensions.y);
-            healthBar.ForceBuild();
+            if (healthBar != null)
+            {
+                healthBar.dimensions = new Vector2(_fullHealthBarSize*health, healthBar.dimensions.y);
+                healthBar.ForceBuild();
+            }
         }
 
         public void SetEnergy(float energy)
         {
             energy /= 100f;
-            energyBar.dimensions = new Vector2(_fullEnergyBarSize * energy, energyBar.dimensions.y);
-            energyBar.ForceBuild();
+            if (energyBar != null)
+            {
+                energyBar.dimensions = new Vector2(_fullEnergyBarSize*energy, energyBar.dimensions.y);
+                energyBar.ForceBuild();
+            }
         }
     }
 }

@@ -31,6 +31,9 @@ namespace Code.Code.Libaries.Net
             for (int i = 0; i < MAX_PACKETS_PROCEED_AT_ONCE; i++)
             {
                 int available = socket.Available;
+#if DEBUG_NETWORK
+                Debug.Log("AWAILABLE BYTES: "+available);
+#endif
 
                 if (available > 0)
                 {
@@ -68,6 +71,9 @@ namespace Code.Code.Libaries.Net
                             int opcode = _in.getUnsignedByte();
 
                             BasePacket packet = PacketManager.PacketForOpcode(opcode);
+
+                            packet.Size = expectedNextLength;
+
                             packet.Deserialize(_in);
 
                             packetExecutor.ExecutePacket(packet);

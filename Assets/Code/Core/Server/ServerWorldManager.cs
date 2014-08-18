@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Code.Core.Server.Model;
+using Code.Core.Server.Model.Entities;
+using UnityEngine;
 
 namespace Code.Core.Server
 {
@@ -24,6 +26,7 @@ namespace Code.Core.Server
         {
             worlds.Add(w);
             w.ID = worlds.IndexOf(w);
+
         }
 
         public void ProgressWorlds()

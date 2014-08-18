@@ -9,14 +9,12 @@ namespace Code.Core.Server.Model.Entities
 
         public override void Awake()
         {
+            AddExt(Attributes = new UnitAttributes());
+            AddExt(Anim = new UnitAnim());
+            AddExt(Combat = new UnitCombat());
             base.Awake();
         }
 
-        public override void Progress()
-        {
-            
-            base.Progress();
-        }
     }
 }
 

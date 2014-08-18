@@ -1,16 +1,24 @@
 using System;
 using System.Collections.Generic;
 using Code.Libaries.UnityExtensions;
+using UnityEngine;
 
 namespace Code.Core.Server.Model
 {
     public abstract class WorldEntity : ServerMonoBehaviour
     {
         private World _currentWorld = null;
-       
-        public int ID {get;set;}
+
+        public int ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
 
         private Dictionary<Type, EntityExtension> extensions = new Dictionary<Type, EntityExtension>();
+
+        [SerializeField]
+        private int _id;
 
         public Dictionary<Type, EntityExtension>.ValueCollection Extensions
         {
@@ -44,6 +52,11 @@ namespace Code.Core.Server.Model
             {
                 extension.Progress();
             }
+        }
+
+        private void OnDestroy()
+        {
+            CurrentWorld.RemoveEntity(this);
         }
 
     }

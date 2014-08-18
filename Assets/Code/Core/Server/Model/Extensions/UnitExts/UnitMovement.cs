@@ -27,7 +27,6 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
         private int _currentWaypoint = 0;
 
         //other variables
-        private MovementState currentState = new MovementState();
         private UnitCombat _combat;
         private bool _positionUpdate = false;
         private bool _rotationUpdate = false;
@@ -38,6 +37,7 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
         private bool _lookingForPath = false;
         private bool _dontWalk;
         private float _rotationSpeed= 5f;
+        private System.Action OnArrive;
 
         //property getters
         public Vector3 Position
@@ -55,6 +55,8 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
             }
         }
 
+        public ServerUnit Unit { get; private set; }
+
         public Vector3 Force
         {
             get { return _force; }
@@ -63,34 +65,26 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
         public float Rotation
         {
             get { return _rotation; }
-            private set
+            set
             {
                 _rotation = value;
                 _rotationUpdate = true;
             }
         }
 
-        public bool CanMove
-        {
-            get { return !currentState.stunned; }
-        }
+        public bool CanMove { get; set; }
 
-        public bool CanRotate
-        {
-            get { return !currentState.stunned; }
-        }
+        public bool CanRotate { get; set; }
 
         public bool Running { get; set; }
 
-        public float CurrentSpeed { get { return _baseSpeed*(Running ? 5f* (Combat == null ? 0 : (Combat.Energy / 100f) / 2f) : 1f); } }
-
-        private UnitCombat Combat
+        public float CurrentSpeed
         {
             get
             {
-                if (_combat == null)
-                    _combat = entity.GetExt<UnitCombat>();
-                return _combat;
+                return _baseSpeed * Unit.Attributes.MovementSpeed
+                    *
+                    (Running ? 3f : 1f);
             }
         }
 
@@ -99,7 +93,7 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
         {
             base.Progress();
 
-            if (Running && Combat.Energy < 40)
+            if (Running && Unit.Combat.Energy < 20)
             {
                 Running = false;
             }
@@ -109,6 +103,8 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
                 if (_currentWaypoint >= _path.vectorPath.Count)
                 {
                     _path = null;
+                    if (OnArrive != null)
+                        OnArrive();
                 }
                 else
                 {
@@ -117,12 +113,12 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
 
                     float dirMagnitude = dir.magnitude;
 
-                    if (dirMagnitude > 0.3f && (dir + _force).magnitude > 0.1f)
+                    if (dirMagnitude > 0.3f)
                     {
-                        if (RotateTo(Quaternion.LookRotation(dir * _rotationSpeed * Time.fixedDeltaTime + (Quaternion.Euler(new Vector3(0, _rotation, 0)) * Vector3.forward)).eulerAngles.y))
+                        if (RotateTo(Quaternion.LookRotation(dir * _rotationSpeed * Unit.Attributes.Mobility * Time.fixedDeltaTime + (Quaternion.Euler(new Vector3(0, _rotation, 0)) * Vector3.forward)).eulerAngles.y))
                         {
                             //eq holding space
-                            if (!_dontWalk && (dir + _force).magnitude > 0.03f)
+                            if (!_dontWalk && Vector3.Distance(Position + Forward*1.25f, waypoint)  < Vector3.Distance(Position + Forward * -1, waypoint))
                             {
                                 MoveForward(CurrentSpeed * Time.fixedDeltaTime);
                                 _position.y += (waypoint.y - _position.y)/5f;
@@ -133,7 +129,7 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
                     //Check if we are close enough to the next waypoint
                     //If we are, proceed to follow the next waypoint
                     Vector3 wayPoint = _path.vectorPath[_currentWaypoint];
-                    if (Vector2.Distance(new Vector2(_position.x, _position.z), new Vector2(wayPoint.x, wayPoint.z)) < 0.5f)
+                    if (Vector2.Distance(new Vector2(_position.x, _position.z), new Vector2(wayPoint.x, wayPoint.z)) < Unit.Display.Size * 0.75f)
                     {
                         _currentWaypoint++;
                     }
@@ -162,13 +158,18 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
 
         private void MoveForward(float speed)
         {
-            MoveTo(_position + Quaternion.Euler(0, _rotation, 0) * Vector3.forward * speed);
+            MoveTo(_position + Forward * speed);
 
             ServerUnit serverUnit = entity as ServerUnit;
             if (serverUnit != null)
             {
-                serverUnit.unitCombat.ReduceEnergy(speed*(Running ? 2f : 1f));
+                serverUnit.Combat.ReduceEnergy(speed*0.3f);
             }
+        }
+
+        private Vector3 Forward
+        {
+            get { return Quaternion.Euler(0, _rotation, 0) * Vector3.forward; }
         }
 
         /// <summary>
@@ -184,7 +185,6 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
                 _wasUpdate = true;
             }
         }
-
 
         public void StopWalking()
         {
@@ -204,15 +204,41 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
         {
             if (CanMove && !_lookingForPath)
             {
+                if (Vector3.Distance(destination, newPosition) < 0.1f)
+                    return;
                 destination = newPosition;
                 _seeker.StartPath(_position, destination, OnPathWasFound);
                 _lookingForPath = true;
+                OnArrive = null;
+            }
+        }
+
+        public void WalkTo(Vector3 newPosition, System.Action<int,string> OnArrive, int unitId, string action)
+        {
+            WalkTo(newPosition, () => OnArrive(unitId, action));
+        }
+
+        public void WalkTo(Vector3 newPosition, System.Action OnArrive)
+        {
+            if (CanMove && !_lookingForPath)
+            {
+                /*if (Vector3.Distance(destination, newPosition) < 0.1f)
+                {
+                    this.OnArrive = OnArrive;
+                    return;
+                }*/
+
+                destination = newPosition;
+                _seeker.StartPath(_position, destination, OnPathWasFound);
+                _lookingForPath = true;
+
+                this.OnArrive = OnArrive;
             }
         }
 
         public void WalkWay(Vector3 direction)
         {
-            WalkTo(_position + direction);
+            WalkTo(_position + direction * (Unit.Display.Size +0.5f));
         }
 
         private bool RotateTo(float newRotation)
@@ -229,36 +255,50 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
         public void Teleport(Vector3 location)
         {
             Position = location;
+            Teleported = true;
             _wasUpdate = true;
         }
+
+        public bool Teleported { get; private set; }
 
         private void OnPathWasFound(Path path)
         {
             _lookingForPath = false;
             if (!path.error)
             {
-                _path = path;
                 _currentWaypoint = 0;
+                _path = path;
+                
+            }
+            else
+            {
+                Debug.LogError("Error finding path: "+path.errorLog);
             }
         }
 
-        
-        
         protected override void OnExtensionWasAdded()
         {
             base.OnExtensionWasAdded();
 
+            Unit = entity as ServerUnit;
+
             _seeker = entity.gameObject.AddComponent<Seeker>();
             entity.gameObject.AddComponent<SimpleSmoothModifier>();
 
-            Teleport(new Vector3(20, 10, 20));
-            WalkTo(new Vector3(21, 10, 21));
+            if (entity is Human)
+            {
+                Teleport(new Vector3(20, 10, 20));
+                WalkTo(new Vector3(21, 10, 21));
+
+                CanMove = true;
+                CanRotate = true;
+            }
         }
 
         #region StateSerialization
         protected override void pSerializeState(Code.Libaries.Net.ByteStream packet)
         {
-            packet.addFlag(true, true);
+            packet.addFlag(true, true, true);
             packet.addPosition6B(_position);
 
             packet.addFloat4B(_rotation);
@@ -266,7 +306,7 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
 
         protected override void pSerializeUpdate(Code.Libaries.Net.ByteStream packet)
         {
-            packet.addFlag(_positionUpdate, _rotationUpdate);
+            packet.addFlag(_positionUpdate, _rotationUpdate, Teleported);
             if (_positionUpdate)
             {
                 packet.addPosition6B(_position);
@@ -275,10 +315,10 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
             {
                 packet.addFloat4B(_rotation);
             }
+
+            Teleported = false;
         }
         #endregion StateSerialization
-
-        
         
         //Update flag
         public override byte UpdateFlag()
@@ -286,10 +326,5 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
             return 0x01;
         }
 
-    }
-
-    internal class MovementState
-    {
-        public bool stunned = false;
     }
 }

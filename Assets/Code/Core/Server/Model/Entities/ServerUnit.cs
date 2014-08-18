@@ -10,9 +10,13 @@ namespace Code.Core.Server.Model.Entities
 {
     public class ServerUnit : WorldEntity, IQuadTreeObject
     {
-        public UnitMovement unitMovement;
-        public UnitCombat unitCombat;
-        public UnitDisplay unitDisplay;
+        public UnitMovement Movement;
+        public UnitCombat Combat;
+        public UnitDisplay Display;
+        public UnitAnim Anim;
+        public UnitAttributes Attributes;
+        public UnitFocus Focus;
+        public UnitActions Actions;
 
         private List<UnitUpdateExt> _updateExtensions;
 
@@ -35,11 +39,13 @@ namespace Code.Core.Server.Model.Entities
 
         public virtual void Awake()
         {
-            _updateExtensions = new List<UnitUpdateExt>();;
+            _updateExtensions = new List<UnitUpdateExt>();
 
-            AddExt(unitMovement = new UnitMovement());
-            AddExt(unitCombat = new UnitCombat());
-            AddExt(unitDisplay = new UnitDisplay());
+            AddExt(Movement = new UnitMovement());
+            AddExt(Display = new UnitDisplay());
+            
+            AddExt(Actions = new UnitActions());
+            AddExt(Focus = new UnitFocus());
 
             //in the end find all updatable extensions
             foreach (EntityExtension extension in Extensions)
@@ -49,6 +55,10 @@ namespace Code.Core.Server.Model.Entities
                     _updateExtensions.Add(extension as UnitUpdateExt);
                 }
             }
+
+            _updateExtensions.Sort(
+                (ext, updateExt) => ext.UpdateFlag().CompareTo(updateExt.UpdateFlag())
+                );
         }
 
         public override void Progress()
@@ -93,8 +103,8 @@ namespace Code.Core.Server.Model.Entities
 
         public Vector2 PositionChange()
         {
-            Vector2 r = new Vector2(unitMovement.Position.x, unitMovement.Position.z) - _quadTreePos;
-            _quadTreePos = new Vector2(unitMovement.Position.x, unitMovement.Position.z);
+            Vector2 r = new Vector2(Movement.Position.x, Movement.Position.z) - _quadTreePos;
+            _quadTreePos = new Vector2(Movement.Position.x, Movement.Position.z);
             return r;
         }
         #endregion QUAD TREE IMPL
@@ -134,6 +144,11 @@ namespace Code.Core.Server.Model.Entities
                 }
             }
 
+#if DEBUG_NETWORK
+            string log = "";
+            log += "\n" + "Server created packet size " + _updatePacket;
+            Debug.Log(log);
+#endif
         }
 
         #endregion

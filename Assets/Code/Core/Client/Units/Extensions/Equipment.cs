@@ -1,4 +1,7 @@
-﻿using Code.Libaries.Generic.Managers;
+﻿using Code.Core.Client.UI.Controls.Items;
+using Code.Core.Client.UI.Interfaces.LowerRightFaces;
+using Code.Core.Shared.Content.Types.ItemExtensions;
+using Code.Libaries.Generic.Managers;
 using UnityEngine;
 using System.Collections;
 using Code.Core.Shared.Content.Types;
@@ -9,9 +12,19 @@ namespace Code.Core.Client.Units.UnitControllers
     public class Equipment : MonoBehaviour
     {
         private UnitDisplay skeleton;
-        
+
+        public void EquipItem(Item item)
+        {
+            EquipItem(item.GetComponent<EquipmentItem>());
+        }
+
         public void EquipItem(EquipmentItem item)
         {
+            if (gameObject == PlayerUnit.MyPlayerUnit.gameObject)
+            {
+                InventoryInterface.I.Controls[0].GetComponent<ItemButton>().Item = item == null ? null : item.GetComponent<Item>();
+            }
+
             if (item != null)
             {
                 if (item.EquipType == EquipmentItem.Type.LeftHand)
@@ -39,6 +52,7 @@ namespace Code.Core.Client.Units.UnitControllers
         private void Start()
         {
             skeleton = GetComponent<UnitDisplay>();
+            //EquipItem(ContentManager.I.Items[0]);
         }
 
         private void _replaceItem(Transform Head, EquipmentItem item)
@@ -48,7 +62,7 @@ namespace Code.Core.Client.Units.UnitControllers
                 Destroy(Head.GetChild(i).gameObject);
             }
 
-            GameObject itemModel = ((GameObject)Instantiate(item.Model.gameObject));
+            GameObject itemModel = ((GameObject)Instantiate(item.gameObject));
             
             itemModel.transform.parent = Head;
             itemModel.transform.localPosition = new Vector3(0, 0, 0);

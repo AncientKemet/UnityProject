@@ -7,13 +7,13 @@ namespace Code.Core.Server.Model.Entities
     public class Npc : ServerUnit
     {
 
-        private UnitMovement unitMovement;
         private ServerUnit _followingServerUnit;
 
         public override void Awake()
         {
             base.Awake();
-            unitMovement = GetExt<UnitMovement>();
+            name = "NPC ["+ID+"]";
+            Movement.Running = true;
         }
 
         public override void Progress()
@@ -32,7 +32,7 @@ namespace Code.Core.Server.Model.Entities
                 float distance = Vector2.Distance(GetPosition(), otherPos);
                 if (distance > 5f)
                 {
-                    unitMovement.WalkTo(_followingServerUnit.GetExt<UnitMovement>().Position);
+                    Movement.WalkTo(_followingServerUnit.GetExt<UnitMovement>().Position);
                 }
             }
             base.Progress();

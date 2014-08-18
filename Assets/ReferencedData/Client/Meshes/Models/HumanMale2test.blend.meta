@@ -73,6 +73,9 @@ ModelImporter:
     7400012: Run
     7400014: TPOSE
     7400016: Walk
+    7400018: LeftHandSlashAttack
+    7400020: LeftHandSlashPower
+    7400022: LeftHandPunch
     9500000: //RootNode
     11100000: //RootNode
     13700000: Chest
@@ -422,15 +425,15 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: LeftHandHold
-      takeName: LeftHandHold
+      name: LeftHandSlashPower
+      takeName: LeftHandSlashPower
       firstFrame: 0
-      lastFrame: 1
-      wrapMode: 0
+      lastFrame: 19
+      wrapMode: 2
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
-      loop: 0
+      loop: 1
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -594,7 +597,7 @@ ModelImporter:
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
-      loop: 0
+      loop: 1
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -755,6 +758,170 @@ ModelImporter:
       firstFrame: 0
       lastFrame: 19
       wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Base
+        weight: 1
+      - path: Armature/Base/chest
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder/Left_elbow
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder/Left_elbow/Left_fingers
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder/Left_elbow/Left_fingers_001
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder/Left_elbow/Left_fingers_002
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder/Left_elbow/Left_fingers_003
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder/Left_elbow/Left_fingers_004
+        weight: 1
+      - path: Armature/Base/chest/Neck
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder/Right_elbow
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder/Right_elbow/Right_fingers
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder/Right_elbow/Right_fingers_001
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder/Right_elbow/Right_fingers_002
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder/Right_elbow/Right_fingers_003
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder/Right_elbow/Right_fingers_004
+        weight: 1
+      - path: Armature/Base/Left_leg
+        weight: 1
+      - path: Armature/Base/Left_leg/Left_shin
+        weight: 1
+      - path: Armature/Base/Left_leg/Left_shin/Left_feet
+        weight: 1
+      - path: Armature/Base/Right_leg
+        weight: 1
+      - path: Armature/Base/Right_leg/Right_shiv
+        weight: 1
+      - path: Armature/Base/Right_leg/Right_shiv/Right_feet
+        weight: 1
+      - path: Body
+        weight: 1
+      - path: Chest
+        weight: 1
+      - path: Skirt
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: LeftHandSlashAttack
+      takeName: LeftHandSlashAttack
+      firstFrame: 0
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Base
+        weight: 1
+      - path: Armature/Base/chest
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder/Left_elbow
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder/Left_elbow/Left_fingers
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder/Left_elbow/Left_fingers_001
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder/Left_elbow/Left_fingers_002
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder/Left_elbow/Left_fingers_003
+        weight: 1
+      - path: Armature/Base/chest/Left_shoulder/Left_elbow/Left_fingers_004
+        weight: 1
+      - path: Armature/Base/chest/Neck
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder/Right_elbow
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder/Right_elbow/Right_fingers
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder/Right_elbow/Right_fingers_001
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder/Right_elbow/Right_fingers_002
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder/Right_elbow/Right_fingers_003
+        weight: 1
+      - path: Armature/Base/chest/Right_shoulder/Right_elbow/Right_fingers_004
+        weight: 1
+      - path: Armature/Base/Left_leg
+        weight: 1
+      - path: Armature/Base/Left_leg/Left_shin
+        weight: 1
+      - path: Armature/Base/Left_leg/Left_shin/Left_feet
+        weight: 1
+      - path: Armature/Base/Right_leg
+        weight: 1
+      - path: Armature/Base/Right_leg/Right_shiv
+        weight: 1
+      - path: Armature/Base/Right_leg/Right_shiv/Right_feet
+        weight: 1
+      - path: Body
+        weight: 1
+      - path: Chest
+        weight: 1
+      - path: Skirt
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: LeftHandPunch
+      takeName: LeftHandPunch
+      firstFrame: 0
+      lastFrame: 19
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0

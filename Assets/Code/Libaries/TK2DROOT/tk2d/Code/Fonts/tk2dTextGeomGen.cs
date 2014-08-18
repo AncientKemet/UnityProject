@@ -36,6 +36,10 @@ public static class tk2dTextGeomGen
 
 		bool ignoreNextCharacter = false;
 		int target = 0;
+
+	    if (str == null)
+	        str = "";
+        
 		for (int i = 0; i < str.Length && target < data.maxChars; ++i)
 		{
 			if (ignoreNextCharacter) {
@@ -289,6 +293,9 @@ public static class tk2dTextGeomGen
 		tk2dTextMeshData data = geomData.textMeshData;
 		tk2dFontData fontInst = geomData.fontInst;
 		string formattedText = geomData.formattedText;
+
+	    if (formattedText == null)
+	        formattedText = "";
 
 		meshTopColor = new Color32(255, 255, 255, 255);
 		meshBottomColor = new Color32(255, 255, 255, 255);

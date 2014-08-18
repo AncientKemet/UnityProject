@@ -33,7 +33,11 @@ public class Weather : MonoSingleton<Weather>
 
             float dayNightRatio = Mathf.Abs((_time - 12f)/24f) * 2f;
             ratio = dayNightRatio;
-            
+
+            Vector3 angle = _topLight.transform.eulerAngles;
+            angle.x = (180 * dayNightRatio + (90 * (1f - dayNightRatio)))/2f;
+            _topLight.transform.eulerAngles = angle;
+
             _topLight.color = DayColor * dayNightRatio + (NightColor * (1f - dayNightRatio));
             _bottomLight.color = DayColor * dayNightRatio + (NightColor * (1f - dayNightRatio));
 

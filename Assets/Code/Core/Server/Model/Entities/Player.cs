@@ -2,6 +2,7 @@ using Code.Code.Libaries.Net.Packets;
 using Code.Core.Server.Model.Extensions.PlayerExtensions;
 using Code.Core.Server.Model.Extensions.PlayerExtensions.UIHelpers;
 using Code.Core.Server.Model.Extensions.UnitExts;
+using Code.Libaries.UnityExtensions;
 using UnityEngine;
 
 namespace Code.Core.Server.Model.Entities
@@ -28,6 +29,8 @@ namespace Code.Core.Server.Model.Entities
             base.Awake();
             AddExt(ClientUi = new ClientUI());
             AddExt(PlayerInput = new PlayerInput());
+
+            //Server.Instance.swm.Get.Kemet.AddEntity(ServerMonoBehaviour.CreateInstance<Npc>());
         }
 
         public override void Progress()

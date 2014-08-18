@@ -6,7 +6,8 @@ namespace Code.Libaries.Net.Packets.ForClient
     {
 
         public ByteStream SubPacketData = new ByteStream();
-        public int UnitID;
+
+        public int UnitID { get; set; }
 
         #region implemented abstract members of BasePacket
 
@@ -30,6 +31,11 @@ namespace Code.Libaries.Net.Packets.ForClient
         }
 
         #endregion
+
+        public override string ToString()
+        {
+            return "Update packet subbuffer[" + SubPacketData.GetSize() + "]";
+        }
     }
 }
 

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -12,8 +13,14 @@ public class tk2dUIDragItem : tk2dUIBaseItemControl
     /// </summary>
     public tk2dUIManager uiManager = null;
 
-    private Vector3 offset = Vector3.zero; //offset on touch/click
+    private Vector3 _offset = Vector3.zero; //offset on touch/click
     private bool isBtnActive = false; //if currently active
+    public Action OnUpdate;
+
+    public Vector3 Offset
+    {
+        get { return _offset; }
+    }
 
     void OnEnable()
     {
@@ -46,6 +53,8 @@ public class tk2dUIDragItem : tk2dUIBaseItemControl
     private void UpdateBtnPosition()
     {
         transform.position = CalculateNewPos();
+        if (OnUpdate != null)
+            OnUpdate();
     }
 
     private Vector3 CalculateNewPos()
@@ -55,7 +64,7 @@ public class tk2dUIDragItem : tk2dUIBaseItemControl
         Camera viewingCamera = tk2dUIManager.Instance.GetUICameraForControl( gameObject );
         Vector3 worldPos = viewingCamera.ScreenToWorldPoint(new Vector3(pos.x, pos.y, transform.position.z - viewingCamera.transform.position.z));
         worldPos.z = transform.position.z;
-        worldPos += offset;
+        worldPos += Offset;
         return worldPos;
     }
 
@@ -69,9 +78,9 @@ public class tk2dUIDragItem : tk2dUIBaseItemControl
             tk2dUIManager.Instance.OnInputUpdate += UpdateBtnPosition;
         }
         isBtnActive = true;
-        offset = Vector3.zero;
+        _offset = Vector3.zero;
         Vector3 newWorldPos = CalculateNewPos();
-        offset = transform.position - newWorldPos;
+        _offset = transform.position - newWorldPos;
     }
 
     /// <summary>

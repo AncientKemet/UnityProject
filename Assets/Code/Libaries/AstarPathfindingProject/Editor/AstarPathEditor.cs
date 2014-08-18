@@ -1767,7 +1767,7 @@ public class AstarPathEditor : Editor {
 		                                                                            " a search will be done for the nearest node which is walkble. This is the maximum distance (world _playerUnits) which it will serarch"),
 		                                                            script.maxNearestNodeDistance);
 		
-			script.fullGetNearestSearch = EditorGUILayout.Toggle (new GUIContent ("Full Get Nearest Node Search","Forces more accurate searches on all graphs. " +
+			script.fullGetNearestSearch = EditorGUILayout.Toggle (new GUIContent ("Walk Get Nearest Node Search","Forces more accurate searches on all graphs. " +
 				"Normally only the closest graph in the initial fast check will perform additional searches, " +
 				"if this is toggled, all graphs will do additional searches. Slower, but more accurate"),script.fullGetNearestSearch);
 			script.scanOnStartup = EditorGUILayout.Toggle (new GUIContent ("Scan on Awake","Scan all graphs on Awake. If this is false, you must call AstarPath.active.Scan () yourself. Useful if you want to make changes to the graphs with code."),script.scanOnStartup);
