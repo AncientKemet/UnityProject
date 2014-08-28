@@ -17,7 +17,7 @@ namespace Code.Core.Client.Units.UnitControllers
         private PlayerUnit _unit;
         private Animation _animation;
         
-        private Vector3 _lookAtPosition;
+        private PlayerUnit _lookAtUnit;
         private Vector3 _lookAtPositionLerped;
 
         private float _cachedWalkAnimLen = -1;
@@ -31,6 +31,8 @@ namespace Code.Core.Client.Units.UnitControllers
         private string _walkAnimation = "Walk";
         private string _runAnimation = "Run";
         private string _actionAnimation;
+
+        public float LookStrenght = 0.5f;
 
         public string StandAnimation
         {
@@ -67,15 +69,19 @@ namespace Code.Core.Client.Units.UnitControllers
             }
         }
 
-        public Vector3 lookAtPosition
+        public PlayerUnit LookAtUnit
         {
             get
             {
-                return _lookAtPosition;
+                return _lookAtUnit;
             }
             set
             {
-                _lookAtPosition = value;
+                if (_lookAtUnit == null)
+                {
+                    _lookAtPositionLerped = transform.position + transform.forward * 10f;
+                }
+                _lookAtUnit = value;
             }
         }
 
@@ -100,8 +106,8 @@ namespace Code.Core.Client.Units.UnitControllers
         public void Awake()
         {
             _unit = GetComponent<PlayerUnit>();
-            _lookAtPosition = transform.position;
-            _lookAtPositionLerped = _lookAtPosition;
+            _lookAtUnit = null;
+            _lookAtPositionLerped = Vector3.zero;
         }
 
         public virtual void Update()
@@ -109,6 +115,13 @@ namespace Code.Core.Client.Units.UnitControllers
             if (_animation != null)
             {
                 ProcessWalkAndStand();
+            }
+        }
+
+        public virtual void LateUpdate()
+        {
+            if (_animation != null)
+            {
                 ProcessLookAtRotation();
             }
         }
@@ -156,11 +169,17 @@ namespace Code.Core.Client.Units.UnitControllers
 
         void ProcessLookAtRotation()
         {
-            if (true)
+            if (!_updateWalkRunStand)
                 return;
-            _lookAtPositionLerped = Vector3.Lerp(_lookAtPositionLerped, _lookAtPosition, Time.deltaTime * 10);
-            LookAtBone(_chest, 0.75f);
-            LookAtBone(_neck, 0.75f);
+
+            bool lookAtItReally = true;// used to determine if its null or its the other direction
+
+            if (_lookAtUnit == null || Vector3.Distance(transform.position + transform.forward, _lookAtUnit.transform.position) > Vector3.Distance(transform.position + transform.forward * -1f, _lookAtUnit.transform.position))
+                lookAtItReally = false;
+
+            _lookAtPositionLerped = Vector3.Lerp(_lookAtPositionLerped, !lookAtItReally ? transform.position + transform.forward * 10f : _lookAtUnit.transform.position, Time.deltaTime * 10);
+            LookAtBone(_chest, LookStrenght);
+            LookAtBone(_neck, LookStrenght);
         }
 
         void LookAtBone(Transform bone, float strenght)

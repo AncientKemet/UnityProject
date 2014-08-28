@@ -70,12 +70,14 @@ namespace Code.Core.Server.Net
                 if (p.UnitId != -1)
                 {
                     ServerUnit selectedUnit = client.Player.CurrentWorld[p.UnitId];
+
+                    client.Player.Focus.FocusedUnit = selectedUnit;
+                    client.Player.Anim.LookingAt = selectedUnit;
+
                     if (selectedUnit != null)
                     {
                         selectedUnit.Focus.PlayersThatSelectedThisUnit.Add(client.Player);
-
-                        client.Player.Focus.FocusedUnit = selectedUnit;
-
+                        
                         UnitSelectionPacketData data = new UnitSelectionPacketData();
 
                         data.HasCombat = selectedUnit.Combat != null;
@@ -103,7 +105,14 @@ namespace Code.Core.Server.Net
             {
                 UnitActionPacket p = packet as UnitActionPacket;
                 client.Player.Actions.DoAction(p.UnitId, p.ActionName);
-                
+
+                return;
+            }
+
+            if (packet is ChatPacket)
+            {
+                ChatPacket p = packet as ChatPacket;
+                client.Player.Chat.HandlePacket(p);
                 return;
             }
 

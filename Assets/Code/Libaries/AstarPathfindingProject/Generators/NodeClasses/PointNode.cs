@@ -14,7 +14,7 @@ namespace Pathfinding
 		 */
 		public PointNode next;
 
-		//public override Int3 Position {get { return DirecionVector; } }
+		//public override Int3 Position {get { return position; } }
 		
 		public void SetPosition (Int3 value) {
 			position = value;

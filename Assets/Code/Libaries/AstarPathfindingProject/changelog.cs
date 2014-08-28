@@ -1,5 +1,28 @@
 /** \page changelog Changelog
 
+- 3.5.1 (2013-06-15)
+	- Added avoidance masks to local avoidance.
+		Each agent now has a layer and each agent can specify which layers it will avoid.
+
+- 3.5 (2013-06-12)
+	- Added back local avoidance!!
+		The new system uses a sampling based algorithm instead of a geometric one.
+		The API is almost exactly the same so if you used the previous system this will be a drop in replacement.
+		As for performance, it is roughly the same, maybe slightly worse in high density situations and slightly better
+		in less dense situations. It can handle several thousand agents on an i7 processor.
+		Obstacles are not yet supported, but they will be added in a future update.
+		
+	- Binary heap switched out for a 4-ary heap.
+		This improves pathfinding performances by about 5%.
+	- Optimized scanning of navmesh graphs (not the recast graphs)
+		Large meshes should be much faster to scan now.
+	- Optimized BBTree (nearest node lookup for navmesh/recast graphs, pro version only)
+		Nearest node queries on navmesh/recast graphs should be slightly faster now.
+	- Minor updates to the documentation, esp. to the GraphNode class.
+	
+- 3.4.0.7
+	- Vuforia test build
+
 - 3.4.0.6
 	- Fixed an issue where serialization could on some machines sometimes cause an exception to get thrown.
 	- Fixed an issue where the recast graph would not rasterize terrains properly near the edges of it.
@@ -45,7 +68,7 @@
 	- Most scripts are now in namespaces to avoid conflicts with other packages.
 	- GridNodes now support custom connections.
 	- Cleanups, preparing for release.
-	- Reverted to using an Int3 for GraphNode.DirecionVector instead of an abstract Position property, the tiny memory gains were not worth it.
+	- Reverted to using an Int3 for GraphNode.position instead of an abstract Position property, the tiny memory gains were not worth it.
 	
 - Beta 3.3.13 ( 4.3 compatible only )
 	- Fixed an issue where deleting a NavmeshCut component would not update the underlaying graph.
@@ -92,8 +115,8 @@
 	- Reduced allocations when searching on RecastGraph.
 	- Reduced allocations in RichAI and RichPath. Everything is pooled now, so for most requests no allocations will be done.
 	- Reduced allocations in general by using "yield return null" instead of "yield return 0"
-	- Fixed teleport for local avoidance agents. Previously moving an agent from one DirecionVector to another
-		could cause it to interpolate between those two positions for a brief amount of time instead of staying at the second DirecionVector.
+	- Fixed teleport for local avoidance agents. Previously moving an agent from one position to another
+		could cause it to interpolate between those two positions for a brief amount of time instead of staying at the second position.
 	
 - Beta 3.3.8
 	- Nicer RichAI gizmo colors.
@@ -133,7 +156,7 @@
 			faster for graph updates with logarithmic lookup complexity instead of linear (good for larger worlds when doing graph updating).
 		- Reintroducing special connection costs for start and end nodes.
 			Before multithreading was introduced, pathfinding on navmesh graphs could recalculate
-			the connection costs for the start and end nodes to take into account that the start point is not actually exactly at the start node's DirecionVector
+			the connection costs for the start and end nodes to take into account that the start point is not actually exactly at the start node's position
 			(triangles are usually quite a larger than the player/npc/whatever).
 			This didn't work with multithreading however and could mess up pathfinding, so it was removed.
 			Now it has been reintroduced, working with multithreading! This means more accurate paths
@@ -400,9 +423,9 @@
 	- MultiTargetPath would throw NullReferenceException if no valid start node was found, fixed now.
 	- Binary heaps are now automatically expanded if needed, no annoying warning messages.
 	- Fixed a bug where grid graphs would not update the correct area (using GraphUpdateObject) if it was rotated.
-	- Node DirecionVector precision increased from 100 steps per world PlayerUnit to 1000 steps per world PlayerUnit (if 1 world PlayerUnit = 1m, that is mm precision).
+	- Node position precision increased from 100 steps per world unit to 1000 steps per world unit (if 1 world unit = 1m, that is mm precision).
 		This also means that all costs and penalties in graphs will need to be multiplied by 10 to match the new scale.
-		It also means the max range of node positions is reduced a bit... but it is still quite large (about 2 150 000 world _playerUnits in either direction, that should be enough).
+		It also means the max range of node positions is reduced a bit... but it is still quite large (about 2 150 000 world units in either direction, that should be enough).
 	- If Unity 3.5 is used, the EditorGUIUtility.isProSkin field is used to toggle between light and dark skin.
 	- Added LayeredGridGraph which works almost the same as grid graphs, but support multiple layers of nodes.
 	- \note Dropped Unity 3.3 support.
@@ -418,7 +441,7 @@
 	- List graphs previously calculated cost values for connections which were very low (they should have been 100 times larger),
 		this can have caused searches which were not very accurate on small scales since the values were rounded to the nearest integer.
 	- Added Pathfinding.Path.recalcStartEndCosts to specify if the start and end nodes connection costs should be recalculated when searching to reflect
-		small differences between the node's DirecionVector and the actual used start point. It is on by default but if you change node connection costs you might want to switch it off to get more accurate paths.
+		small differences between the node's position and the actual used start point. It is on by default but if you change node connection costs you might want to switch it off to get more accurate paths.
 	- Fixed a compile time warning in the free version from referecing obsolete variables in the project.
 	- Added AstarPath.threadTimeoutFrames which specifies how long the pathfinding thread will wait for new work to turn up before aborting (due to request). This variable is not exposed in the inspector yet.
 	- Fixed typo, either there are eight (8) or four (4) max connections per node in a GridGraph, never six (6).
@@ -477,7 +500,7 @@
 	- Two new example scenes have been added, one for list graphs which includes sample links, and another one for recast graphs
 	- Reverted back to manually setting the dark skin option, since it didn't work in all cases, however if a dark skin is detected, the user will be asked if he/she wants to enable the dark skin
 	- Added gizmos for the AIFollow script which shows the current waypoint and a circle around it illustrating the distance required for it to be considered "reached".
-	- The C# version of Recast does now use Character Radius instead of Erosion Radius (world _playerUnits instead of voxels)
+	- The C# version of Recast does now use Character Radius instead of Erosion Radius (world units instead of voxels)
 	- Fixed an IndexOutOfRange exception which could ocurr when saving a graph with no nodes to file
 	- <b>Known Bugs:</b> The C++ version of Recast does not work on Windows
 - 3.0.6
@@ -514,10 +537,10 @@
 - 3.0.2
 	- Textures can now be used to add penalty, height or change walkability of a Grid Graph (A* Pro only)
 	- Slope can now be used to add penalty to nodes
-	- Height (Y DirecionVector) can now be usd to add penalty to nodes
+	- Height (Y position) can now be usd to add penalty to nodes
 	- Prioritized graphs can be used to enable prioritizing some graphs before others when they are overlapping
 	- Several bug fixes
-	- Included a new DynamicGridObstacle.cs script which can be attached to any obstacle with a collider and it will update grids around it to account for changed DirecionVector
+	- Included a new DynamicGridObstacle.cs script which can be attached to any obstacle with a collider and it will update grids around it to account for changed position
 - 3.0.1
 	- Fixed Unity 3.3 compability
 - 3.0
@@ -530,5 +553,7 @@
 - .x releases are quite big feature updates
 - ..x releases are the most common updates, fix bugs, add some features etc.
 - ...x releases are quickfixes, most common when there was a really bad bug which needed fixing ASAP.
+
+Dates are written according to ISO 8601.
 
  */

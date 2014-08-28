@@ -79,7 +79,7 @@ namespace Code.Core.Server.Model
             world.entities = new List<WorldEntity>();
             world.Units = new List<ServerUnit>();
             world.Players = new List<Player>();
-            world.Tree = new QuadTree(2, Vector2.zero, Vector2.one * 256);
+            world.Tree = new QuadTree(3, Vector2.zero, Vector2.one * 1024);
 
             /*Npc npc = CreateInstance<Npc>(world);
             npc.GetExt<Movement>().Teleport(new Vector3(50,0,50));

@@ -78,6 +78,11 @@ namespace Code.Core.Client.Net
                 UIInventoryInterfacePacket p = packet as UIInventoryInterfacePacket;
                 ItemInventoryInterface.I.Handle(p);
             }
+            else if (packet is ChatPacket)
+            {
+                ChatPacket p = packet as ChatPacket;
+                ChatPanel.I.AddMessage(p);
+            }
 
 
             else

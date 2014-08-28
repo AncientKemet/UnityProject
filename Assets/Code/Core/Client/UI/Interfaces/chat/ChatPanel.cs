@@ -1,15 +1,19 @@
 using System.Collections.Generic;
 using Code.Core.Client.Controls;
 using UnityEngine;
+using Code.Libaries.Net.Packets.ForServer;
+using Code.Core.Client.Net;
 
 namespace Code.Core.Client.UI.Interfaces
 {
     public class ChatPanel : UIInterface<ChatPanel> {
 
         public tk2dTextMesh exampleLine;
-        public tk2dTextMesh inputTextField;
+        public tk2dTextMesh inputTextField, Public, Private, Party;
         public tk2dSlicedSprite slider;
         public tk2dSlicedSprite background;
+
+        public Transform MessageContainer;
 
         [SerializeField]
         private List<tk2dTextMesh> messages = new List<tk2dTextMesh>();
@@ -17,6 +21,8 @@ namespace Code.Core.Client.UI.Interfaces
         private bool _isTyping = false;
 
         private ChatKeyListener listener = new ChatKeyListener();
+
+        private float PressDelay = 1f;
 
         public bool isTyping
         {
@@ -28,8 +34,9 @@ namespace Code.Core.Client.UI.Interfaces
             {
                 _isTyping = value;
                 inputTextField.transform.parent.gameObject.SetActive(_isTyping);
-                slider.gameObject.SetActive(isTyping);
-                background.renderer.enabled = _isTyping;
+                if(slider != null)
+                    slider.gameObject.SetActive(_isTyping);
+                background.gameObject.SetActive(_isTyping);
 
                 if(_isTyping)
                 {
@@ -43,51 +50,114 @@ namespace Code.Core.Client.UI.Interfaces
         }
 
 
-        public void AddMessage(string message)
+        public tk2dTextMesh AddMessage(string message)
         {
-            for (int i = messages.Count-2; i > 0; i--)
-            {
-                messages[i+1].text = messages[i].text;
-                messages[i+1].ForceBuild();
-            }
-            messages[0].text = message;
-            messages[0].ForceBuild();
+            tk2dTextMesh newLine = ((GameObject)Instantiate(exampleLine.gameObject)).GetComponent<tk2dTextMesh>();
+
+            newLine.text = message;
+            newLine.ForceBuild();
+
+            MessageContainer.position += new Vector3(0, newLine.GetEstimatedMeshBoundsForString(message).size.y, 0);
+            newLine.transform.parent = MessageContainer;
+
+            newLine.transform.position = exampleLine.transform.position;
+
+            messages.Add(newLine);
+            newLine.gameObject.SetActive(true);
+
+            return newLine;
         }
 
         private void CompleteChatInput()
         {
-            AddMessage(inputTextField.text);
+            ChatPacket packet = new ChatPacket();
+
+            packet.type = CurrentChatType;
+            packet.text = inputTextField.text;
+
+            ClientCommunicator.Instance.SendToServer(packet);
+
             inputTextField.text = "";
             inputTextField.ForceBuild();
+        }
+
+        private ChatPacket.ChatType _currentChatType = ChatPacket.ChatType.Public;
+        public ChatPacket.ChatType CurrentChatType
+        {
+            get { return _currentChatType; }
+            set
+            {
+                _currentChatType = value;
+
+                Public.gameObject.SetActive(false);
+                Private.gameObject.SetActive(false);
+                Party.gameObject.SetActive(false);
+
+                switch (value)
+                {
+                    case ChatPacket.ChatType.Public:
+                        Public.gameObject.SetActive(true);
+                        break;
+                    case ChatPacket.ChatType.Private:
+                        Private.gameObject.SetActive(true);
+                        break;
+                    case ChatPacket.ChatType.Party:
+                        Party.gameObject.SetActive(true);
+                        break;
+                }
+            }
+        }
+
+        internal void AddMessage(ChatPacket p)
+        {
+            if (p.type == ChatPacket.ChatType.GAME)
+            {
+                AddMessage(p.text);
+            }
+            if (p.type == ChatPacket.ChatType.Public)
+            {
+                AddMessage(p.text).color = Public.color;
+            }
+            if (p.type == ChatPacket.ChatType.Private)
+            {
+                AddMessage(p.text).color = Private.color;
+            }
+            if (p.type == ChatPacket.ChatType.Party)
+            {
+                AddMessage(p.text).color = Party.color;
+            }
         }
 	
         #region implemented abstract members of Interface
         protected override void OnStart()
         {
-            for (int i = 0; i < 7; i++)
-            {
-                tk2dTextMesh newLine = ((GameObject)Instantiate(exampleLine.gameObject)).GetComponent<tk2dTextMesh>();
-                newLine.transform.parent = exampleLine.transform.parent;
-                newLine.transform.localPosition = exampleLine.transform.localPosition + new Vector3(0, i * 1,0); 
-                newLine.text = "";
-                newLine.ForceBuild();
-                messages.Add(newLine);
-            }
+            CurrentChatType = ChatPacket.ChatType.Public;
+
             exampleLine.gameObject.SetActive(false);
-            AddMessage("test message");
             isTyping = false;
         }
 
         protected override void OnUpdate()
         {
-            if(Input.GetKeyUp(KeyCode.Return))
+            PressDelay -= Time.deltaTime;
+        }
+
+        public void EnterPressed()
+        {
+            if (PressDelay > 0)
             {
-                isTyping = !isTyping;
-                if(inputTextField.text.Length > 0){
-                    CompleteChatInput();
-                }
+                return;
+            }
+
+            isTyping = !isTyping;
+            PressDelay = 0.3f;
+            if (inputTextField.text.Length > 0)
+            {
+                CompleteChatInput();
+                inputTextField.text = "";
             }
         }
+
         protected override void OnFixedUpdate()
         {
         }
@@ -114,7 +184,7 @@ namespace Code.Core.Client.UI.Interfaces
                 }
                 else if (c == "\r"[0])
                 {
-                
+                    ChatPanel.I.EnterPressed();
                 }
                 else if ((int)c!=9 && (int)c!=27) //deal with a Mac only Unity bug where it returns a char for escape and tab
                 {
@@ -129,5 +199,6 @@ namespace Code.Core.Client.UI.Interfaces
             {
             }
         };
+
     }
 }

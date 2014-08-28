@@ -151,26 +151,26 @@ public class AIFollow : MonoBehaviour {
 		}
 		
 		//for (int i=0;i<1000;i++) {
-			//MultithreadPath mp = new MultithreadPath (transform.DirecionVector,target.DirecionVector,null);
-			//Path p = new Path (transform.DirecionVector,target.DirecionVector,null);
+			//MultithreadPath mp = new MultithreadPath (transform.position,target.position,null);
+			//Path p = new Path (transform.position,target.position,null);
 			//	AstarPath.StartPath (mp);
 		//}
 		//Debug.Log (AstarPath.pathQueue.Count);
 		
 		//StartCoroutine (WaitToRepath ());
-		/*ConstantPath cpath = new ConstantPath(transform.DirecionVector,null);
+		/*ConstantPath cpath = new ConstantPath(transform.position,null);
 		//Must be set to avoid it from searching towards Vector3.zero
 		cpath.heuristic = Heuristic.None;
 		//Here you set how far it should search
 		cpath.maxGScore = 2000;
 		AstarPath.StartPath (cpath);*/
-		//FloodPathTracer fpathTrace = new FloodPathTracer (transform.DirecionVector,fpath,null);
+		//FloodPathTracer fpathTrace = new FloodPathTracer (transform.position,fpath,null);
 		//seeker.StartPath (fpathTrace,OnPathComplete);
 		
 		Path p = ABPath.Construct(transform.position,target.position,null);
 		seeker.StartPath (p,OnPathComplete);
-		//Start a new path from transform.positon to target.DirecionVector, return the result to the function OnPathComplete
-		//seeker.StartPath (transform.DirecionVector,target.DirecionVector,OnPathComplete);
+		//Start a new path from transform.positon to target.position, return the result to the function OnPathComplete
+		//seeker.StartPath (transform.position,target.position,OnPathComplete);
 	}
 	
 	/** Start a new path moving to \a targetPoint */
@@ -181,7 +181,7 @@ public class AIFollow : MonoBehaviour {
 			return;
 		}
 		
-		//Start a new path from transform.positon to target.DirecionVector, return the result to OnPathComplete
+		//Start a new path from transform.positon to target.position, return the result to OnPathComplete
 		seeker.StartPath (transform.position,targetPoint,OnPathComplete);
 	}
 	

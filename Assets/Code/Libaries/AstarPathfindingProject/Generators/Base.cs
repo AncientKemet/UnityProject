@@ -2,6 +2,8 @@
 	#define UNITY_LE_4_3
 #endif
 
+//#define ASTAR_NO_JSON
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -140,30 +142,30 @@ namespace Pathfinding {
 			Matrix4x4 m = inv * newMatrix;
 			
 			GetNodes (delegate (GraphNode node) {
-				//Vector3 tmp = inv.MultiplyPoint3x4 ((Vector3)nodes[i].DirecionVector);
+				//Vector3 tmp = inv.MultiplyPoint3x4 ((Vector3)nodes[i].position);
 				node.position = ((Int3)m.MultiplyPoint ((Vector3)node.position));
 				return true;
 			});
 			SetMatrix (newMatrix);
 		}
 		
-		/** Returns the nearest node to a DirecionVector using the default NNConstraint.
-		  * \param DirecionVector The DirecionVector to try to find a close node to
+		/** Returns the nearest node to a position using the default NNConstraint.
+		  * \param position The position to try to find a close node to
 		  * \see Pathfinding.NNConstraint.None
 		  */
 		public NNInfo GetNearest (Vector3 position) {
 			return GetNearest (position, NNConstraint.None);
 		}
 		
-		/** Returns the nearest node to a DirecionVector using the specified NNConstraint.
-		  * \param DirecionVector The DirecionVector to try to find a close node to
+		/** Returns the nearest node to a position using the specified NNConstraint.
+		  * \param position The position to try to find a close node to
 		  * \param constraint Can for example tell the function to try to return a walkable node. If you do not get a good node back, consider calling GetNearestForce. */
 		public NNInfo GetNearest (Vector3 position, NNConstraint constraint) {
 			return GetNearest (position, constraint, null);
 		}
 		
-		/** Returns the nearest node to a DirecionVector using the specified NNConstraint.
-		  * \param DirecionVector The DirecionVector to try to find a close node to
+		/** Returns the nearest node to a position using the specified NNConstraint.
+		  * \param position The position to try to find a close node to
 		  * \param hint Can be passed to enable some graph generators to find the nearest node faster.
 		  * \param constraint Can for example tell the function to try to return a walkable node. If you do not get a good node back, consider calling GetNearestForce. */
 		public virtual NNInfo GetNearest (Vector3 position, NNConstraint constraint, GraphNode hint) {
@@ -207,7 +209,7 @@ namespace Pathfinding {
 		}
 		
 		/// <summary>
-		/// Returns the nearest node to a DirecionVector using the specified <see cref="NNConstraint">constraint</see>.
+		/// Returns the nearest node to a position using the specified <see cref="NNConstraint">constraint</see>.
 		/// </summary>
 		/// <param name="position">
 		/// A <see cref="Vector3"/>
@@ -323,9 +325,9 @@ namespace Pathfinding {
 				
 				/* Wasn't really usefull
 				case GraphDebugMode.Position:
-					float r = Mathf.PingPong (node.DirecionVector.x/10000F,1F) + Mathf.PingPong (node.DirecionVector.x/300000F,1F);
-					float g = Mathf.PingPong (node.DirecionVector.y/10000F,1F) + Mathf.PingPong (node.DirecionVector.y/200000F,1F);
-					float b = Mathf.PingPong (node.DirecionVector.z/10000F,1F) + Mathf.PingPong (node.DirecionVector.z/100000F,1F);
+					float r = Mathf.PingPong (node.position.x/10000F,1F) + Mathf.PingPong (node.position.x/300000F,1F);
+					float g = Mathf.PingPong (node.position.y/10000F,1F) + Mathf.PingPong (node.position.y/200000F,1F);
+					float b = Mathf.PingPong (node.position.z/10000F,1F) + Mathf.PingPong (node.position.z/100000F,1F);
 					
 					
 					c = new Color (r,g,b);
@@ -377,7 +379,8 @@ namespace Pathfinding {
 		 */
 		public virtual void PostDeserialization () {
 		}
-		
+
+
 		/** Returns if the node is in the search tree of the path.
 		 * Only guaranteed to be correct if \a path is the latest path calculated.
 		 * Use for gizmo drawing only.
@@ -507,7 +510,7 @@ namespace Pathfinding {
 			finalRaycastRadius = thickRaycastDiameter*scale*0.5F;
 		}
 		
-		/** Returns if the DirecionVector is obstructed. If #collisionCheck is false, this will always return true.\n */
+		/** Returns if the position is obstructed. If #collisionCheck is false, this will always return true.\n */
 		public bool Check (Vector3 position) {
 			
 			if (!collisionCheck) {
@@ -546,14 +549,14 @@ namespace Pathfinding {
 			}
 		}
 		
-		/** Returns the DirecionVector with the correct height. If #heightCheck is false, this will return \a DirecionVector.\n */
+		/** Returns the position with the correct height. If #heightCheck is false, this will return \a position.\n */
 		public Vector3 CheckHeight (Vector3 position) {
 			RaycastHit hit;
 			bool walkable;
 			return CheckHeight (position,out hit, out walkable);
 		}
 		
-		/** Returns the DirecionVector with the correct height. If #heightCheck is false, this will return \a DirecionVector.\n
+		/** Returns the position with the correct height. If #heightCheck is false, this will return \a position.\n
 		  * \a walkable will be set to false if nothing was hit. The ray will check a tiny bit further than to the grids base to avoid floating point errors when the ground is exactly at the base of the grid */
 		public Vector3 CheckHeight (Vector3 position, out RaycastHit hit, out bool walkable) {
 			walkable = true;
@@ -568,7 +571,7 @@ namespace Pathfinding {
 				if (Physics.SphereCast (ray, finalRaycastRadius,out hit, fromHeight+0.005F, heightMask)) {
 					
 					return AstarMath.NearestPoint (ray.origin,ray.origin+ray.direction,hit.point);
-					//DirecionVector+up*(fromHeight-hit.distance);
+					//position+up*(fromHeight-hit.distance);
 				} else {
 					if (unwalkableWhenNoGround) {
 						walkable = false;
@@ -601,7 +604,7 @@ namespace Pathfinding {
 				if (Physics.SphereCast (ray, finalRaycastRadius,out hit, fromHeight+0.005F, heightMask)) {
 					
 					return AstarMath.NearestPoint (ray.origin,ray.origin+ray.direction,hit.point);
-					//DirecionVector+up*(fromHeight-hit.distance);
+					//position+up*(fromHeight-hit.distance);
 				} else {
 					if (unwalkableWhenNoGround) {
 						walkable = false;
@@ -620,7 +623,7 @@ namespace Pathfinding {
 		}
 		
 		//[System.Obsolete ("Does not work well, will only return an object a single time")]
-		/** Returns all hits when checking height for \a DirecionVector.
+		/** Returns all hits when checking height for \a position.
 		  * \note Does not work well with thick raycast, will only return an object a single time */
 		public RaycastHit[] CheckHeightAll (Vector3 position) {
 			
@@ -628,23 +631,23 @@ namespace Pathfinding {
 			
 			if (!heightCheck) {
 				RaycastHit hit = new RaycastHit ();
-				hit.point = DirecionVector;
+				hit.point = position;
 				hit.distance = 0;
 				return new RaycastHit[1] {hit};
 			}
 			
 			
 			if (thickRaycast) {
-				Ray ray = new Ray (DirecionVector+up*fromHeight,-up);
+				Ray ray = new Ray (position+up*fromHeight,-up);
 				
 				hits = Physics.SphereCastAll (ray, finalRaycastRadius, fromHeight, heightMask);
 					
 				for (int i=0;i<hits.Length;i++) {
 					hits[i].point = Mathfx.NearestPoint (ray.origin,ray.origin+ray.direction,hits[i].point);
-					//DirecionVector+up*(fromHeight-hit.distance);
+					//position+up*(fromHeight-hit.distance);
 				}
 			} else {
-				hits = Physics.RaycastAll (DirecionVector+up*fromHeight, -up, fromHeight, heightMask);
+				hits = Physics.RaycastAll (position+up*fromHeight, -up, fromHeight, heightMask);
 			}
 			return hits;*/
 			
@@ -674,7 +677,7 @@ namespace Pathfinding {
 					break;
 				} else {
 					
-					//Make sure we didn't hit the same DirecionVector
+					//Make sure we didn't hit the same position
 					if (hit.point != prevHit || hits.Count == 0) {
 						cpos = hit.point - up*RaycastErrorMargin;
 						prevHit = hit.point;
@@ -684,7 +687,7 @@ namespace Pathfinding {
 					} else {
 						cpos -= up*0.001F;
 						numberSame++;
-						//Check if we are hitting the same DirecionVector all the time, even though we are decrementing the cpos variable
+						//Check if we are hitting the same position all the time, even though we are decrementing the cpos variable
 						if (numberSame > 10) {
 							Debug.LogError ("Infinite Loop when raycasting. Please report this error (arongranberg.com)\n"+cpos+" : "+prevHit);
 							break;

@@ -13,6 +13,7 @@ namespace Code.Core.Client.UI.Controls
 
         protected virtual void Start()
         {
+            base.Start();
             GetComponent<Clickable>().OnLeftClick += SendClickPacket;
         }
 

@@ -19,7 +19,7 @@ public class ProceduralWorld : MonoBehaviour {
 		/** Prefab to use */
 		public GameObject prefab;
 
-		/** Number of objects per square world PlayerUnit */
+		/** Number of objects per square world unit */
 		public float density = 0;
 
 		/** Multiply by [perlin noise].
@@ -201,7 +201,7 @@ public class ProceduralWorld : MonoBehaviour {
 
 							// Create a number of objects
 							for ( int j=0;j<count;j++) {
-								// Find a random DirecionVector inside the current sub-tile
+								// Find a random position inside the current sub-tile
 								Vector3 p = RandomInside (px, pz);
 								GameObject ob = GameObject.Instantiate ( pref.prefab, p, RandomYRot () ) as GameObject;
 								ob.transform.parent = root;

@@ -148,14 +148,14 @@ namespace Pathfinding {
 			return nnInfo;
 		}
 
-		/** Add a node to the graph at the specified DirecionVector.
+		/** Add a node to the graph at the specified position.
 		 * \note Vector3 can be casted to Int3 using (Int3)myVector.
 		 */
 		public PointNode AddNode (Int3 position) {
 			return AddNode ( new PointNode (active), position );
 		}
 		
-		/** Add a node with the specified type to the graph at the specified DirecionVector.
+		/** Add a node with the specified type to the graph at the specified position.
 		 * \note Vector3 can be casted to Int3 using (Int3)myVector.
 		 * 
 		 * \param nd This must be a node created using T(AstarPath.active) right before the call to this method.

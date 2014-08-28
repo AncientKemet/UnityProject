@@ -13,7 +13,7 @@ namespace Pathfinding {
 	 * Animation is handled by this component. The Animation component refered to in #anim should have animations named "awake" and "forward".
 	 * The forward animation will have it's speed modified by the velocity and scaled by #animationSpeed to adjust it to look good.
 	 * The awake animation will only be sampled at the end frame and will not play.\n
-	 * When the end of path is reached, if the #endOfPathEffect is not null, it will be instantiated at the current DirecionVector. However a check will be
+	 * When the end of path is reached, if the #endOfPathEffect is not null, it will be instantiated at the current position. However a check will be
 	 * done so that it won't spawn effects too close to the previous spawn-point.
 	 * \shadowimage{mine-bot.png}
 	 * 
@@ -62,7 +62,7 @@ namespace Pathfinding {
 		 * Called when the end of path has been reached.
 		 * An effect (#endOfPathEffect) is spawned when this function is called
 		 * However, since paths are recalculated quite often, we only spawn the effect
-		 * when the current DirecionVector is some distance away from the previous spawn-point
+		 * when the current position is some distance away from the previous spawn-point
 		*/
 		public override void OnTargetReached () {
 			
@@ -96,14 +96,16 @@ namespace Pathfinding {
 					//Otherwise, just stand still (this ensures gravity is applied)
 					dir = Vector3.zero;
 				}
-				
+
 				if (navController != null) {
-				} else if (controller != null)
+					velocity = Vector3.zero;
+				} else if (controller != null) {
 					controller.SimpleMove (dir);
-				else
+					velocity = controller.velocity;
+				} else {
 					Debug.LogWarning ("No NavmeshController or CharacterController attached to GameObject");
-				
-				velocity = controller.velocity;
+					velocity = Vector3.zero;
+				}
 			} else {
 				velocity = Vector3.zero;
 			}

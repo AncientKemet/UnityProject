@@ -58,6 +58,15 @@ namespace Code.Core.Server.Model.Extensions.PlayerExtensions.UIHelpers
                 }
             }
 
+            if (e.interfaceId == InterfaceType.Chat)
+            {
+                if (e.controlID == 0) // start talking
+                {
+                    return;
+                }
+                return;
+            }
+
             Debug.LogError("Unknown event: "+e._eventType+" interface id: "+e.interfaceId+" control id: "+e.controlID);
         }
 

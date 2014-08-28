@@ -43,8 +43,10 @@ namespace Code.Core.Client.UI.Interfaces
 
             Vector3 wp = tk2dUIManager.Instance.camera.ScreenToWorldPoint(Input.mousePosition);
 
-            transform.position = new Vector3(wp.x, wp.y, -50) + OFFSET;
+            Vector3 pos = new Vector3(wp.x, wp.y, clickable.transform.position.z - 50) + OFFSET;
 
+            
+            
             int buttonIndex = 0;
             foreach (RightClickAction action in clickable.Actions)
             {
@@ -65,6 +67,15 @@ namespace Code.Core.Client.UI.Interfaces
             _backGround.renderer.enabled = true;
             _backGround.dimensions = new Vector2(8 + maxWidth * _buttonWidthRatio, 8 + _buttonHeightRatio * buttons.Count);
             _backGround.ForceBuild();
+
+            pos.x = Mathf.Clamp(pos.x,
+                tk2dUIManager.Instance.camera.ViewportToWorldPoint(new Vector2(0, 0)).x,
+                tk2dUIManager.Instance.camera.ViewportToWorldPoint(new Vector2(1, 0)).x - _backGround.renderer.bounds.size.x);
+            pos.y = Mathf.Clamp(pos.y,
+                tk2dUIManager.Instance.camera.ViewportToWorldPoint(new Vector2(0, 0)).y + _backGround.renderer.bounds.size.y,
+                tk2dUIManager.Instance.camera.ViewportToWorldPoint(new Vector2(1, 1)).y );
+
+            transform.position = pos;
 
             _opened = true;
         }

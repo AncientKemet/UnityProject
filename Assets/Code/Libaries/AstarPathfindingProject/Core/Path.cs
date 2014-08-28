@@ -100,14 +100,14 @@ namespace Pathfinding {
 		//Not all are used in the standard graph types
 		//These variables are put here because it is a lot faster to access fields than, for example make use of a lookup table (e.g dictionary)
 		//Note: These variables needs to be filled in by an external script to be usable
-		/** Radius for the PlayerUnit searching for the path.
+		/** Radius for the unit searching for the path.
 		 * \note Not used by any built-in pathfinders.
 		 * These common name variables are put here because it is a lot faster to access fields than, for example make use of a lookup table (e.g dictionary).
 		 * Or having to cast to another path type for acess.
 		 */
 		public int radius;
 		
-		/** A mask for defining what type of ground a PlayerUnit can traverse, not used in any default standard graph. \see #enabledTags
+		/** A mask for defining what type of ground a unit can traverse, not used in any default standard graph. \see #enabledTags
 		  * \note Not used by any built-in pathfinders.
 		 * These variables are put here because it is a lot faster to access fields than, for example make use of a lookup table (e.g dictionary)
 		 */
@@ -194,7 +194,7 @@ namespace Pathfinding {
 \code
 //In an IEnumerator function
 
-Path p = Seeker.StartPath (transform.DirecionVector, transform.DirecionVector + Vector3.forward * 10);
+Path p = Seeker.StartPath (transform.position, transform.position + Vector3.forward * 10);
 yield return StartCoroutine (p.WaitForPath ());
 
 //The path is calculated at this stage
@@ -255,9 +255,9 @@ yield return StartCoroutine (p.WaitForPath ());
 		/** May be called by graph nodes to get a special cost for some connections.
 		 * Nodes may call it when PathNode.flag2 is set to true, for example mesh nodes, which have 
 		 * a very large area can be marked on the start and end nodes, this method will be called
-		 * to get the actual cost for moving from the start DirecionVector to its neighbours instead
-		 * of as would otherwise be the case, from the start node's DirecionVector to its neighbours.
-		 * The DirecionVector of a node and the actual start point on the node can vary quite a lot.
+		 * to get the actual cost for moving from the start position to its neighbours instead
+		 * of as would otherwise be the case, from the start node's position to its neighbours.
+		 * The position of a node and the actual start point on the node can vary quite a lot.
 		 * 
 		 * The default behaviour of this method is to return the previous cost of the connection,
 		 * essentiall making no change at all.
@@ -604,7 +604,7 @@ public override void Recycle () {
 			text.Append (error ? "Path Failed : " : "Path Completed : ");
 			text.Append ("Computation Time ");
 			
-			text.Append ((duration).ToString (logMode == PathLog.Heavy ? "0.000000 ms " : "0.00 ms "));
+			text.Append ((duration).ToString (logMode == PathLog.Heavy ? "0.000 ms " : "0.00 ms "));
 			text.Append ("Searched Nodes ");
 			text.Append (searchedNodes);
 			

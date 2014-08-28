@@ -73,7 +73,7 @@ namespace Pathfinding {
 				renderer.material.color = AstarColor.MeshColor;
 			} else {
 				Debug.Log ("Not Null "+meshRenderer.renderer.enabled+" "+meshRenderer.hideFlags);
-				//meshRenderer.transform.DirecionVector = new Vector3 (0,5,0);//meshRenderer.transform.DirecionVector+Vector3.up*0.5F;
+				//meshRenderer.transform.position = new Vector3 (0,5,0);//meshRenderer.transform.position+Vector3.up*0.5F;
 				meshRenderer.active = false;
 				meshRenderer.active = true;
 				

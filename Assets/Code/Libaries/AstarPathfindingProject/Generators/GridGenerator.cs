@@ -113,7 +113,7 @@ AstarPath.active.Scan();
 		public Vector2 unclampedSize; 	/**< Size of the grid. Might be negative or smaller than #nodeSize */
 		
 		[JsonMember]
-		public float nodeSize = 1; /**< Size of one node in world _playerUnits. \see UpdateSizeFromWidthDepth */
+		public float nodeSize = 1; /**< Size of one node in world units. \see UpdateSizeFromWidthDepth */
 		
 		/* Collision and stuff */
 		
@@ -121,7 +121,7 @@ AstarPath.active.Scan();
 		[JsonMember]
 		public GraphCollision collision;
 		
-		/** The max DirecionVector difference between two nodes to enable a connection. Set to 0 to ignore the value.*/
+		/** The max position difference between two nodes to enable a connection. Set to 0 to ignore the value.*/
 		[JsonMember]
 		public float maxClimb = 0.4F;
 		
@@ -131,7 +131,7 @@ AstarPath.active.Scan();
 		
 		/** The max slope in degrees for a node to be walkable. */
 		[JsonMember]
-		public float maxSlope = 40;
+		public float maxSlope = 90;
 		
 		/** Use heigh raycasting normal for max slope calculation.
 		 * True if #maxSlope is less than 90 degrees.
@@ -187,14 +187,14 @@ AstarPath.active.Scan();
 		public bool cutCorners = true;
 		
 		[JsonMember]
-		/** Offset for the DirecionVector when calculating penalty.
+		/** Offset for the position when calculating penalty.
 		  * \see penaltyPosition */
 		public float penaltyPositionOffset = 0;
 		[JsonMember]
-		/** Use DirecionVector (y-coordinate) to calculate penalty */
+		/** Use position (y-coordinate) to calculate penalty */
 		public bool penaltyPosition = false;
 		[JsonMember]
-		/** Scale factor for penalty when calculating from DirecionVector.
+		/** Scale factor for penalty when calculating from position.
 		 * \see penaltyPosition
 		 */
 		public float penaltyPositionFactor = 1F;
@@ -251,8 +251,9 @@ AstarPath.active.Scan();
 		}
 		
 		public Int3 GetNodePosition (int index, int yOffset) {
-			int x;
-			int z = System.Math.DivRem (index,Width, out x);
+			//int z = Math.DivRem (index,Width, out x);
+			int z = index/Width;
+			int x = index - z*Width;
 			return (Int3)matrix.MultiplyPoint3x4(new Vector3(x+0.5f,yOffset*Int3.PrecisionFactor,z+0.5f));//return Int3.zero;}
 		}
 		
@@ -283,8 +284,9 @@ AstarPath.active.Scan();
 				return nodes[node.NodeInGridIndex + neighbourOffsets[dir]];
 			} else {
 				int index = node.NodeInGridIndex;
-				int x;
-				int z = System.Math.DivRem (index,Width, out x);
+				//int z = Math.DivRem (index,Width, out x);
+				int z = index/Width;
+				int x = index - z*Width;
 				
 				return GetNodeConnection (index, x, z, dir);
 			}
@@ -296,8 +298,9 @@ AstarPath.active.Scan();
 				return true;
 			} else {
 				int index = node.NodeInGridIndex;
-				int x;
-				int z = System.Math.DivRem (index,Width, out x);
+				//int z = Math.DivRem (index,Width, out x);
+				int z = index/Width;
+				int x = index - z*Width;
 				
 				return HasNodeConnection (index, x, z, dir);
 			}
@@ -305,8 +308,9 @@ AstarPath.active.Scan();
 		
 		public void SetNodeConnection (GridNode node, int dir, bool value) {
 			int index = node.NodeInGridIndex;
-			int x;
-			int z = System.Math.DivRem (index,Width, out x);
+			//int z = Math.DivRem (index,Width, out x);
+			int z = index/Width;
+			int x = index - z*Width;
 			
 			SetNodeConnection (index, x, z, dir, value);
 		}
@@ -423,7 +427,7 @@ AstarPath.active.Scan();
 			//bounds.size = new Vector3 (width*scale,height,depth*scale);
 		//}
 		
-		/** \todo Set clamped DirecionVector for Grid Graph */
+		/** \todo Set clamped position for Grid Graph */
 		public override NNInfo GetNearest (Vector3 position, NNConstraint constraint, GraphNode hint) {
 			
 			if (nodes == null || depth*width != nodes.Length) {
@@ -442,14 +446,14 @@ AstarPath.active.Scan();
 			float y = inverseMatrix.MultiplyPoint3x4((Vector3)nodes[z*width+x].position).y;
 			nn.clampedPosition = matrix.MultiplyPoint3x4 (new Vector3(Mathf.Clamp(xf,x-0.5f,x+0.5f)+0.5f,y,Mathf.Clamp(zf,z-0.5f,z+0.5f)+0.5f));
 			
-			//Set clamped DirecionVector
-			//nn.clampedPosition = new Vector3(Mathf.Clamp (xf,x-0.5f,x+0.5f),DirecionVector.y,Mathf.Clamp (zf,z-0.5f,z+0.5f));
+			//Set clamped position
+			//nn.clampedPosition = new Vector3(Mathf.Clamp (xf,x-0.5f,x+0.5f),position.y,Mathf.Clamp (zf,z-0.5f,z+0.5f));
 			//nn.clampedPosition = matrix.MultiplyPoint3x4 (nn.clampedPosition);
 			
 			return nn;
 		}
 		
-		/** \todo Set clamped DirecionVector for Grid Graph */
+		/** \todo Set clamped position for Grid Graph */
 		public override NNInfo GetNearestForce (Vector3 position, NNConstraint constraint) {
 			
 			if (nodes == null || depth*width != nodes.Length) {
@@ -519,7 +523,7 @@ AstarPath.active.Scan();
 					anyInside = true;
 					if (constraint.Suitable (nodes[nx+nz2])) {
 						float dist = ((Vector3)nodes[nx+nz2].position-globalPosition).sqrMagnitude;
-						//Debug.DrawRay (nodes[nx+nz2].DirecionVector,Vector3.up*dist,Color.cyan);counter++;
+						//Debug.DrawRay (nodes[nx+nz2].position,Vector3.up*dist,Color.cyan);counter++;
 						if (dist < minDist && dist < maxDistSqr) {
 							minDist = dist;
 							minNode = nodes[nx+nz2];
@@ -536,7 +540,7 @@ AstarPath.active.Scan();
 					anyInside = true;
 					if (constraint.Suitable (nodes[nx+nz2])) {
 						float dist = ((Vector3)nodes[nx+nz2].position-globalPosition).sqrMagnitude;
-						//Debug.DrawRay (nodes[nx+nz2].DirecionVector,Vector3.up*dist,Color.cyan);counter++;
+						//Debug.DrawRay (nodes[nx+nz2].position,Vector3.up*dist,Color.cyan);counter++;
 						if (dist < minDist && dist < maxDistSqr) {
 							minDist = dist;
 							minNode = nodes[nx+nz2];
@@ -553,7 +557,7 @@ AstarPath.active.Scan();
 					anyInside = true;
 					if (constraint.Suitable (nodes[nx+nz*width])) {
 						float dist = ((Vector3)nodes[nx+nz*width].position-globalPosition).sqrMagnitude;
-						//Debug.DrawRay (nodes[nx+nz*width].DirecionVector,Vector3.up*dist,Color.cyan);counter++;
+						//Debug.DrawRay (nodes[nx+nz*width].position,Vector3.up*dist,Color.cyan);counter++;
 						if (dist < minDist && dist < maxDistSqr) {
 							minDist = dist;
 							minNode = nodes[nx+nz*width];
@@ -569,7 +573,7 @@ AstarPath.active.Scan();
 					anyInside = true;
 					if (constraint.Suitable (nodes[nx+nz*width])) {
 						float dist = ((Vector3)nodes[nx+nz*width].position-globalPosition).sqrMagnitude;
-						//Debug.DrawRay (nodes[nx+nz*width].DirecionVector,Vector3.up*dist,Color.cyan);counter++;
+						//Debug.DrawRay (nodes[nx+nz*width].position,Vector3.up*dist,Color.cyan);counter++;
 						if (dist < minDist && dist < maxDistSqr) {
 							minDist = dist;
 							minNode = nodes[nx+nz*width];
@@ -705,13 +709,13 @@ AstarPath.active.Scan();
 					UpdateNodePositionCollision (node,x,z);
 					
 					
-					/*node.DirecionVector = matrix.MultiplyPoint3x4 (new Vector3 (x+0.5F,0,z+0.5F));
+					/*node.position = matrix.MultiplyPoint3x4 (new Vector3 (x+0.5F,0,z+0.5F));
 					
 					RaycastHit hit;
 					
 					bool walkable = true;
 					
-					node.DirecionVector = collision.CheckHeight (node.DirecionVector, out hit, out walkable);
+					node.position = collision.CheckHeight (node.position, out hit, out walkable);
 					
 					node.penalty = 0;//Mathf.RoundToInt (Random.value*100);
 					
@@ -730,7 +734,7 @@ AstarPath.active.Scan();
 					
 					//If the walkable flag has already been set to false, there is no point in checking for it again
 					if (walkable) {
-						node.walkable = collision.Check (node.DirecionVector);
+						node.walkable = collision.Check (node.position);
 					} else {
 						node.walkable = walkable;
 					}*/
@@ -757,7 +761,7 @@ AstarPath.active.Scan();
 			//endIndex = startIndex+graphNodes.Length;
 		}
 		
-		/** Updates DirecionVector, walkability and penalty for the node.
+		/** Updates position, walkability and penalty for the node.
 		 * Assumes that collision.Initialize (...) has been called before this function */
 		public virtual void UpdateNodePositionCollision (GridNode node, int x, int z, bool resetPenalty = true) {
 			
@@ -1086,12 +1090,12 @@ AstarPath.active.Scan();
 						continue;
 					}
 					//Gizmos.color = node.walkable ? Color.green : Color.red;
-					//Gizmos.DrawSphere (node.DirecionVector,0.2F);
+					//Gizmos.DrawSphere (node.position,0.2F);
 					
 					Gizmos.color = NodeColor (node,AstarPath.active.debugPathData);
 					
 					//if (true) {
-					//	Gizmos.DrawCube (node.DirecionVector,Vector3.one*nodeSize);
+					//	Gizmos.DrawCube (node.position,Vector3.one*nodeSize);
 					//}
 					//else 
 					if (AstarPath.active.showSearchTree && AstarPath.active.debugPathData != null) {
@@ -1224,7 +1228,7 @@ AstarPath.active.Scan();
 			
 			int minZ = Mathf.RoundToInt (min.z-0.5F);
 			int maxZ = Mathf.RoundToInt (max.z-0.5F);
-			//We now have coordinates in local space (i.e 1 PlayerUnit = 1 node)
+			//We now have coordinates in local space (i.e 1 unit = 1 node)
 			
 			IntRect originalRect = new IntRect(minX,minZ,maxX,maxZ);
 			IntRect affectRect = originalRect;

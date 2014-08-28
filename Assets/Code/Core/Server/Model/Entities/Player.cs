@@ -23,12 +23,15 @@ namespace Code.Core.Server.Model.Entities
 
         public PlayerInput PlayerInput { get; private set; }
         public ClientUI ClientUi { get; private set; }
+        public PlayerChat Chat { get; private set; }
 
         public override void Awake()
         {
             base.Awake();
+
             AddExt(ClientUi = new ClientUI());
             AddExt(PlayerInput = new PlayerInput());
+            AddExt(Chat = new PlayerChat());
 
             //Server.Instance.swm.Get.Kemet.AddEntity(ServerMonoBehaviour.CreateInstance<Npc>());
         }

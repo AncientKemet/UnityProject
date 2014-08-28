@@ -69,7 +69,7 @@ namespace Pathfinding {
 		}
 		
 		/** Updates the positions of all relevant graph surface components.
-		 * Required to be able to use the DirecionVector property reliably.
+		 * Required to be able to use the position property reliably.
 		 */
 		public static void UpdateAllPositions () {
 			RelevantGraphSurface c = root;

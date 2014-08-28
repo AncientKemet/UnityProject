@@ -27,7 +27,7 @@ namespace Pathfinding {
 			SnapToNode,		/**< The point is snapped to the first/last node in the path*/
 			Original,		/**< The point is set to the exact point which was passed when calling the pathfinding */
 			Interpolate,	/**< The point is set to the closest point on the line between either the two first points or the two last points */
-			ClosestOnNode	/**< The point is set to the closest point on the node. Note that for some node types (point nodes) the "closest point" is the node's DirecionVector which makes this identical to Exactness.SnapToNode */
+			ClosestOnNode	/**< The point is set to the closest point on the node. Note that for some node types (point nodes) the "closest point" is the node's position which makes this identical to Exactness.SnapToNode */
 		}
 		
 		public bool useRaycasting = false;
@@ -38,7 +38,7 @@ namespace Pathfinding {
 		/*public override void ApplyOriginal (Path p) {
 			
 			if (exactStartPoint) {
-				pStart = GetClampedPoint (p.path[0].DirecionVector, p.originalStartPoint, p.path[0]);
+				pStart = GetClampedPoint (p.path[0].position, p.originalStartPoint, p.path[0]);
 				
 				if (!addPoints) {
 					p.startPoint = pStart;
@@ -46,7 +46,7 @@ namespace Pathfinding {
 			}
 			
 			if (exactEndPoint) {
-				pEnd = GetClampedPoint (p.path[p.path.Length-1].DirecionVector, p.originalEndPoint, p.path[p.path.Length-1]);
+				pEnd = GetClampedPoint (p.path[p.path.Length-1].position, p.originalEndPoint, p.path[p.path.Length-1]);
 				
 				if (!addPoints) {
 					p.endPoint = pEnd;

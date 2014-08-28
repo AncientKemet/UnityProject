@@ -1,0 +1,11 @@
+# Blender MTL File: 'HumanMale2test.blend'
+# Material Count: 1
+
+newmtl SkinMat
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.451836 0.150397
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2

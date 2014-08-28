@@ -52,7 +52,7 @@ namespace Code.Core.Server.Model.Pathfinding
                 graph.Depth = GridSize;
 
                 graph.maxClimb = 200;
-                graph.maxSlope = 40f;
+                graph.maxSlope = 30f;
 
                 graph.nodeSize = nodeSize;
                 graph.center = new Vector3(x * GridSize + GridSize / 2f * nodeSize - x, 0, z * GridSize + GridSize / 2f * nodeSize);

@@ -69,7 +69,7 @@ namespace Pathfinding {
 		public bool useWorldSpace = false;
 		
 		/** Update node's walkability and connectivity using physics functions.
-		 * For grid graphs, this will update the node's DirecionVector and walkability exactly like when doing a scan of the graph.
+		 * For grid graphs, this will update the node's position and walkability exactly like when doing a scan of the graph.
 		 * If enabled for grid graphs, #modifyWalkability will be ignored.
 		 * 
 		 * For Point Graphs, this will recalculate all connections which passes through the bounds of the resulting Graph Update Object

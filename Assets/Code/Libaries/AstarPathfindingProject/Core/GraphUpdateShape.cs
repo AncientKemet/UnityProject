@@ -67,7 +67,7 @@ namespace Pathfinding {
 			
 			Vector3 point = (Vector3)node.position;
 			
-			//Debug.DrawRay (node.DirecionVector,-Vector3.up*2,Color.magenta);
+			//Debug.DrawRay (node.position,-Vector3.up*2,Color.magenta);
 			
 			if (convex) {
 				if (_convexPoints == null) return false;
@@ -81,7 +81,7 @@ namespace Pathfinding {
 				return Polygon.ContainsPoint (_points,point);
 			}
 			
-			//Debug.DrawRay (node.DirecionVector,Vector3.up*2,Color.blue);
+			//Debug.DrawRay (node.position,Vector3.up*2,Color.blue);
 			
 			return true;
 		}

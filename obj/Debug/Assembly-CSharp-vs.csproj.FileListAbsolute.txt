@@ -1,0 +1,13 @@
+C:\KemetUnity\Kmt\Temp\bin\Debug\Assembly-CSharp.dll
+C:\KemetUnity\Kmt\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\KemetUnity\Kmt\Temp\bin\Debug\Pathfinding.Ionic.Zip.Reduced.dll
+C:\KemetUnity\Kmt\Temp\bin\Debug\Pathfinding.JsonFx.dll
+C:\KemetUnity\Kmt\Temp\bin\Debug\UnityEditor.dll
+C:\KemetUnity\Kmt\Temp\bin\Debug\UnityEngine.dll
+C:\KemetUnity\Kmt\Temp\bin\Debug\Mono.Cecil.dll
+C:\KemetUnity\Kmt\Temp\bin\Debug\nunit.framework.dll
+C:\KemetUnity\Kmt\Temp\bin\Debug\Unity.DataContract.dll
+C:\KemetUnity\Kmt\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\KemetUnity\Kmt\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
+C:\KemetUnity\Kmt\obj\Debug\Assembly-CSharp.dll
+C:\KemetUnity\Kmt\obj\Debug\Assembly-CSharp.pdb

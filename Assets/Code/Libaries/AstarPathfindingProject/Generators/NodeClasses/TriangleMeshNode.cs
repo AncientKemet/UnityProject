@@ -326,7 +326,7 @@ namespace Pathfinding {
 		}
 		
 		private int[] indices;
-		//private new Int3 DirecionVector;
+		//private new Int3 position;
 		
 		static ConvexMeshNode () {
 			
@@ -338,7 +338,7 @@ namespace Pathfinding {
 		
 		/*public override Int3 Position {
 			get {
-				return DirecionVector;
+				return position;
 			}
 		}*/
 		

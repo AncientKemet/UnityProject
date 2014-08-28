@@ -194,7 +194,7 @@ namespace Pathfinding {
 		}
 		
 		/** \deprecated
-		 * This is for all other DirecionVector only modifiers (mostly smoothers) */
+		 * This is for all other position only modifiers (mostly smoothers) */
 		[System.Obsolete]
 		public virtual Vector3[] Apply (Vector3[] path, Vector3 start, Vector3 end) {
 			return path;

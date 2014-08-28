@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Code.Core.Shared.Content;
+using Code.Core.Server.Model.Entities;
 
 namespace Code.Core.Server.Model.Extensions.UnitExts
 {
@@ -14,6 +15,17 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
         private string _runAnimation;
         private bool _action;
         private string _actionAnimation;
+
+        private ServerUnit _lookingAt;
+
+        public ServerUnit LookingAt
+        {
+            get { return _lookingAt; }
+            set {
+                _lookingAt = value;
+                _wasUpdate = true;
+            }
+        }
 
         public string StandAnimation
         {
@@ -70,6 +82,7 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
             packet.addString(StandAnimation);
             packet.addString(WalkAnimation);
             packet.addString(RunAnimation);
+            packet.addShort(_lookingAt == null ? -1 : _lookingAt.ID);
         }
 
         protected override void pSerializeUpdate(Code.Libaries.Net.ByteStream packet)
@@ -85,6 +98,8 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
                 packet.addString(RunAnimation);
             if (_action)
                 packet.addString(ActionAnimation);
+
+            packet.addShort(_lookingAt == null ? -1 : _lookingAt.ID);
 
             _stand = false;
             _walk = false;

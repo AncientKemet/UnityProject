@@ -8,8 +8,33 @@ namespace Code.Libaries.Building
     [RequireComponent(typeof(MeshFilter))]
     public class BuildingGenerator : MonoBehaviour
     {
-        private Mesh mesh;
+        private Mesh _mesh;
+
+        public Mesh mesh
+        {
+            get { return _mesh; }
+            set { _mesh = value; meshFilter.mesh = value; }
+        }
+        private MeshFilter _meshFilter;
+
+        public MeshFilter meshFilter
+        {
+            get 
+            {
+                if(_meshFilter == null)
+                {
+                    _meshFilter = GetComponent<MeshFilter>();
+                }
+                return _meshFilter;
+            }
+        }
+
+        [SerializeField]
         private bool _forceBuild = false;
+
+        [SerializeField]
+        private float WallHeight = 1f;
+
         private List<BuildingWall> _walls = null;
 
         public List<BuildingNode> nodes = new List<BuildingNode>();
@@ -40,8 +65,11 @@ namespace Code.Libaries.Building
             }
         }
 
-
+#if UNITY_EDITOR
+        public void Update()
+#else
         public void FixedUpdate()
+#endif
         {
             if (_forceBuild)
             {
@@ -58,6 +86,16 @@ namespace Code.Libaries.Building
         {
             _forceBuild = false;
             _walls = null;
+        }
+
+        private void OnDrawGizmos()
+        {
+            foreach (var item in walls)
+            {
+                if(item != null)
+                    if(item.node1 != null && item.node0 != null)
+                    Gizmos.DrawLine(item.node0.transform.position, item.node1.transform.position);
+            }
         }
 
     }

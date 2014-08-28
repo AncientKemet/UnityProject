@@ -12,7 +12,7 @@ namespace Pathfinding
 		//These should be set to the same value (only PrecisionFactor should be 1 divided by Precision)
 		
 		/** Precision for the integer coordinates.
-		 * One world PlayerUnit is divided into [value] pieces. A value of 1000 would mean millimeter precision, a value of 1 would mean meter precision (assuming 1 world PlayerUnit = 1 meter).
+		 * One world unit is divided into [value] pieces. A value of 1000 would mean millimeter precision, a value of 1 would mean meter precision (assuming 1 world unit = 1 meter).
 		 * This value affects the maximum coordinates for nodes as well as how large the cost values are for moving between two nodes.
 		 * A higher value means that you also have to set all penalty values to a higher value to compensate since the normal cost of moving will be higher.
 		 */
@@ -34,9 +34,9 @@ namespace Pathfinding
 			x = (int)System.Math.Round (position.x*FloatPrecision);
 			y = (int)System.Math.Round (position.y*FloatPrecision);
 			z = (int)System.Math.Round (position.z*FloatPrecision);
-			//x = Mathf.RoundToInt (DirecionVector.x);
-			//y = Mathf.RoundToInt (DirecionVector.y);
-			//z = Mathf.RoundToInt (DirecionVector.z);
+			//x = Mathf.RoundToInt (position.x);
+			//y = Mathf.RoundToInt (position.y);
+			//z = Mathf.RoundToInt (position.z);
 		}
 		
 		
@@ -214,7 +214,7 @@ namespace Pathfinding
 		}
 		
 		/** Magnitude used for the cost between two nodes. The default cost between two nodes can be calculated like this:
-		  * \code int cost = (node1.DirecionVector-node2.DirecionVector).costMagnitude; \endcode
+		  * \code int cost = (node1.position-node2.position).costMagnitude; \endcode
 		  * 
 		  * This is simply the magnitude, rounded to the nearest integer
 		  */
@@ -224,7 +224,7 @@ namespace Pathfinding
 			}
 		}
 		
-		/** The magnitude in world _playerUnits */
+		/** The magnitude in world units */
 		public float worldMagnitude {
 			get {
 				double _x = x;
@@ -323,7 +323,7 @@ namespace Pathfinding
 		}
 		
 		public override int GetHashCode () {
-			return x*9+y*10+z*11;
+			return x*73856093 ^ y*19349663 ^ z*83492791;
 		}
 	}
 	
@@ -386,7 +386,7 @@ namespace Pathfinding
 		
 		/** Matrices for rotation.
 		 * Each group of 4 elements is a 2x2 matrix.
-		 * The XZ DirecionVector is multiplied by this.
+		 * The XZ position is multiplied by this.
 		 * So
 		 * \code
 		 * //A rotation by 90 degrees clockwise, second matrix in the array

@@ -42,7 +42,7 @@ namespace Pathfinding {
 		}
 		
 		public void CalculateOffsets (List<Vector3> trace, out Vector3 endPosition) {
-			//Vector3 opos = transform.DirecionVector;
+			//Vector3 opos = transform.position;
 			endPosition = transform.position;
 			if (referenceMesh == null) return;
 			

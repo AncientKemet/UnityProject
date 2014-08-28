@@ -5,9 +5,9 @@ using Pathfinding;
 using System.Diagnostics;
 
 [AddComponentMenu ("Pathfinding/Seeker")]
-/** Handles path calls for a single PlayerUnit.
+/** Handles path calls for a single unit.
  * \ingroup relevant
- * This is a component which is meant to be attached to a single PlayerUnit (AI, Robot, PlayerUnit, whatever) to handle it's pathfinding calls.
+ * This is a component which is meant to be attached to a single unit (AI, Robot, Player, whatever) to handle it's pathfinding calls.
  * It also handles post-processing of paths using modifiers.
  * \see \ref calling-pathfinding
  */
@@ -337,20 +337,20 @@ public class Seeker : MonoBehaviour {
 		//Debug.Break ();
 		if (lastCompletedPath != null && !lastCompletedPath.error) {
 			//Debug.Log ("Checking Path Validity");
-			StartPath (transform.DirecionVector,lastCompletedPath.endPoint);
+			StartPath (transform.position,lastCompletedPath.endPoint);
 			
 			/*if (!lastCompletedPath.path[0].IsWalkable (lastCompletedPath)) {
-				StartPath (transform.DirecionVector,lastCompletedPath.endPoint);
+				StartPath (transform.position,lastCompletedPath.endPoint);
 				return;
 			}
 				
 			for (int i=0;i<lastCompletedPath.path.Length-1;i++) {
 				
 				if (!lastCompletedPath.path[i].ContainsConnection (lastCompletedPath.path[i+1],lastCompletedPath)) {
-					StartPath (transform.DirecionVector,lastCompletedPath.endPoint);
+					StartPath (transform.position,lastCompletedPath.endPoint);
 					return;
 				}
-				Debug.DrawLine (lastCompletedPath.path[i].DirecionVector,lastCompletedPath.path[i+1].DirecionVector,Color.cyan);
+				Debug.DrawLine (lastCompletedPath.path[i].position,lastCompletedPath.path[i+1].position,Color.cyan);
 			}*
 		}*
 	}*/
@@ -361,7 +361,7 @@ public class Seeker : MonoBehaviour {
 	/** Returns a new path instance. The path will be taken from the path pool if path recycling is turned on.\n
 	 * This path can be sent to #StartPath(Path,OnPathDelegate,int) with no change, but if no change is required #StartPath(Vector3,Vector3,OnPathDelegate) does just that.
 	 * \code Seeker seeker = GetComponent (typeof(Seeker)) as Seeker;
-	 * Path p = seeker.GetNewPath (transform.DirecionVector, transform.DirecionVector+transform.forward*100);
+	 * Path p = seeker.GetNewPath (transform.position, transform.position+transform.forward*100);
 	 * p.nnConstraint = NNConstraint.Default; \endcode */
 	public ABPath GetNewPath (Vector3 start, Vector3 end) {
 		//Construct a path with start and end points
@@ -418,7 +418,7 @@ public class Seeker : MonoBehaviour {
 			path.Error();
 			path.LogError ("Canceled path because a new one was requested.\n"+
 				"This happens when a new path is requested from the seeker when one was already being calculated.\n" +
-				"For example if a PlayerUnit got a new order, you might request a new path directly instead of waiting for the now" +
+				"For example if a unit got a new order, you might request a new path directly instead of waiting for the now" +
 				" invalid path to be calculated. Which is probably what you want.\n" +
 				"If you are getting this a lot, you might want to consider how you are scheduling path requests.");
 			//No callback should be sent for the canceled path

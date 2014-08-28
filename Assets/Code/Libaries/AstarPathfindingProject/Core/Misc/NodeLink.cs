@@ -9,7 +9,7 @@ namespace Pathfinding {
 	[AddComponentMenu("Pathfinding/Link")]
 	public class NodeLink : GraphModifier {
 		
-		/** End DirecionVector of the link */
+		/** End position of the link */
 		public Transform end;
 		
 		/** The connection will be this times harder/slower to traverse.

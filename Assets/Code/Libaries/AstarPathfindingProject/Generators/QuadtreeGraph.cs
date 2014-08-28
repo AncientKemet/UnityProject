@@ -210,12 +210,12 @@ namespace Pathfinding {
 	
 	public class QuadtreeNode : GraphNode {
 		
-		//new Int3 DirecionVector;
+		//new Int3 position;
 		
 		public GraphNode[] connections;
 		public uint[] connectionCosts;
 		
-		//public override Int3 Position {get { return DirecionVector; } }
+		//public override Int3 Position {get { return position; } }
 		
 		public QuadtreeNode (AstarPath astar) : base (astar) {}
 		

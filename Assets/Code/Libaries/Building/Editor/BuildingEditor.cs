@@ -17,6 +17,7 @@ namespace Code.Code.Libaries.Building
         public override void OnInspectorGUI()
         {
             EditorGUILayout.PrefixLabel("Nodes: " + gen.nodes.Count);
+            base.DrawDefaultInspector();
         }
 
         public void OnSceneGUI()
@@ -44,13 +45,6 @@ namespace Code.Code.Libaries.Building
                     }
                 }
             }
-            //Handles.BeginGUI();
-            foreach (var w in gen.walls)
-            {
-                Handles.DrawLine(w.node0.transform.position, w.node1.transform.position);
-            }
-            //Handles.EndGUI();
-
         }
 
         private static BuildingNode CreateBuildingNode()

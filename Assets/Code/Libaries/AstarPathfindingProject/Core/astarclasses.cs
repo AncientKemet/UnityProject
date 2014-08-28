@@ -254,10 +254,10 @@ namespace Pathfinding {
 		 * If the search will be able to find the constrained node without any extra effort it can fill it in. */
 		public GraphNode constrainedNode;
 		
-		/** The DirecionVector clamped to the closest point on the #node.
+		/** The position clamped to the closest point on the #node.
 		 */
 		public Vector3 clampedPosition;
-		/** Clamped DirecionVector for the optional constrainedNode */
+		/** Clamped position for the optional constrainedNode */
 		public Vector3 constClampedPosition;
 		
 		public NNInfo (GraphNode node) {
@@ -389,7 +389,7 @@ namespace Pathfinding {
 		public bool requiresFloodFill = true;
 		
 		/** Use physics checks to update nodes.
-		 * When updating a grid graph and this is true, the nodes' DirecionVector and walkability will be updated using physics checks
+		 * When updating a grid graph and this is true, the nodes' position and walkability will be updated using physics checks
 		 * with settings from "Collision Testing" and "Height Testing".
 		 * 
 		 * When updating a PointGraph, setting this to true will make it re-evaluate all connections in the graph which passes through the #bounds.
@@ -411,7 +411,7 @@ namespace Pathfinding {
 		 * 
 		 * This second image shows when resetPenaltyOnPhysics is set to true. The first GUO is applied correctly, but then the second one (the left one) is applied
 		 * and during its updating, it resets the penalties first and then adds penalty to the nodes. The result is that the penalties from both GUOs are not added together.
-		 * The green patch in at the border is there because physics recalculation (recalculation of the DirecionVector of the node, checking for obstacles etc.) affects a slightly larger
+		 * The green patch in at the border is there because physics recalculation (recalculation of the position of the node, checking for obstacles etc.) affects a slightly larger
 		 * area than the original GUO bounds because of the Grid Graph -> Collision Testing -> Diameter setting (it is enlarged by that value). So some extra nodes have their penalties reset.
 		 * 
 		 * \shadowimage{resetPenaltyOnPhysics_True.png}
@@ -668,7 +668,7 @@ namespace Pathfinding {
 		
 		/** Matrices for rotation.
 		 * Each group of 4 elements is a 2x2 matrix.
-		 * The XZ DirecionVector is multiplied by this.
+		 * The XZ position is multiplied by this.
 		 * So
 		 * \code
 		 * //A rotation by 90 degrees clockwise, second matrix in the array
@@ -824,13 +824,13 @@ public enum ThreadCount {
 	AutomaticHighLoad = -2,
 	None = 0,
 	One = 1,
-	Two = 2,
-	Three = 3,
-	Four = 4,
-	Five = 5,
-	Six = 6,
-	Seven = 7,
-	Eight = 8
+	Two,
+	Three,
+	Four,
+	Five,
+	Six,
+	Seven,
+	Eight
 }
 
 public enum PathState {

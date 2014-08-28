@@ -45,7 +45,7 @@ namespace Code.Core.Client.UI.Controls
         {
             //Left click is the first action
             if(!(this is PlayerUnit))
-                OnLeftClick += Actions[0].Action;
+                OnLeftClick += delegate() { if (_actions.Count > 0 && _actions[0] != null && _actions[0].Action != null) _actions[0].Action(); };
 
             if (HasRightClickMenu)
                 OnRightClick += OpenRightClickMenu;

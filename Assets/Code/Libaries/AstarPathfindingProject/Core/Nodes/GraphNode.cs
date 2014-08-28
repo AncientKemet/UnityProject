@@ -30,7 +30,7 @@ namespace Pathfinding {
 		
 		// Some fallback properties
 		
-		[System.Obsolete ("This attribute is deprecated. Please use .DirecionVector (not a capital P)")]
+		[System.Obsolete ("This attribute is deprecated. Please use .position (not a capital P)")]
 		public Int3 Position { get { return position; } }
 		
 		[System.Obsolete ("This attribute is deprecated. Please use .Walkable (with a capital W)")]

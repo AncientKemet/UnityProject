@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using System.Threading;
 using Pathfinding;
 
+using Thread = System.Threading.Thread;
+using ParameterizedThreadStart = System.Threading.ParameterizedThreadStart;
+
 // Note sure why anyone would want to use this...
 //#define ASTAR_MORE_PATH_IDS //Increases the number of pathIDs from 2^16 to 2^32. Uses more memory
 
@@ -28,7 +31,7 @@ public class AstarPath : MonoBehaviour {
 	 */
 	public static System.Version Version {
 		get {
-			return new System.Version (3,4,0,6);
+			return new System.Version (3,5,1);
 		}
 	}
 	
@@ -42,7 +45,7 @@ public class AstarPath : MonoBehaviour {
 	 * users of the development versions can get notifications of development
 	 * updates.
 	 */
-	public static readonly string Branch = "master_Free";
+	public static readonly string Branch = "rvo_cleanups_Free";
 
 	/** Used by the editor to show some Pro specific stuff.
 	 * Note that setting this to true will not grant you any additional features */
@@ -548,7 +551,7 @@ public class AstarPath : MonoBehaviour {
 		AstarProfiler.EndProfile ("OnDrawGizmos");
 	}
 	
-	/** Draws a cube at the node's DirecionVector if unwalkable.
+	/** Draws a cube at the node's position if unwalkable.
 	 * Used for gizmo drawing
 	 */
 	private bool DrawUnwalkableNode (GraphNode node) {
@@ -1098,7 +1101,8 @@ public class AstarPath : MonoBehaviour {
 		public GraphUpdateObject obj;
 	}
 	
-	private void ProcessGraphUpdatesAsync (System.Object _astar) {
+	private 
+	void ProcessGraphUpdatesAsync (System.Object _astar) {
 		AstarPath astar = _astar as AstarPath;
 		if (System.Object.ReferenceEquals (astar, null)) {
 			Debug.LogError ("ProcessGraphUpdatesAsync started with invalid parameter _astar (was no AstarPath object)");
@@ -1182,7 +1186,7 @@ public class AstarPath : MonoBehaviour {
 			
 			return 1;
 		} else {
-            return (int)count > 0 ? (int)count : 0;
+			return (int)count > 0 ? 1 : 0;
 		}
 	}
 	
@@ -1250,8 +1254,7 @@ public class AstarPath : MonoBehaviour {
 				Debug.Log ("Starting pathfinding thread "+i);
 			threads[i].Start (threadInfos[i]);
 		}
-		
-	
+
 		Thread graphUpdateThread = new Thread (new ParameterizedThreadStart(ProcessGraphUpdatesAsync));
 		graphUpdateThread.IsBackground = true;
 		graphUpdateThread.Start (this);
@@ -1670,51 +1673,6 @@ public class AstarPath : MonoBehaviour {
 		}
 	}
 	
-#if UNITY_EDITOR
-	[UnityEditor.MenuItem ("Edit/Pathfinding/Scan All Graphs %&s")]
-	public static void MenuScan () {
-		
-		if (AstarPath.active == null) {
-			AstarPath.active = FindObjectOfType(typeof(AstarPath)) as AstarPath;
-			if (AstarPath.active == null) {
-				return;
-			}
-		}
-		
-		if (!Application.isPlaying && (AstarPath.active.astarData.graphs == null || AstarPath.active.astarData.graphTypes == null)) {
-			UnityEditor.EditorUtility.DisplayProgressBar ("Scanning","Deserializing",0);
-			AstarPath.active.astarData.DeserializeGraphs ();
-		}
-		
-		UnityEditor.EditorUtility.DisplayProgressBar ("Scanning","Scanning...",0);
-		
-		try {
-			OnScanStatus info = delegate (Progress p) {
-				UnityEditor.EditorUtility.DisplayProgressBar ("Scanning",p.description,p.progress);
-			};
-			AstarPath.active.ScanLoop (info);
-			
-		} catch (System.Exception e) {
-			Debug.LogError ("There was an error generating the graphs:\n"+e.ToString ()+"\n\nIf you think this is a bug, please contact me on arongranberg.com (post a comment)\n");
-			UnityEditor.EditorUtility.DisplayDialog ("Error Generating Graphs","There was an error when generating graphs, check the console for more info","Ok");
-			throw e;
-		} finally {
-			UnityEditor.EditorUtility.ClearProgressBar();
-		}
-	}
-	
-	/** Called by editor scripts to rescan the graphs e.g when the user moved a graph.
-	  * Will only scan graphs if not playing and time to scan last graph was less than some constant (to avoid lag with large graphs) */
-	public bool AutoScan () {
-		
-		if (!Application.isPlaying && lastScanTime < 0.11F) {
-			Scan ();
-			return true;
-		}
-		return false;
-	}
-#endif
-	
 	/** Scans all graphs */
 	public void Scan () {
 		
@@ -1963,7 +1921,7 @@ public class AstarPath : MonoBehaviour {
 					}
 					
 					//Wait for threads to calculate paths
-					Thread.Sleep (1);
+					Thread.Sleep(1);
 					active.PerformBlockingActions();
 				}
 			} else {
@@ -1997,16 +1955,16 @@ public class AstarPath : MonoBehaviour {
 	  * DO NOT call any part of the Unity API from those callbacks except for Debug.Log
 	  * 
 	  * \code
-Node node = AstarPath.active.GetNearest (transform.DirecionVector).node;
+Node node = AstarPath.active.GetNearest (transform.position).node;
 AstarPath.RegisterSafeUpdate (delegate () {
 	node.walkable = false;
 }, false);
 \endcode
 
 \code
-Node node = AstarPath.active.GetNearest (transform.DirecionVector).node;
+Node node = AstarPath.active.GetNearest (transform.position).node;
 AstarPath.RegisterSafeUpdate (delegate () {
-	node.DirecionVector = (Int3)transform.DirecionVector;
+	node.position = (Int3)transform.position;
 }, true);
 \endcode
 	  * Note that the second example uses transform in the callback, and must thus be threadSafe.
@@ -2183,7 +2141,8 @@ AstarPath.RegisterSafeUpdate (delegate () {
 	 * \see CalculatePaths
 	 * \astarpro 
 	 */
-	private static void CalculatePathsThreaded (System.Object _threadInfo) {
+	private static 
+	void CalculatePathsThreaded (System.Object _threadInfo) {
 		
 		PathThreadInfo threadInfo;
 		
@@ -2271,7 +2230,7 @@ AstarPath.RegisterSafeUpdate (delegate () {
 						
 						//Yield/sleep so other threads can work
 						totalTicks += System.DateTime.UtcNow.Ticks-startTicks;
-						Thread.Sleep (0);
+						Thread.Sleep(0);
 						startTicks = System.DateTime.UtcNow.Ticks;
 						
 						targetTick = startTicks + maxTicks;
@@ -2312,7 +2271,7 @@ AstarPath.RegisterSafeUpdate (delegate () {
 				
 				//Wait a bit if we have calculated a lot of paths
 				if (System.DateTime.UtcNow.Ticks > targetTick) {
-					Thread.Sleep (1);
+					Thread.Sleep(1);
 					targetTick = System.DateTime.UtcNow.Ticks + maxTicks;
 				}
 			}
@@ -2511,8 +2470,8 @@ AstarPath.RegisterSafeUpdate (delegate () {
 #endregion
 	
 	
-	/** Returns the nearest node to a DirecionVector using the specified NNConstraint.
-	 Searches through all graphs for their nearest nodes to the specified DirecionVector and picks the closest one.\n
+	/** Returns the nearest node to a position using the specified NNConstraint.
+	 Searches through all graphs for their nearest nodes to the specified position and picks the closest one.\n
 	 Using the NNConstraint.None constraint.
 	 \see Pathfinding.NNConstraint
 	 */
@@ -2520,8 +2479,8 @@ AstarPath.RegisterSafeUpdate (delegate () {
 		return GetNearest(position,NNConstraint.None);
 	}
 	
-	/** Returns the nearest node to a DirecionVector using the specified NNConstraint.
-	 Searches through all graphs for their nearest nodes to the specified DirecionVector and picks the closest one.
+	/** Returns the nearest node to a position using the specified NNConstraint.
+	 Searches through all graphs for their nearest nodes to the specified position and picks the closest one.
 	 The NNConstraint can be used to specify constraints on which nodes can be chosen such as only picking walkable nodes.
 	 \see Pathfinding.NNConstraint
 	 */
@@ -2529,8 +2488,8 @@ AstarPath.RegisterSafeUpdate (delegate () {
 		return GetNearest(position,constraint,null);
 	}
 	
-	/** Returns the nearest node to a DirecionVector using the specified NNConstraint.
-	 Searches through all graphs for their nearest nodes to the specified DirecionVector and picks the closest one.
+	/** Returns the nearest node to a position using the specified NNConstraint.
+	 Searches through all graphs for their nearest nodes to the specified position and picks the closest one.
 	 The NNConstraint can be used to specify constraints on which nodes can be chosen such as only picking walkable nodes.
 	 \see Pathfinding.NNConstraint
 	 */
@@ -2652,5 +2611,4 @@ AstarPath.RegisterSafeUpdate (delegate () {
 		
 		return nearestNode;
 	}
-	
 }

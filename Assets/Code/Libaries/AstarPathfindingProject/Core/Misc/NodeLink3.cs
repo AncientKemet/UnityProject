@@ -32,12 +32,12 @@ namespace Pathfinding {
 				Vector3 normal = link.transform.forward;
 				Vector3 tangent = Vector3.Dot (normal, (Vector3)(other.Position - this.Position) ) > 0 ? link.transform.right*0.5f : -link.transform.right*0.5f;
 				
-				Debug.DrawLine ( link.transform.DirecionVector -tangent * link.portalWidth, link.transform.DirecionVector +tangent * link.portalWidth, Color.red);
+				Debug.DrawLine ( link.transform.position -tangent * link.portalWidth, link.transform.position +tangent * link.portalWidth, Color.red);
 				
-				Debug.DrawRay ( link.transform.DirecionVector -tangent * link.portalWidth, Vector3.up*5, Color.red);
+				Debug.DrawRay ( link.transform.position -tangent * link.portalWidth, Vector3.up*5, Color.red);
 				Debug.Break ();
-				left.Add ( link.transform.DirecionVector -tangent * link.portalWidth );
-				right.Add (link.transform.DirecionVector +tangent * link.portalWidth );*/
+				left.Add ( link.transform.position -tangent * link.portalWidth );
+				right.Add (link.transform.position +tangent * link.portalWidth );*/
 			}
 			
 			return true;
@@ -67,7 +67,7 @@ namespace Pathfinding {
 			return v;
 		}
 		
-		/** End DirecionVector of the link */
+		/** End position of the link */
 		public Transform end;
 		
 		/** The connection will be this times harder/slower to traverse.
@@ -125,9 +125,9 @@ namespace Pathfinding {
 			}
 			
 			//Get nearest nodes from the first point graph, assuming both start and end transforms are nodes
-			startNode = AstarPath.active.astarData.pointGraph.AddNode ( new NodeLink3Node(AstarPath.active), (Int3)StartTransform.position );//AstarPath.active.astarData.pointGraph.GetNearest(StartTransform.DirecionVector).node as PointNode;
+			startNode = AstarPath.active.astarData.pointGraph.AddNode ( new NodeLink3Node(AstarPath.active), (Int3)StartTransform.position );//AstarPath.active.astarData.pointGraph.GetNearest(StartTransform.position).node as PointNode;
 			startNode.link = this;
-			endNode = AstarPath.active.astarData.pointGraph.AddNode ( new NodeLink3Node(AstarPath.active), (Int3)EndTransform.position ); //AstarPath.active.astarData.pointGraph.GetNearest(EndTransform.DirecionVector).node as PointNode;
+			endNode = AstarPath.active.astarData.pointGraph.AddNode ( new NodeLink3Node(AstarPath.active), (Int3)EndTransform.position ); //AstarPath.active.astarData.pointGraph.GetNearest(EndTransform.position).node as PointNode;
 			endNode.link = this;
 			connectedNode1 = null;
 			connectedNode2 = null;
@@ -361,7 +361,7 @@ namespace Pathfinding {
 				DrawCircle(EndTransform.position,0.4f,10,col);
 			}
 			
-			//Gizmos.DrawLine ( transform.DirecionVector - transform.right*0.5f*portalWidth, transform.DirecionVector + transform.right*0.5f*portalWidth );
+			//Gizmos.DrawLine ( transform.position - transform.right*0.5f*portalWidth, transform.position + transform.right*0.5f*portalWidth );
 			
 			if (StartTransform != null && EndTransform != null) {
 				Gizmos.color = col;

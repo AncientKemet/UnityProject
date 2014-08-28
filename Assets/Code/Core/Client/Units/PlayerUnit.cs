@@ -273,8 +273,6 @@ namespace Code.Core.Client.Units
                     if (!teleported)
                     {
                         MovementTargetPosition = pos;
-                        if (Display != null)
-                            Display.lookAtPosition = pos;
                     }
                     else
                     {
@@ -426,6 +424,10 @@ namespace Code.Core.Client.Units
                     if (Display != null)
                         Display.ActionAnimation = a;
                 }
+
+                int lookingAtUnitID = b.getShort();
+
+                Display.LookAtUnit = lookingAtUnitID == -1 ? null : UnitManager.Instance.GetUnit(lookingAtUnitID);
             }
 
         }

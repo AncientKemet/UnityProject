@@ -11,7 +11,7 @@ namespace Pathfinding {
 		public Transform target;
 		AIPath[] ais2;
 
-		/** Determines if the target DirecionVector should be updated every frame or only on double-click */
+		/** Determines if the target position should be updated every frame or only on double-click */
 		public bool onlyOnDoubleClick;
 		
 		Camera cam;
@@ -39,7 +39,7 @@ namespace Pathfinding {
 		}
 		
 		public void UpdateTargetPosition () {
-			//Fire a ray through the scene at the mouse DirecionVector and place the target where it hits
+			//Fire a ray through the scene at the mouse position and place the target where it hits
 			RaycastHit hit;
 			if (Physics.Raycast	(cam.ScreenPointToRay (Input.mousePosition), out hit, Mathf.Infinity, mask) && hit.point != target.position) {
 				target.position = hit.point;

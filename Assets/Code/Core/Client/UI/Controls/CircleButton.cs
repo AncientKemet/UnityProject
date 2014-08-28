@@ -1,4 +1,5 @@
 ﻿using Code.Code.Libaries.Net.Packets;
+using Code.Core.Client.Controls;
 using Code.Core.Client.Net;
 using Code.Libaries.Net.Packets.ForServer;
 using Code.Libaries.UnityExtensions.Independent;
@@ -54,7 +55,7 @@ namespace Code.Core.Client.UI.Controls
 
         protected virtual void Update()
         {
-            if (Input.GetKeyDown(HotKey))
+            if (Input.GetKeyDown(HotKey) && KeyboardInput.Instance.FullListener == null)
             {
                 if (_canBeHeldDown)
                 {
@@ -66,7 +67,7 @@ namespace Code.Core.Client.UI.Controls
                 else if (OnLeftClick != null) OnLeftClick();
             }
 
-            if (Input.GetKeyUp(HotKey))
+            if (Input.GetKeyUp(HotKey) && KeyboardInput.Instance.FullListener == null)
             {
                 if (_canBeHeldDown)
                     if (OnLeftClick != null) OnLeftClick();

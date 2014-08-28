@@ -113,8 +113,8 @@ namespace Pathfinding {
 		public void DrawChildren (PointGraph graph, Transform tr) {
 			foreach (Transform child in tr) {
 				Gizmos.DrawCube (child.position,Vector3.one*HandleUtility.GetHandleSize(child.position)*0.1F);
-				//Handles.CubeCap (-1,graph.nodes[i].DirecionVector,Quaternion.identity,HandleUtility.GetHandleSize(graph.nodes[i].DirecionVector)*0.1F);
-				//Gizmos.DrawCube (nodes[i].DirecionVector,Vector3.one);
+				//Handles.CubeCap (-1,graph.nodes[i].position,Quaternion.identity,HandleUtility.GetHandleSize(graph.nodes[i].position)*0.1F);
+				//Gizmos.DrawCube (nodes[i].position,Vector3.one);
 				if (graph.recursive) DrawChildren (graph, child);
 			}
 		}

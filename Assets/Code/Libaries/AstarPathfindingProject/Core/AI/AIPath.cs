@@ -91,7 +91,7 @@ public class AIPath : MonoBehaviour {
 	 * Usually the AI has moved a bit between requesting the path, and getting it back, and there is usually a small gap between the AI
 	 * and the closest node.
 	 * If this option is enabled, it will simulate, when the path callback is received, movement between the closest node and the current
-	 * AI DirecionVector. This helps to reduce the moments when the AI just get a new path back, and thinks it ought to move backwards to the start of the new path
+	 * AI position. This helps to reduce the moments when the AI just get a new path back, and thinks it ought to move backwards to the start of the new path
 	 * even though it really should just proceed forward.
 	 */
 	public bool closestOnPathCheck = true;
@@ -246,7 +246,7 @@ public class AIPath : MonoBehaviour {
 		//ABPath p = ABPath.Construct (GetFeetPosition(),targetPoint,null);
 		//seeker.StartPath (p);
 		
-		//We should search from the current DirecionVector
+		//We should search from the current position
 		seeker.StartPath (GetFeetPosition(), targetPosition);
 	}
 	
@@ -447,7 +447,7 @@ public class AIPath : MonoBehaviour {
 	}
 	
 	/** Calculates target point from the current line segment.
-	 * \param p Current DirecionVector
+	 * \param p Current position
 	 * \param a Line segment start
 	 * \param b Line segment end
 	 * The returned point will lie somewhere on the line segment.

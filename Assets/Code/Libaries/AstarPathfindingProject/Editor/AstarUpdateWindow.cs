@@ -32,7 +32,7 @@ namespace Pathfinding
 			//window.minSize = new Vector2 (600, 200);
 			//window.maxSize = new Vector2 (600, 300);
 			window.position = new Rect (Screen.currentResolution.width/2 - 300,Mathf.Max (5,Screen.currentResolution.height/3 - 150), 600, 400);
-			//window.DirecionVector = new Rect ( 
+			//window.position = new Rect ( 
 			//window.ShowUtility ();
 
 			window.title = "New Version of the A* Pathfinding Project";

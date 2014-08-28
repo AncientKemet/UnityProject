@@ -156,7 +156,7 @@ namespace Pathfinding {
 			/*p.vectorPath = new Vector3[p.path.Length];
 			for (int i=0;i<p.path.Length;i++) {
 				
-				Vector3 point = p.path[i].DirecionVector;
+				Vector3 point = p.path[i].position;
 					
 				if (i == 0 && exactStartAndEnd) {
 					if (overrideClampedExacts) {

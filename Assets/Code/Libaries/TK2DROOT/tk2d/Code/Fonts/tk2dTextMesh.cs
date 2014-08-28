@@ -682,6 +682,8 @@ public class tk2dTextMesh : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBui
 		}
 		scale = new Vector3(Mathf.Sign(scale.x) * s, Mathf.Sign(scale.y) * s, Mathf.Sign(scale.z) * s);
 	}	
+
+    
 	
 	// tk2dRuntime.ISpriteCollectionEditor
 	public bool UsesSpriteCollection(tk2dSpriteCollectionData spriteCollection)

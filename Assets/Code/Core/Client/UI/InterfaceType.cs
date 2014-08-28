@@ -3,6 +3,7 @@
     public enum InterfaceType
     {
         Chat,
+        ChatPanel,
         ActionBars,
         LowerLeftMenu,
         MyCharacterInventory,

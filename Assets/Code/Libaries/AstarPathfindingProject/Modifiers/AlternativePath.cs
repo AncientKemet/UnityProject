@@ -5,14 +5,14 @@ using Pathfinding;
 namespace Pathfinding {
 	[AddComponentMenu("Pathfinding/Modifiers/Alternative Path")]
 	[System.Serializable]
-	/** Applies penalty to the paths it processes telling other _playerUnits to avoid choosing the same path.
+	/** Applies penalty to the paths it processes telling other units to avoid choosing the same path.
 	 * 
 	 * Note that this might not work properly if penalties are modified by other actions as well (e.g graph update objects which reset the penalty to zero).
 	 * It will only work when all penalty modifications are relative, i.e adding or subtracting penalties, but not when setting penalties
 	 * to specific values.
 	 * 
 	 * When destroyed, it will correctly remove any added penalty. However it will only be done before the next
-	 * path request is calculated, so if this was the last path requesting PlayerUnit to be destroyed, the penalty will stay
+	 * path request is calculated, so if this was the last path requesting unit to be destroyed, the penalty will stay
 	 * in the graph until the next path request is made.
 	 * 
 	 * \ingroup modifiers

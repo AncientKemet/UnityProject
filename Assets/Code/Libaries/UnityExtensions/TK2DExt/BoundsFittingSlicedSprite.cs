@@ -56,7 +56,7 @@ namespace Code.Libaries.UnityExtensions
 
             var renderers = new List<Renderer>(TargetContainer.GetComponentsInChildren<Renderer>());
 
-            if(renderers.Count < 0)
+            if(renderers.Count <= 0 || renderers[0] == null) 
                 return;
 
             Bounds bounds = new Bounds(renderers[0].transform.position, Vector3.zero);

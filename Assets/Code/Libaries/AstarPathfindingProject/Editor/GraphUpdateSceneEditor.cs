@@ -59,7 +59,7 @@ public class GraphUpdateSceneEditor : Editor {
 #endif
 
 		script.updatePhysics = EditorGUILayout.Toggle (new GUIContent ("Update Physics", "Perform similar calculations on the nodes as during scan.\n" +
-			"Grid Graphs will update the DirecionVector of the nodes and also check walkability using collision.\nSee online documentation for more info."), script.updatePhysics );
+			"Grid Graphs will update the position of the nodes and also check walkability using collision.\nSee online documentation for more info."), script.updatePhysics );
 
 		if ( script.updatePhysics ) {
 			EditorGUI.indentLevel++;

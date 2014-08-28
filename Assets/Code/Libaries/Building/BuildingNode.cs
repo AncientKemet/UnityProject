@@ -7,7 +7,7 @@ namespace Code.Libaries.Building
 
         void DrawGizmos()
         {
-            Gizmos.color = Color.white;
+            Gizmos.DrawCube(transform.position, Vector3.one / 7f);
         }
     }
 }
