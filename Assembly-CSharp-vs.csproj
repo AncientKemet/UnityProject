@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{A333A7A7-EE8B-487B-DDA4-9A46D7DA2442}</ProjectGuid>
+	<ProjectGuid>{5B580621-09B4-68CB-B5F4-5B9DD210A60F}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -61,14 +61,16 @@
      <Compile Include="Assets\Code\Core\Client\Net\ClientCommunicator.cs" />
      <Compile Include="Assets\Code\Core\Client\Net\PlayerPacketExecutor.cs" />
      <Compile Include="Assets\Code\Core\Client\Settings\GlobalConstants.cs" />
+     <Compile Include="Assets\Code\Core\Client\Settings\UserSettings.cs" />
+     <Compile Include="Assets\Code\Core\Client\Settings\VideoSettings.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\ChannelBar.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\CircleButton.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\Clickable.cs" />
-     <Compile Include="Assets\Code\Core\Client\UI\Controls\ColorChanger.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\InterfaceButton.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\Items\ItemButton.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\Items\ItemInventory.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\Items\ItemInventoryInterface.cs" />
+     <Compile Include="Assets\Code\Core\Client\UI\Controls\OnHoverColorChanger.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\SpellEffect.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\TextButton.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\UIControl.cs" />
@@ -98,10 +100,12 @@
      <Compile Include="Assets\Code\Core\Client\Units\UnitControllers\UnitDisplay.cs" />
      <Compile Include="Assets\Code\Core\GV.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\ContentHandling\ServerSpawnManager.cs" />
-     <Compile Include="Assets\Code\Core\Server\Model\Entities\DroppedItem.cs" />
-     <Compile Include="Assets\Code\Core\Server\Model\Entities\Human.cs" />
-     <Compile Include="Assets\Code\Core\Server\Model\Entities\NPC.cs" />
-     <Compile Include="Assets\Code\Core\Server\Model\Entities\Player.cs" />
+     <Compile Include="Assets\Code\Core\Server\Model\Entities\Groups\PlayerParty.cs" />
+     <Compile Include="Assets\Code\Core\Server\Model\Entities\Groups\UnitGroup.cs" />
+     <Compile Include="Assets\Code\Core\Server\Model\Entities\Human\Human.cs" />
+     <Compile Include="Assets\Code\Core\Server\Model\Entities\Human\NPC.cs" />
+     <Compile Include="Assets\Code\Core\Server\Model\Entities\Human\Player.cs" />
+     <Compile Include="Assets\Code\Core\Server\Model\Entities\Items\DroppedItem.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Entities\ServerUnit.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\EntityExtension.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Extensions\PlayerExtensions\Frames.cs" />
@@ -116,6 +120,7 @@
      <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitExts\UnitCombat.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitExts\UnitDisplay.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitExts\UnitFocus.cs" />
+     <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitExts\UnitGroup.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitExts\UnitInventory.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitExts\UnitMovement.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitUpdateExt.cs" />
@@ -222,12 +227,15 @@
      <Compile Include="Assets\Code\Libaries\Building\Meshing\Triangulator.cs" />
      <Compile Include="Assets\Code\Libaries\GameObjects\TransformHelper.cs" />
      <Compile Include="Assets\Code\Libaries\Generic\GenProperty.cs" />
+     <Compile Include="Assets\Code\Libaries\Generic\LilSingleton.cs" />
      <Compile Include="Assets\Code\Libaries\Generic\Managers\ContentManager.cs" />
      <Compile Include="Assets\Code\Libaries\Generic\Managers\UIContentManager.cs" />
      <Compile Include="Assets\Code\Libaries\Generic\Monosingleton.cs" />
      <Compile Include="Assets\Code\Libaries\Generic\SIAsset.cs" />
+     <Compile Include="Assets\Code\Libaries\Generic\Singleton.cs" />
      <Compile Include="Assets\Code\Libaries\Generic\Trees\IQuadTreeObject.cs" />
      <Compile Include="Assets\Code\Libaries\Generic\Trees\QuadTree.cs" />
+     <Compile Include="Assets\Code\Libaries\IO\PlayerPrefsField.cs" />
      <Compile Include="Assets\Code\Libaries\IO\Prefabs.cs" />
      <Compile Include="Assets\Code\Libaries\MeshUtils\Combining.cs" />
      <Compile Include="Assets\Code\Libaries\Net\BasePacket.cs" />
@@ -447,10 +455,10 @@
      <None Include="Assets\ReferencedData\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\ReferencedData\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="Pathfinding.Ionic.Zip.Reduced">
- <HintPath>C:/KemetUnity/Kmt/Assets/Code/Libaries/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+ <HintPath>C:/Users/Robert/Documents/UnityProject/Assets/Code/Libaries/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
  </Reference>
  <Reference Include="Pathfinding.JsonFx">
- <HintPath>C:/KemetUnity/Kmt/Assets/Code/Libaries/AstarPathfindingProject/Plugins/JsonFx/Pathfinding.JsonFx.dll</HintPath>
+ <HintPath>C:/Users/Robert/Documents/UnityProject/Assets/Code/Libaries/AstarPathfindingProject/Plugins/JsonFx/Pathfinding.JsonFx.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

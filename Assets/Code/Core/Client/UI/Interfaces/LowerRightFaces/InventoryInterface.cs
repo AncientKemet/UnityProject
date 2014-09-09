@@ -5,6 +5,12 @@ namespace Code.Core.Client.UI.Interfaces.LowerRightFaces
 {
     public class InventoryInterface : UIInterface<InventoryInterface>
     {
+        protected override void Awake()
+        {
+            base.Awake();
+            gameObject.SetActive(false);
+        }
+
         public override void Hide()
         {
             CorotineManager.Instance.StartCoroutine(

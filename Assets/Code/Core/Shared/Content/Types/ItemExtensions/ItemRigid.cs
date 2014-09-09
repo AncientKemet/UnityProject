@@ -4,10 +4,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Code.Core.Client.Net;
+using Code.Core.Client.Settings;
 using Code.Core.Client.UI.Controls;
 using Code.Core.Client.Units;
 using Code.Libaries.Net.Packets.ForServer;
-using Code.Libaries.UnityExtensions.Independent;
 using UnityEngine;
 
 namespace Code.Core.Shared.Content.Types.ItemExtensions
@@ -36,7 +36,16 @@ namespace Code.Core.Shared.Content.Types.ItemExtensions
             set
             {
                 _physicsEnabled = value;
-                rigidbody.isKinematic = !value;
+
+                //Only for medium and higher
+                if (VideoSettings.Instance.Physics.Value >= VideoSettings.PhysicsQuality.Medium)
+                {
+                    rigidbody.isKinematic = !value;
+                }
+                else
+                {
+                    rigidbody.isKinematic = true;
+                }
 
                 if (value)
                 {
@@ -64,11 +73,17 @@ namespace Code.Core.Shared.Content.Types.ItemExtensions
                     {
                         Debug.LogError("Couldn't find parent.");
                     }
-                    if (!KeepColliding)
+
+                    //Only for medium and higher
+                    if (VideoSettings.Instance.Physics.Value >= VideoSettings.PhysicsQuality.Medium)
                     {
-                        //automatic disable
-                        StartCoroutine(Disable(0.3f));
+                        if (!KeepColliding)
+                        {
+                            //automatic disable
+                            StartCoroutine(Disable(0.3f));
+                        }
                     }
+
                 }
             }
         }

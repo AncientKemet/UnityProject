@@ -14,6 +14,8 @@ namespace Code.Core.Client.UI.Controls.Items
         [Range(1, 10)]
         public int Height = 1;
 
+        public InterfaceAnchor Anchor = InterfaceAnchor.UpperCenter;
+
         private bool _rebuild = false;
 
         [HideInInspector]
@@ -56,13 +58,57 @@ namespace Code.Core.Client.UI.Controls.Items
 
             buttons = new List<ItemButton>(Width * Height);
 
+            int ax = 0;
+            int ay = 0;
+            switch (Anchor)
+            {
+                    case InterfaceAnchor.LowerCenter:
+                    ay = Height;
+                    break;
+                    case InterfaceAnchor.LowerLeft:
+                    ax = Width / 2;
+                    ay = Height;
+                    break;
+                    case InterfaceAnchor.LowerRight:
+                    ax = -Width / 2;
+                    ay = Height;
+                    break;
+                    case InterfaceAnchor.MiddleCenter:
+                    ax = 0;
+                    ay = Height / 2;
+                    break;
+                    case InterfaceAnchor.MiddleLeft:
+                    ax = Width / 2;
+                    ay = Height / 2;
+                    break;
+                    case InterfaceAnchor.MiddleRight:
+                    ax = -Width / 2;
+                    ay = Height / 2;
+                    break;
+                    case InterfaceAnchor.UpperCenter:
+                    ax = 0;
+                    ay = 0;
+                    break;
+                    case InterfaceAnchor.UpperLeft:
+                    ax = Width/2;
+                    ay = 0;
+                    break;
+                    case InterfaceAnchor.UpperRight:
+                    ax = -Width/2;
+                    ay = 0;
+                    break;
+            }
+            
             for (int x = 0; x < Width; x++)
             {
                 for (int y = 0; y < Height; y++)
                 {
                     ItemButton button = new GameObject("itemButton").AddComponent<ItemButton>();
+                    
 
                     tk2dSlicedSprite buttonBackGround = ((GameObject)Instantiate(UIContentManager.I.ItemButtonBackGround.gameObject)).GetComponent<tk2dSlicedSprite>();
+
+                    button.Background = buttonBackGround;
 
                     step = buttonBackGround.renderer.bounds.size;
 
@@ -73,7 +119,7 @@ namespace Code.Core.Client.UI.Controls.Items
                     button.gameObject.layer = gameObject.layer;
 
                     button.transform.parent = transform;
-                    button.transform.localPosition = new Vector3((-Width+1) / 2f * step.x + x * step.x, -y * step.y, -1);
+                    button.transform.localPosition = new Vector3((-Width+1) / 2f * step.x + (ax + x) * step.x, (-ay-y) * step.y, -1);
                     button.transform.localScale = Vector3.one;
 
                     (button.collider as BoxCollider).size = step;

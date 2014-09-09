@@ -26,6 +26,9 @@ namespace Code.Core.Server.Model.Extensions.PlayerExtensions
             if(p.type == ChatPacket.ChatType.Public)
             {
                 Say(p.text);
+            }else if (p.type == ChatPacket.ChatType.Party)
+            {
+                SendPartyMessage(Player.name + ": " + p.text);
             }
         }
 
@@ -46,6 +49,24 @@ namespace Code.Core.Server.Model.Extensions.PlayerExtensions
 
                     other.Client.ConnectionHandler.SendPacket(p);
                 }
+            }
+        }
+
+        public void RecievePartyMessage(string message)
+        {
+            ChatPacket p = new ChatPacket();
+
+            p.type = ChatPacket.ChatType.Party;
+            p.text = message;
+
+            Player.Client.ConnectionHandler.SendPacket(p);
+        }
+
+        public void SendPartyMessage(string message)
+        {
+            if (Player.Party != null)
+            {
+                Player.Party.SayInParty(message);
             }
         }
     }

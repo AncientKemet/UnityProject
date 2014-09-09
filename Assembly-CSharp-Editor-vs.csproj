@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{3C7CE496-CFB7-070D-7AF6-AEAAD1B0564A}</ProjectGuid>
+	<ProjectGuid>{3CC9D2C0-C461-07D9-EDF3-4FFB4DE5C299}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -270,19 +270,19 @@
      <None Include="Assets\ReferencedData\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\ReferencedData\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="Assembly-UnityScript">
- <HintPath>C:/KemetUnity/Kmt/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+ <HintPath>C:/Users/Robert/Documents/UnityProject/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
  </Reference>
  <Reference Include="Pathfinding.Ionic.Zip.Reduced">
- <HintPath>C:/KemetUnity/Kmt/Assets/Code/Libaries/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+ <HintPath>C:/Users/Robert/Documents/UnityProject/Assets/Code/Libaries/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
  </Reference>
  <Reference Include="Pathfinding.JsonFx">
- <HintPath>C:/KemetUnity/Kmt/Assets/Code/Libaries/AstarPathfindingProject/Plugins/JsonFx/Pathfinding.JsonFx.dll</HintPath>
+ <HintPath>C:/Users/Robert/Documents/UnityProject/Assets/Code/Libaries/AstarPathfindingProject/Plugins/JsonFx/Pathfinding.JsonFx.dll</HintPath>
  </Reference>
  <Reference Include="tk2dExternal">
- <HintPath>C:/KemetUnity/Kmt/Assets/Code/Libaries/TK2DROOT/tk2d/Editor/tk2dExternal.dll</HintPath>
+ <HintPath>C:/Users/Robert/Documents/UnityProject/Assets/Code/Libaries/TK2DROOT/tk2d/Editor/tk2dExternal.dll</HintPath>
  </Reference>
  <Reference Include="tk2dSkin">
- <HintPath>C:/KemetUnity/Kmt/Assets/Code/Libaries/TK2DROOT/tk2d/Editor/tk2dSkin.dll</HintPath>
+ <HintPath>C:/Users/Robert/Documents/UnityProject/Assets/Code/Libaries/TK2DROOT/tk2d/Editor/tk2dSkin.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
@@ -290,7 +290,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-vs.csproj">
-      <Project>{A333A7A7-EE8B-487B-DDA4-9A46D7DA2442}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
+      <Project>{5B580621-09B4-68CB-B5F4-5B9DD210A60F}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

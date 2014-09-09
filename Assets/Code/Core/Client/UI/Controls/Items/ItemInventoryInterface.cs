@@ -4,6 +4,7 @@ using Code.Code.Libaries.Net.Packets;
 using Code.Core.Client.Units;
 using Code.Core.Client.Units.Managed;
 using Code.Libaries.UnityExtensions;
+using Code.Libaries.UnityExtensions.Independent;
 using UnityEngine;
 
 namespace Code.Core.Client.UI.Controls.Items
@@ -94,6 +95,20 @@ namespace Code.Core.Client.UI.Controls.Items
                     instance.ItemInventory.SetItem(packet.X,packet.Y,itemID);
                     break;
             }
+        }
+
+        protected override void OnVisibiltyChanged()
+        {
+            base.OnVisibiltyChanged();
+            if (!Visible)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void CloseInterface()
+        {
+            Hide();
         }
     }
 }

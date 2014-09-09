@@ -67,7 +67,20 @@ namespace Code.Core.Client.UI
     {
 
         private static T _instance;
-        public bool Visible { get; set; }
+        private bool _visible;
+
+        public bool Visible
+        {
+            get { return _visible; }
+            set
+            {
+                if (_visible != value)
+                {
+                    _visible = value;
+                    OnVisibiltyChanged();
+                }
+            }
+        }
 
         protected virtual float AnimSpeed { get { return 0.33f; } }
 
@@ -103,10 +116,12 @@ namespace Code.Core.Client.UI
                     Vector3.zero,
                     delegate(Vector3 vector3)
                     {
+                        if (this != null)
                         if(!Visible)
                         transform.localScale = vector3;
                     },
-                    delegate { 
+                    delegate {
+                        if (this != null)
                         if(!Visible)
                         gameObject.SetActive(false); 
                     },

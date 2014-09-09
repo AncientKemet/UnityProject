@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{20206CB3-5502-63CC-AE00-DECEB06D67BD}</ProjectGuid>
+	<ProjectGuid>{8869CCC3-C429-23F7-1189-F19B43E8872C}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -167,16 +167,16 @@
      <None Include="Assets\ReferencedData\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\ReferencedData\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="Pathfinding.Ionic.Zip.Reduced">
- <HintPath>C:/KemetUnity/Kmt/Assets/Code/Libaries/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+ <HintPath>C:/Users/Robert/Documents/UnityProject/Assets/Code/Libaries/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
  </Reference>
  <Reference Include="Pathfinding.JsonFx">
- <HintPath>C:/KemetUnity/Kmt/Assets/Code/Libaries/AstarPathfindingProject/Plugins/JsonFx/Pathfinding.JsonFx.dll</HintPath>
+ <HintPath>C:/Users/Robert/Documents/UnityProject/Assets/Code/Libaries/AstarPathfindingProject/Plugins/JsonFx/Pathfinding.JsonFx.dll</HintPath>
  </Reference>
  <Reference Include="tk2dExternal">
- <HintPath>C:/KemetUnity/Kmt/Assets/Code/Libaries/TK2DROOT/tk2d/Editor/tk2dExternal.dll</HintPath>
+ <HintPath>C:/Users/Robert/Documents/UnityProject/Assets/Code/Libaries/TK2DROOT/tk2d/Editor/tk2dExternal.dll</HintPath>
  </Reference>
  <Reference Include="tk2dSkin">
- <HintPath>C:/KemetUnity/Kmt/Assets/Code/Libaries/TK2DROOT/tk2d/Editor/tk2dSkin.dll</HintPath>
+ <HintPath>C:/Users/Robert/Documents/UnityProject/Assets/Code/Libaries/TK2DROOT/tk2d/Editor/tk2dSkin.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
@@ -184,9 +184,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{A333A7A7-EE8B-487B-DDA4-9A46D7DA2442}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{5B580621-09B4-68CB-B5F4-5B9DD210A60F}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-UnityScript.unityproj">
-      <Project>{8A047024-7C78-F3F8-B082-B2D1B670CD01}</Project>      <Name>Assembly-UnityScript</Name>    </ProjectReference>
+      <Project>{137A7369-EC96-0CC2-09B9-FE1D6DE1A3E3}</Project>      <Name>Assembly-UnityScript</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

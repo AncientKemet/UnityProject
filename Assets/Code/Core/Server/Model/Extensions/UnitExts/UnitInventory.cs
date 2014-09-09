@@ -6,7 +6,7 @@ using Code.Core.Shared.Content.Types;
 
 namespace Code.Core.Server.Model.Extensions.UnitExts
 {
-    public class UnitInventory : EntityExtension
+    public class UnitInventory2 : EntityExtension
     {
         public enum AccessType
         {

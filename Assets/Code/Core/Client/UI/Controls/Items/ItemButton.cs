@@ -9,7 +9,14 @@ namespace Code.Core.Client.UI.Controls.Items
     public class ItemButton : MonoBehaviour 
     {
         private Item _item;
+        private tk2dSlicedSprite _background;
+        private Color _originalColor, _onHoverColor;
         private GameObject ItemModel;
+
+        private void Start()
+        {
+            
+        }
 
         public Item Item
         {
@@ -36,6 +43,35 @@ namespace Code.Core.Client.UI.Controls.Items
                     t.gameObject.layer = gameObject.layer;
                 }
 
+            }
+        }
+
+        public tk2dSlicedSprite Background
+        {
+            get { return _background; }
+            set
+            {
+                _background = value;
+                if (value != null)
+                {
+                    InterfaceButton button = GetComponent<InterfaceButton>();
+
+                    _originalColor = _background.color;
+                    _onHoverColor = _originalColor / 2f;
+                    _onHoverColor.a = _originalColor.a;
+
+                    button.OnMouseIn += () =>
+                    {
+                        _background.color = _onHoverColor;
+                        _background.ForceBuild();
+                    };
+
+                    button.OnMouseOff += () =>
+                    {
+                        _background.color = _originalColor;
+                        _background.ForceBuild();
+                    };
+                }
             }
         }
     }
