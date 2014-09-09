@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Code.Libaries.UnityExtensions;
 using UnityEngine;
 
-namespace Code.Core.Server.Model
+namespace Server.Model
 {
     public abstract class WorldEntity : ServerMonoBehaviour
     {

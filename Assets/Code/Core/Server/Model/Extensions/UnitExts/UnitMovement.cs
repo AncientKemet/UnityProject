@@ -1,9 +1,9 @@
-﻿using System.Security.Cryptography;
-using Pathfinding;
+﻿using Pathfinding;
+using Server.Model.Entities;
+using Server.Model.Entities.Human;
 using UnityEngine;
-using Code.Core.Server.Model.Entities;
 
-namespace Code.Core.Server.Model.Extensions.UnitExts
+namespace Server.Model.Extensions.UnitExts
 {
 
     public class UnitMovement : UnitUpdateExt
@@ -296,7 +296,7 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
         }
 
         #region StateSerialization
-        protected override void pSerializeState(Code.Libaries.Net.ByteStream packet)
+        protected override void pSerializeState(Code.Code.Libaries.Net.ByteStream packet)
         {
             packet.addFlag(true, true, true);
             packet.addPosition6B(_position);
@@ -304,7 +304,7 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
             packet.addFloat4B(_rotation);
         }
 
-        protected override void pSerializeUpdate(Code.Libaries.Net.ByteStream packet)
+        protected override void pSerializeUpdate(Code.Code.Libaries.Net.ByteStream packet)
         {
             packet.addFlag(_positionUpdate, _rotationUpdate, Teleported);
             if (_positionUpdate)

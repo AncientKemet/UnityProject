@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Code.Core.Server;
-using Code.Core.Server.Model;
 using UnityEngine;
 
 namespace Code.Libaries.UnityExtensions

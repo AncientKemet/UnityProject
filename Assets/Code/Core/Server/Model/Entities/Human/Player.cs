@@ -1,12 +1,10 @@
 using Code.Code.Libaries.Net.Packets;
-using Code.Core.Server.Model.Entities.Groups;
-using Code.Core.Server.Model.Extensions.PlayerExtensions;
-using Code.Core.Server.Model.Extensions.PlayerExtensions.UIHelpers;
-using Code.Core.Server.Model.Extensions.UnitExts;
-using Code.Libaries.UnityExtensions;
-using UnityEngine;
+using Server.Model.Entities.Groups;
+using Server.Model.Extensions.PlayerExtensions;
+using Server.Model.Extensions.PlayerExtensions.UIHelpers;
+using Server.Model.Extensions.UnitExts;
 
-namespace Code.Core.Server.Model.Entities
+namespace Server.Model.Entities.Human
 {
     public class Player : Human
     {

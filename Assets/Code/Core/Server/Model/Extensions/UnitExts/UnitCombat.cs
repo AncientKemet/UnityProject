@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-namespace Code.Core.Server.Model.Extensions.UnitExts
+
+namespace Server.Model.Extensions.UnitExts
 {
     public class UnitCombat : UnitUpdateExt
     {
@@ -43,13 +44,13 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
             return 0x04;
         }
 
-        protected override void pSerializeState(Code.Libaries.Net.ByteStream packet)
+        protected override void pSerializeState(Code.Code.Libaries.Net.ByteStream packet)
         {
             packet.addByte((int)Health);
             packet.addByte((int)Energy);
         }
 
-        protected override void pSerializeUpdate(Code.Libaries.Net.ByteStream packet)
+        protected override void pSerializeUpdate(Code.Code.Libaries.Net.ByteStream packet)
         {
             packet.addByte((int)Health);
             packet.addByte((int)Energy);

@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using Code.Core.Shared.Content;
-using Code.Core.Server.Model.Entities;
+﻿using Server.Model.Entities;
 
-namespace Code.Core.Server.Model.Extensions.UnitExts
+namespace Server.Model.Extensions.UnitExts
 {
 
     public class UnitAnim : UnitUpdateExt
@@ -76,7 +74,7 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
             return 0x08;
         }
 
-        protected override void pSerializeState(Code.Libaries.Net.ByteStream packet)
+        protected override void pSerializeState(Code.Code.Libaries.Net.ByteStream packet)
         {
             packet.addFlag(new []{true,true,true,false});
             packet.addString(StandAnimation);
@@ -85,7 +83,7 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
             packet.addShort(_lookingAt == null ? -1 : _lookingAt.ID);
         }
 
-        protected override void pSerializeUpdate(Code.Libaries.Net.ByteStream packet)
+        protected override void pSerializeUpdate(Code.Code.Libaries.Net.ByteStream packet)
         {
 
             packet.addFlag( _stand, _walk, _run, _action);

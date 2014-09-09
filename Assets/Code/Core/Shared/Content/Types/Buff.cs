@@ -1,5 +1,5 @@
-﻿using Code.Core.Server.Model.Entities;
-using Code.Libaries.Generic.Managers;
+﻿using Code.Libaries.Generic.Managers;
+using Server.Model.Entities;
 using UnityEditor;
 using UnityEngine;
 

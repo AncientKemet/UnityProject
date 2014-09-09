@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Code.Core.Server.Model.Entities;
 using Code.Core.Shared.NET;
+using Server.Model.Entities.Human;
 using UnityEngine;
 
-namespace Code.Core.Server.Model.Extensions.PlayerExtensions
+namespace Server.Model.Extensions.PlayerExtensions
 {
     public class PlayerInput : EntityExtension
     {

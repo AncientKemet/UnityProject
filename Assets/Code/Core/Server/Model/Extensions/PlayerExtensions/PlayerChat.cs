@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using Code.Core.Server.Model.Entities;
-using Code.Core.Shared.NET;
-using UnityEngine;
-using Code.Libaries.Net.Packets.ForServer;
+﻿using Code.Libaries.Net.Packets.ForServer;
+using Server.Model.Entities.Human;
 
-namespace Code.Core.Server.Model.Extensions.PlayerExtensions
+namespace Server.Model.Extensions.PlayerExtensions
 {
     public class PlayerChat : EntityExtension
     {

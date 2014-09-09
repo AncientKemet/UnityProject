@@ -1,7 +1,7 @@
-using Code.Core.Server.Model.ContentHandling;
-using Code.Core.Server.Model.Entities;
 using Code.Core.Shared.Content.Types;
 using Code.Libaries.UnityExtensions;
+using Server.Model.ContentHandling;
+using Server.Model.Entities.Items;
 using UnityEngine;
 
 namespace Code.Core.Shared.Content.Spawns

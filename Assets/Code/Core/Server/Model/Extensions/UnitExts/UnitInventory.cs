@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Code.Core.Client.UI;
-using Code.Core.Server.Model.Entities;
+﻿using System.Collections.Generic;
 using Code.Core.Shared.Content.Types;
+using Server.Model.Entities;
+using Server.Model.Entities.Human;
 
-namespace Code.Core.Server.Model.Extensions.UnitExts
+namespace Server.Model.Extensions.UnitExts
 {
     public class UnitInventory2 : EntityExtension
     {

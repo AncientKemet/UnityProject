@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using Code.Code.Libaries.Net;
-using Code.Core.Server.Model.Extensions;
-using Code.Core.Server.Model.Extensions.UnitExts;
 using Code.Libaries.Generic.Trees;
 using Code.Libaries.Net.Packets.ForClient;
+using Server.Model.Entities.Human;
+using Server.Model.Extensions;
+using Server.Model.Extensions.UnitExts;
 using UnityEngine;
 
-namespace Code.Core.Server.Model.Entities
+namespace Server.Model.Entities
 {
     public class ServerUnit : WorldEntity, IQuadTreeObject
     {

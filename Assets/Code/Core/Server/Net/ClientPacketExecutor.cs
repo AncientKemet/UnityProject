@@ -1,15 +1,14 @@
 ﻿using Code.Code.Libaries.Net;
 using Code.Code.Libaries.Net.Packets;
-using Code.Core.Client.UI.Interfaces.UpperLeft;
-using Code.Core.Server.Model.Entities;
-using Code.Core.Server.Model.Extensions.PlayerExtensions;
-using Code.Core.Server.Model.Extensions.PlayerExtensions.UIHelpers;
-using Code.Core.Server.Model.Extensions.UnitExts;
 using Code.Libaries.Net.Packets.ForServer;
 using Code.Libaries.Net.Packets.InGame;
+using Server.Model.Entities;
+using Server.Model.Extensions.PlayerExtensions;
+using Server.Model.Extensions.PlayerExtensions.UIHelpers;
+using Server.Model.Extensions.UnitExts;
 using UnityEngine;
 
-namespace Code.Core.Server.Net
+namespace Server.Net
 {
     public class ClientPacketExecutor : PacketExecutor
     {

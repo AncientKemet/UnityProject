@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using Code.Core.Client.UI;
-using Code.Core.Server.Model.Entities;
-using Code.Core.Server.Model.Extensions.PlayerExtensions.UIHelpers.Interfaces;
 using Code.Libaries.Net.Packets.ForServer;
+using Server.Model.Entities.Human;
+using Server.Model.Extensions.PlayerExtensions.UIHelpers.Interfaces;
 using UnityEngine;
 
-namespace Code.Core.Server.Model.Extensions.PlayerExtensions.UIHelpers
+namespace Server.Model.Extensions.PlayerExtensions.UIHelpers
 {
     
     public class ClientUI : EntityExtension

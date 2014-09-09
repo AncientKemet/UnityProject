@@ -1,8 +1,7 @@
-
-using Code.Core.Server.Model.Extensions.UnitExts;
+using Server.Model.Extensions.UnitExts;
 using UnityEngine;
 
-namespace Code.Core.Server.Model.Entities
+namespace Server.Model.Entities.Human
 {
     public class Npc : ServerUnit
     {

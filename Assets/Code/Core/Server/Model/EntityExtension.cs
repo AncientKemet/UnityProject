@@ -1,4 +1,4 @@
-﻿namespace Code.Core.Server.Model
+﻿namespace Server.Model
 {
     public abstract class EntityExtension
     {

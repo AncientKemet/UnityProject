@@ -1,10 +1,8 @@
-
-using Code.Core.Server.Model.Extensions.UnitExts;
 using Code.Core.Shared.Content.Types;
 using Code.Core.Shared.Content.Types.ItemExtensions;
-using UnityEngine;
+using Server.Model.Extensions.UnitExts;
 
-namespace Code.Core.Server.Model.Entities
+namespace Server.Model.Entities.Items
 {
     public class DroppedItem : ServerUnit
     {

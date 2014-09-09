@@ -1,9 +1,9 @@
 ﻿using System.Net.Sockets;
 using Code.Code.Libaries.Net;
-using Code.Core.Server.Model.Entities;
-using Code.Core.Server.Net;
+using Server.Model.Entities.Human;
+using Server.Net;
 
-namespace Code.Core.Server.Model.Extensions.PlayerExtensions
+namespace Server.Model.Extensions.PlayerExtensions
 {
     public class ServerClient : EntityExtension
     {

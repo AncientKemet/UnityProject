@@ -1,12 +1,11 @@
-using System;
 using System.Collections.Generic;
-using Code.Core.Server.Model.Entities;
 using Code.Libaries.Generic.Trees;
 using Code.Libaries.UnityExtensions;
+using Server.Model.Entities;
+using Server.Model.Entities.Human;
 using UnityEngine;
-using Code.Core.Server.Model.Extensions.UnitExts;
 
-namespace Code.Core.Server.Model
+namespace Server.Model
 {
     public class World : ServerMonoBehaviour
     {

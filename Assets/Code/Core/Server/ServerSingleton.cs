@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Code.Libaries.Generic;
 using UnityEngine;
 
-namespace Code.Core.Server
+namespace Server
 {
     public class ServerSingleton : MonoSingleton<ServerSingleton>
     {

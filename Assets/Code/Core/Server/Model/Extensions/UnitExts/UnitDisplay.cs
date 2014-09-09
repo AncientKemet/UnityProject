@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using Code.Core.Server.Model.Entities;
-using Code.Core.Shared.Content;
-using Code.Core.Shared.Content.Types;
+﻿using Code.Core.Shared.Content.Types;
+using Server.Model.Entities;
 
-namespace Code.Core.Server.Model.Extensions.UnitExts
+namespace Server.Model.Extensions.UnitExts
 {
     
     public class UnitDisplay : UnitUpdateExt
@@ -60,13 +58,13 @@ namespace Code.Core.Server.Model.Extensions.UnitExts
             return 0x02;
         }
 
-        protected override void pSerializeState(Code.Libaries.Net.ByteStream packet)
+        protected override void pSerializeState(Code.Code.Libaries.Net.ByteStream packet)
         {
             packet.addFlag(IsItem, false);
             packet.addByte(ModelID);
         }
 
-        protected override void pSerializeUpdate(Code.Libaries.Net.ByteStream packet)
+        protected override void pSerializeUpdate(Code.Code.Libaries.Net.ByteStream packet)
         {
             packet.addFlag(IsItem, Destroy);
             packet.addByte(ModelID);

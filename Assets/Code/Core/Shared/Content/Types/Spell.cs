@@ -1,11 +1,11 @@
 ﻿using Code.Libaries.Generic.Managers;
+using Server.Model.Entities;
+using Server.Model.Entities.Human;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 using System.Collections.Generic;
 using Code.Core.Client.UI;
-using Code.Core.Server.Model.Entities;
-
 using UnityEngine;
 
 namespace Code.Core.Shared.Content.Types

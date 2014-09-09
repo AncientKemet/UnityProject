@@ -1,6 +1,6 @@
 using Code.Code.Libaries.Net.Packets;
 
-namespace Code.Core.Server.Model.Extensions.PlayerExtensions
+namespace Server.Model.Extensions.PlayerExtensions
 {
     public static class Frames
     {

@@ -1,5 +1,5 @@
-using Code.Core.Server;
-using Code.Core.Server.Model;
+using Server;
+using Server.Model;
 using UnityEngine;
 
 namespace Code.Libaries.UnityExtensions

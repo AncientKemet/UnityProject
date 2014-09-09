@@ -1,7 +1,7 @@
 ﻿using Pathfinding;
 using UnityEngine;
 
-namespace Code.Core.Server.Model.Pathfinding
+namespace Server.Model.Pathfinding
 {
     [RequireComponent(typeof(AstarPath))]
     [ExecuteInEditMode]

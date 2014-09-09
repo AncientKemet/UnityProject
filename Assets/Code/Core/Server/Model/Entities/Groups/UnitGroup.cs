@@ -1,4 +1,4 @@
-﻿namespace Code.Core.Server.Model.Entities.Groups
+﻿namespace Server.Model.Entities.Groups
 {
     public class UnitGroup : WorldEntity
     {

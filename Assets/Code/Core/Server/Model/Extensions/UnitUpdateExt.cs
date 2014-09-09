@@ -1,6 +1,6 @@
 ﻿using Code.Code.Libaries.Net;
 
-namespace Code.Core.Server.Model.Extensions
+namespace Server.Model.Extensions
 {
     
     public abstract class UnitUpdateExt : EntityExtension

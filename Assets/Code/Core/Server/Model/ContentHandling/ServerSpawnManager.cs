@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Code.Core.Shared.Content.Spawns;
 
-namespace Code.Core.Server.Model.ContentHandling
+namespace Server.Model.ContentHandling
 {
     public class ServerSpawnManager : WorldEntity
     {

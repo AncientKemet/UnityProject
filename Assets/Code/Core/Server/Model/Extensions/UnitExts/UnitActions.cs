@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Code.Core.Client.UI;
-using Code.Core.Server.Model.Entities;
 using Code.Core.Shared.Content.Types;
 using Code.Libaries.Generic.Managers;
 using Code.Libaries.Net.Packets.ForServer;
 using Code.Libaries.UnityExtensions.Independent;
+using Server.Model.Entities;
+using Server.Model.Entities.Human;
+using Server.Model.Entities.Items;
 using UnityEngine;
 
-namespace Code.Core.Server.Model.Extensions.UnitExts
+namespace Server.Model.Extensions.UnitExts
 {
     public class UnitActions : EntityExtension
     {

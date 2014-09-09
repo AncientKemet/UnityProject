@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using Code.Code.Libaries.Net.Packets;
-using Code.Core.Server.Model.Entities;
-using Code.Core.Server.Model.Extensions.UnitExts;
 using Code.Core.Shared.Content.Types;
-using Code.Libaries.Net.Packets.ForServer;
+using Server.Model.Entities.Human;
+using Server.Model.Extensions.UnitExts;
 using UnityEngine;
 
-namespace Code.Core.Server.Model.Extensions.PlayerExtensions.UIHelpers.Interfaces
+namespace Server.Model.Extensions.PlayerExtensions.UIHelpers.Interfaces
 {
     public class ClientInventoryInterface
     {

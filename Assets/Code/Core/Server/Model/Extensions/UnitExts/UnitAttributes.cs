@@ -1,6 +1,6 @@
-﻿using Code.Core.Server.Model.Entities;
+﻿using Server.Model.Entities;
 
-namespace Code.Core.Server.Model.Extensions.UnitExts
+namespace Server.Model.Extensions.UnitExts
 {
     public class UnitAttributes : EntityExtension
     {

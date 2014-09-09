@@ -2,9 +2,10 @@
 
 using Code.Core.Shared.Content;
 using Code.Core.Shared.Content.Types;
+using Server.Model.Entities;
 #if UNITY_EDITOR
 using UnityEditor;
-using Code.Core.Server.Model.Entities;
+
 #endif
 
 namespace ReferencedData.Content.Spells.Codes

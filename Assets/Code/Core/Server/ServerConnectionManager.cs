@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
 using System.Net.Sockets;
-using Code.Core.Server.Model.Entities;
-using Code.Core.Server.Model.Extensions.PlayerExtensions;
 using Code.Libaries.UnityExtensions;
-using UnityEngine;
+using Server.Model.Entities.Human;
+using Server.Model.Extensions.PlayerExtensions;
 
-namespace Code.Core.Server
+namespace Server
 {
     public class ServerConnectionManager
     {

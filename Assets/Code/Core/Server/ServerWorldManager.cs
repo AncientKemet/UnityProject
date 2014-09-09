@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using Code.Core.Server.Model;
-using Code.Core.Server.Model.Entities;
-using UnityEngine;
+using Server.Model;
 
-namespace Code.Core.Server
+namespace Server
 {
     public class ServerWorldManager
     {

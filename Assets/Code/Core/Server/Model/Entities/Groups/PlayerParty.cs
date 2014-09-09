@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Server.Model.Entities.Human;
 
-namespace Code.Core.Server.Model.Entities.Groups
+namespace Server.Model.Entities.Groups
 {
     public class PlayerParty : UnitGroup
     {
