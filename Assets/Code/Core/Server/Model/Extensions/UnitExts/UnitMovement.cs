@@ -1,4 +1,5 @@
-﻿using Pathfinding;
+#if SERVER
+using Pathfinding;
 using Server.Model.Entities;
 using Server.Model.Entities.Human;
 using UnityEngine;
@@ -328,3 +329,4 @@ namespace Server.Model.Extensions.UnitExts
 
     }
 }
+#endif

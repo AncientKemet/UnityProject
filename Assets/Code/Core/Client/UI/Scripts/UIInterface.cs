@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Code.Libaries.UnityExtensions.Independent;
 using UnityEngine;
 using Code.Core.Client.UI.Controls;
@@ -21,11 +22,11 @@ namespace Code.Core.Client.UI
 
             public List<UIControl> Controls;
 
-            protected virtual void Awake()
+            public virtual void MarkInstance()
             {
                 if (ActiveInterfaces.ContainsKey(Type))
                 {
-                    Debug.LogError("Duplicate of interfacetype: "+gameObject+" "+ActiveInterfaces[Type].gameObject);
+                    Debug.LogError("Duplicate of interfacetype: " + gameObject + " " + ActiveInterfaces[Type].gameObject);
                     return;
                 }
                 ActiveInterfaces.Add(Type, this);
@@ -50,6 +51,11 @@ namespace Code.Core.Client.UI
                 {
                     Controls[interfaceButton.Index] = interfaceButton;
                 }
+            }
+
+            protected virtual void Awake()
+            {
+                
             }
 
             public abstract void Hide();
@@ -96,6 +102,12 @@ namespace Code.Core.Client.UI
             }
         }
 
+
+        public override void MarkInstance()
+        {
+            if (I == null)
+                I = GetComponent<T>();
+        }
 
         protected override void Awake()
         {
@@ -181,6 +193,16 @@ namespace Code.Core.Client.UI
         }
         protected virtual void OnVisibiltyChanged()
         {
+        }
+
+        protected virtual void OnEnable()
+        {
+            _visible = true;
+        }
+
+        protected virtual void OnDisable()
+        {
+            _visible = false;
         }
     }
 }

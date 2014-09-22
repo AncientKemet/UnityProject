@@ -1,6 +1,8 @@
 ﻿using Code.Libaries.Generic.Managers;
 using Server.Model.Entities;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace Code.Core.Shared.Content.Types

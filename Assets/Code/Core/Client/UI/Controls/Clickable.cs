@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using Code.Core.Client.UI.Interfaces;
 using Code.Core.Client.Units;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace Code.Core.Client.UI.Controls
@@ -134,10 +136,11 @@ namespace Code.Core.Client.UI.Controls
             Name = name;
             Action = action;
         }
-
+#if UNITY_EDITOR
         public void OnGUI()
         {
             Name = EditorGUILayout.TextField("Name", Name);
         }
+#endif
     }
 }

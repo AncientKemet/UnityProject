@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+#if SERVER
+using System.Collections.Generic;
 using Code.Core.Shared.NET;
 using Server.Model.Entities.Human;
 using UnityEngine;
@@ -48,3 +49,4 @@ namespace Server.Model.Extensions.PlayerExtensions
         }
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using System;
+#if SERVER
+using System;
 using System.Collections.Generic;
 using Server.Model.Entities.Human;
 
@@ -65,3 +66,4 @@ namespace Server.Model.Entities.Groups
     }
 
 }
+#endif

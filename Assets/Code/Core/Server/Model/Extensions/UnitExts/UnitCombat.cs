@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+#if SERVER
+using UnityEngine;
 
 namespace Server.Model.Extensions.UnitExts
 {
@@ -64,3 +65,4 @@ namespace Server.Model.Extensions.UnitExts
         }
     }
 }
+#endif

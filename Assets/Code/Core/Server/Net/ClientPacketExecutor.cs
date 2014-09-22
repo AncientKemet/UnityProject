@@ -1,4 +1,9 @@
-﻿using Code.Code.Libaries.Net;
+
+#if SERVER
+using System;
+using Code.Libaries.UnityExtensions;
+using Server.Model.Entities.Human;
+using Code.Code.Libaries.Net;
 using Code.Code.Libaries.Net.Packets;
 using Code.Libaries.Net.Packets.ForServer;
 using Code.Libaries.Net.Packets.InGame;
@@ -21,10 +26,26 @@ namespace Server.Net
 
         protected override void aExecutePacket(BasePacket packet)
         {
-
             if (packet is AuthenticationPacket)
             {
-                Frames.SendMessage(client, "Welcome to Ancient Kemet!");
+                AuthenticationPacket authenticationPacket = packet as AuthenticationPacket;
+
+                if (client.Player == null)
+                {
+
+                    Action actionToRunOnUnityThread = delegate
+                    {
+                        var player = ServerMonoBehaviour.CreateInstance<Player>();
+                        player.name = authenticationPacket.Username;
+                        player.Password = authenticationPacket.Password;
+
+                        player.Client = client;
+
+                        Server.Instance.swm.Get.Kemet.AddEntity(player);
+                    };
+
+                    ServerSingleton.StuffToRunOnUnityThread.Add(actionToRunOnUnityThread);
+                }
                 return;
             }
 
@@ -35,7 +56,7 @@ namespace Server.Net
                 {
                     ui.OnUIEvent(packet as UIInterfaceEvent);
                 }
-                return; ;
+                return;
             }
 
             if (packet is WalkRequestPacket)
@@ -120,3 +141,4 @@ namespace Server.Net
         }
     }
 }
+#endif

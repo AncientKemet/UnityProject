@@ -1,4 +1,5 @@
-﻿using Pathfinding;
+#if SERVER
+using Pathfinding;
 using UnityEngine;
 
 namespace Server.Model.Pathfinding
@@ -75,3 +76,4 @@ namespace Server.Model.Pathfinding
         }
     }
 }
+#endif

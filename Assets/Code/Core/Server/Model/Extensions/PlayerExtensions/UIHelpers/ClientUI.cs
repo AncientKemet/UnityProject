@@ -1,3 +1,4 @@
+#if SERVER
 using System.Collections.Generic;
 using Code.Core.Client.UI;
 using Code.Libaries.Net.Packets.ForServer;
@@ -151,3 +152,4 @@ namespace Server.Model.Extensions.PlayerExtensions.UIHelpers
     }
 }
 
+#endif

@@ -1,3 +1,4 @@
+#if SERVER
 using Code.Code.Libaries.Net.Packets;
 
 namespace Server.Model.Extensions.PlayerExtensions
@@ -16,3 +17,4 @@ namespace Server.Model.Extensions.PlayerExtensions
     }
 }
 
+#endif

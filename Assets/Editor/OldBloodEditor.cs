@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Code.Core.Shared.Content;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,6 +12,17 @@ namespace Assets.Editor
     /// </summary>
     public class OldBloodEditor
     {
+
+
+        [MenuItem("OldBlood/Fix GUIDs")]
+        private static void FixGUIDs()
+        {
+            foreach (var v in GameObject.FindObjectsOfType<ContentItem>())
+            {
+                if(v.GUID ==null)
+                { }
+            }
+        }
 
         private static string BeginFileMacro = "#if SERVER";
         private static string EndFileMacro = "#endif";
@@ -42,6 +54,7 @@ namespace Assets.Editor
 
             if (firstLine != BeginFileMacro)
             {
+                Debug.Log("first miss : "+file);
                 List<string> newLines = new List<string>(lines);
                 newLines.Insert(0, BeginFileMacro);
                 lines = newLines.ToArray();
@@ -50,6 +63,7 @@ namespace Assets.Editor
 
             if (lastLine != EndFileMacro)
             {
+                Debug.Log("last miss : " + file);
                 List<string> newLines = new List<string>(lines);
                 newLines.Add(EndFileMacro);
                 lines = newLines.ToArray();

@@ -187,7 +187,7 @@ Shader "Hidden/EdgeDetect" {
 		float SobelY = dot(SobelV, float4(1,1,1,1));
 		float Sobel = sqrt(SobelX * SobelX + SobelY * SobelY);
 
-		Sobel = 1.0-pow(saturate(Sobel), _Exponent);
+		Sobel = clamp(1.0-pow(saturate(Sobel), _Exponent), 0.5, 1.0);
 		return Sobel * lerp(tex2D(_MainTex, i.uv[0].xy), _BgColor, _BgFade);
 	}
 

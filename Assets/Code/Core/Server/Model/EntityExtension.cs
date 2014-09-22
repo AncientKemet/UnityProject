@@ -1,6 +1,8 @@
-﻿namespace Server.Model
+#if SERVER
+using Server.SQL;
+namespace Server.Model
 {
-    public abstract class EntityExtension
+    public abstract class EntityExtension : ISQLSerializable
     {
 
         private WorldEntity _entity;
@@ -17,3 +19,4 @@
         public abstract void Progress();
     }
 }
+#endif

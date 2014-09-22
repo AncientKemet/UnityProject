@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using Client.UI.Interfaces;
 using Code.Code.Libaries.Net;
 using Code.Code.Libaries.Net.Packets;
 using Code.Core.Shared.NET;
 using Code.Libaries.Generic;
+using Code.Libaries.Generic.Managers;
 using UnityEngine;
 
 namespace Code.Core.Client.Net
@@ -19,7 +21,6 @@ namespace Code.Core.Client.Net
         private ConnectionHandler conhan;
 
         public string[] opcodes = new string[256];
-        public List<string> PacketHistory; 
 
         void Start()
         {
@@ -35,14 +36,12 @@ namespace Code.Core.Client.Net
             socket.Connect(IPAddress.Parse(adress), NetworkConfig.I.port);
 
             conhan = new ConnectionHandler(socket, new PlayerPacketExecutor());
-
-            //Create auth packet
-            AuthenticationPacket packet = new AuthenticationPacket();
-            conhan.SendPacket(packet);
-
+            
             if (socket.Connected)
             {
                 Debug.Log("Connected to server.");
+                UIContentManager.I.LoadInterfaces();
+                LoginInterface.I.Show();
             }
             else
             {

@@ -2,8 +2,7 @@
 
 namespace Code.Core.Client.UI.Controls
 {
-    [RequireComponent(typeof(Clickable))]
-    public class TextButton : MonoBehaviour
+    public class TextButton : UIControl
     {
         [SerializeField] 
         public Color HoverColor;
@@ -38,22 +37,22 @@ namespace Code.Core.Client.UI.Controls
                 _backGround.ForceBuild();
             }
         }
-
-        private void OnMouseEnter()
-        {
-            _backGround.color = HoverColor;
-            _backGround.ForceBuild();
-        }
-
-        private void OnMouseExit()
-        {
-            _backGround.color = _normalColor;
-            _backGround.ForceBuild();
-        }
-
+        
         private void Start()
         {
             _normalColor = _backGround.color;
+
+            OnMouseIn += () =>
+            {
+                _backGround.color = HoverColor;
+                _backGround.ForceBuild();
+            };
+
+            OnMouseOff += () =>
+            {
+                _backGround.color = _normalColor;
+                _backGround.ForceBuild();
+            };
         }
     }
 }

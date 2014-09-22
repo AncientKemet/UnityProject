@@ -30,7 +30,7 @@ namespace Code.Code.Libaries.Net.Packets
 
         protected override int GetOpCode()
         {
-            return 51;
+            return 52;
         }
 
         protected override void enSerialize(ByteStream bytestream)

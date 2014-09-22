@@ -19,7 +19,7 @@ namespace Code.Core.Client.Controls
             }
             set
             {
-                if(_fullListener != null)
+                if(_fullListener != null && _fullListener != value)
                 {
                     _fullListener.ListenerWasDeclined();
                 }
@@ -70,7 +70,8 @@ namespace Code.Core.Client.Controls
         
             public void Deattach()
             {
-                if(KeyboardInput.Instance.FullListener == this){
+                if(KeyboardInput.Instance.FullListener == this)
+                {
                     KeyboardInput.Instance.FullListener = null;
                 }
             }

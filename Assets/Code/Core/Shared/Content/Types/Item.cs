@@ -6,6 +6,9 @@ using Code.Libaries.Generic.Managers;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+#if SERVER
+using Server.SQL;
+#endif
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -14,8 +17,11 @@ namespace Code.Core.Shared.Content.Types
     [Serializable]
     [ExecuteInEditMode]
     public class Item : ContentItem
+#if SERVER
+        , ISQLSerializable
+#endif
     {
-        public Texture2D ItemIcon;
+
 
         [Range(0f, 20f)]
         public float Weight;
@@ -26,6 +32,13 @@ namespace Code.Core.Shared.Content.Types
 
         public int MaxStacks = 1;
 
+        public Vector3 Position = Vector3.zero;
+        public Vector3 Rotation = Vector3.zero;
+        public Vector3 Scale = Vector3.one;
+
+#if SERVER
+        [SQLSerialize]
+#endif
         private int _inContentManagerIndex = -1;
 
         public int InContentManagerIndex
@@ -35,6 +48,18 @@ namespace Code.Core.Shared.Content.Types
                 if (_inContentManagerIndex == -1)
                 {
                     _inContentManagerIndex = ContentManager.I.Items.IndexOf(this);
+                }
+                if (_inContentManagerIndex == -1)
+                {
+                    for (int i = 0; i < ContentManager.I.Items.Count; i++)
+                    {
+                        if (ContentManager.I.Items[i] != null)
+                        if (GUID == ContentManager.I.Items[i].GUID)
+                        {
+                            _inContentManagerIndex = i;
+                            break;
+                        }
+                    }
                 }
                 return _inContentManagerIndex;
             }

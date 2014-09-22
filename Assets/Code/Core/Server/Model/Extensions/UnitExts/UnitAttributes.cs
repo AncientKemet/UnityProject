@@ -1,4 +1,5 @@
-﻿using Server.Model.Entities;
+#if SERVER
+using Server.Model.Entities;
 
 namespace Server.Model.Extensions.UnitExts
 {
@@ -58,3 +59,4 @@ namespace Server.Model.Extensions.UnitExts
 
     }
 }
+#endif

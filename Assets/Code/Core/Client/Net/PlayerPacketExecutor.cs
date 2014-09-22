@@ -1,4 +1,5 @@
-﻿using Code.Code.Libaries.Net;
+﻿using Client.UI.Interfaces;
+using Code.Code.Libaries.Net;
 using Code.Code.Libaries.Net.Packets;
 using Code.Core.Client.UI;
 using Code.Core.Client.UI.Controls.Items;
@@ -17,7 +18,6 @@ namespace Code.Core.Client.Net
     {
         protected override void aExecutePacket(BasePacket packet)
         {
-            ClientCommunicator.Instance.PacketHistory.Add(packet.GetType().Name);
             if (packet is UIPacket)
             {
                 UIPacket p = packet as UIPacket;
@@ -34,6 +34,11 @@ namespace Code.Core.Client.Net
 
                 PlayerUnit.MyPlayerUnit = UnitManager.Instance[p.myUnitID];
                 PlayerUnit.MyPlayerUnit.transform.position = p.Position;
+
+                if (LoginInterface.I.Visible)
+                {
+                    LoginInterface.I.Hide();
+                }
             }
             else if (packet is UnitUpdatePacket)
             {

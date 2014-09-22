@@ -1,7 +1,7 @@
 ﻿using Code.Libaries.Generic;
-using UnityEditor;
+
 #if UNITY_EDITOR
-using UnityEngine;
+using UnityEditor;
 #endif
 
 namespace Code.Core.Shared.NET

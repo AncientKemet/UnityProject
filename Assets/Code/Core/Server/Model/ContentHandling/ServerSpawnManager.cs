@@ -1,3 +1,4 @@
+#if SERVER
 using System.Collections.Generic;
 using Code.Core.Shared.Content.Spawns;
 
@@ -38,3 +39,4 @@ namespace Server.Model.ContentHandling
     }
 }
 
+#endif

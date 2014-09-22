@@ -1,3 +1,6 @@
+using Code.Libaries.Generic.Managers;
+#if SERVER
+using Server.SQL;
 using Code.Code.Libaries.Net.Packets;
 using Server.Model.Entities.Groups;
 using Server.Model.Extensions.PlayerExtensions;
@@ -16,7 +19,7 @@ namespace Server.Model.Entities.Human
             set
             {
                 _client = value;
-                AddExt(_client);
+                AddExt(value);
             }
         }
 
@@ -24,6 +27,7 @@ namespace Server.Model.Entities.Human
         public ClientUI ClientUi { get; private set; }
         public PlayerChat Chat { get; private set; }
         public PlayerParty Party { get; set; }
+        public string Password { get; set; }
 
         public override void Awake()
         {
@@ -33,7 +37,8 @@ namespace Server.Model.Entities.Human
             AddExt(PlayerInput = new PlayerInput());
             AddExt(Chat = new PlayerChat());
 
-            //Server.Instance.swm.Get.Kemet.AddEntity(ServerMonoBehaviour.CreateInstance<Npc>());
+            Inventory.AccesType = UnitInventory.AccessType.ONLY_THIS_UNIT;
+            Inventory.ListeningPlayers.Add(this);
         }
 
         public override void Progress()
@@ -44,11 +49,14 @@ namespace Server.Model.Entities.Human
         public void OnEnteredWorld(World world)
         {
             EnterWorldPacket enterWorldPacket = new EnterWorldPacket();
+
             enterWorldPacket.worldId = world.ID;
             enterWorldPacket.myUnitID = ID;
-            enterWorldPacket.Position = GetExt<UnitMovement>().Position;
+            enterWorldPacket.Position = Movement.Position;
+
             Client.ConnectionHandler.SendPacket(enterWorldPacket);
         }
     }
 }
 
+#endif

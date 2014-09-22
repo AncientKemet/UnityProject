@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Code.Code.Libaries.Net
 {
@@ -12,7 +13,14 @@ namespace Code.Code.Libaries.Net
 
         public void ExecutePacket(BasePacket packet)
         {
-            aExecutePacket(packet);
+            try
+            {
+                aExecutePacket(packet);
+            }
+            catch(Exception e)
+            {
+                Debug.LogException(e);
+            }
         }
     }
 }

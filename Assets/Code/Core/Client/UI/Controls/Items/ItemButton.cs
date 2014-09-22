@@ -1,5 +1,6 @@
 ﻿using Code.Core.Shared.Content.Types;
 using Code.Libaries.GameObjects;
+using Shared.Content.Types.ItemExtensions;
 using UnityEngine;
 
 namespace Code.Core.Client.UI.Controls.Items
@@ -33,8 +34,9 @@ namespace Code.Core.Client.UI.Controls.Items
                 ItemModel = (GameObject) Instantiate(Item.gameObject);
 
                 ItemModel.transform.parent = transform;
-                ItemModel.transform.localPosition = Vector3.zero;
-                ItemModel.transform.localRotation = Quaternion.identity;
+                ItemModel.transform.localPosition = _item.Position;
+                ItemModel.transform.localEulerAngles = _item.Rotation;
+                ItemModel.transform.localScale = _item.Scale;
 
                 ItemModel.layer = gameObject.layer;
 
@@ -42,6 +44,8 @@ namespace Code.Core.Client.UI.Controls.Items
                 {
                     t.gameObject.layer = gameObject.layer;
                 }
+
+                ItemModel.AddComponent<ItemInUI>();
 
             }
         }

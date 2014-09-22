@@ -9,7 +9,7 @@ namespace Server
     public class ServerSingleton : MonoSingleton<ServerSingleton>
     {
 
-        public static LinkedList<Action> StuffToRunOnUnityThread;
+        public static List<Action> StuffToRunOnUnityThread;
 
         private Server _server;
 
@@ -20,7 +20,7 @@ namespace Server
 
         protected override void OnAwake()
         {
-            StuffToRunOnUnityThread = new LinkedList<Action>();
+            StuffToRunOnUnityThread = new List<Action>();
         }
 
         private void OnEnable()
@@ -38,10 +38,19 @@ namespace Server
             //Run stuff that needs to be ran
             lock (StuffToRunOnUnityThread)
             {
-                foreach (Action action in StuffToRunOnUnityThread)
+                for (int i = 0; i < StuffToRunOnUnityThread.Count; i++)
                 {
-                    action();
+                    Action action = null;
+                    try
+                    {
+                        action = StuffToRunOnUnityThread[i];
+                    }
+                    catch (Exception e) { }
+                    
+                    if(action != null)
+                        action();
                 }
+                    
 
                 StuffToRunOnUnityThread.Clear();
             }

@@ -1,10 +1,14 @@
-﻿using Code.Libaries.UnityExtensions.Independent;
+﻿using Code.Core.Client.UI.Controls.Items;
+using Code.Libaries.UnityExtensions.Independent;
 using UnityEngine;
 
 namespace Code.Core.Client.UI.Interfaces.LowerRightFaces
 {
     public class InventoryInterface : UIInterface<InventoryInterface>
     {
+
+        public ItemInventory ItemInventory;
+
         protected override void Awake()
         {
             base.Awake();

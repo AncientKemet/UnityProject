@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+#if SERVER
+using System.Net.Sockets;
 using Code.Code.Libaries.Net;
 using Server.Model.Entities.Human;
 using Server.Net;
@@ -42,3 +43,4 @@ namespace Server.Model.Extensions.PlayerExtensions
 
     }
 }
+#endif

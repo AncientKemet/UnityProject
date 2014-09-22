@@ -1,4 +1,5 @@
-﻿using Code.Core.Shared.Content.Types;
+#if SERVER
+using Code.Core.Shared.Content.Types;
 using Server.Model.Entities;
 
 namespace Server.Model.Extensions.UnitExts
@@ -91,3 +92,4 @@ namespace Server.Model.Extensions.UnitExts
         }
     }
 }
+#endif

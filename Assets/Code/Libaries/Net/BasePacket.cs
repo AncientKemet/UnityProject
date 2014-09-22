@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEngine;
 
 namespace Code.Code.Libaries.Net
 {
@@ -8,6 +9,9 @@ namespace Code.Code.Libaries.Net
     public static class PacketManager
     {
         public static Dictionary<int, Type> packetTypes = new Dictionary<int, Type>();
+
+        private static Type _lastPackeType;
+
         private static bool _packetsWereLoaded = false;
 
         /// <summary>
@@ -38,7 +42,17 @@ namespace Code.Code.Libaries.Net
                     }
                 }
             }
-            BasePacket packetInstance = (BasePacket)Activator.CreateInstance(packetTypes[opcode]);
+            BasePacket packetInstance;
+            try
+            {
+                packetInstance = (BasePacket) Activator.CreateInstance(packetTypes[opcode]);
+            }
+            catch (KeyNotFoundException e)
+            {
+                Debug.LogError("Corrupted packet: "+_lastPackeType);
+                return null;
+            }
+            _lastPackeType = packetInstance.GetType();
             return packetInstance;
 
         }

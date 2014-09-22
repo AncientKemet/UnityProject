@@ -1,3 +1,4 @@
+#if SERVER
 using System.Collections.Generic;
 using Code.Libaries.Generic.Trees;
 using Code.Libaries.UnityExtensions;
@@ -112,3 +113,4 @@ namespace Server.Model
     }
 }
 
+#endif

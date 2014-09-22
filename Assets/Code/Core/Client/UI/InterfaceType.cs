@@ -11,6 +11,8 @@
         _RightClickMenu,
         StatsBars,
         UnitSelectionInterface,
-        _InventoryInterface
+        _InventoryInterface,
+        LoginInterface,
+        ProfileInterface
     }
 }

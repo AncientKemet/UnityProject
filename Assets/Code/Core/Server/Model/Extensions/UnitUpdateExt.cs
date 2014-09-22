@@ -1,4 +1,5 @@
-﻿using Code.Code.Libaries.Net;
+#if SERVER
+using Code.Code.Libaries.Net;
 
 namespace Server.Model.Extensions
 {
@@ -53,3 +54,4 @@ namespace Server.Model.Extensions
 
     }
 }
+#endif

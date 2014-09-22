@@ -1,3 +1,5 @@
+using System;
+#if SERVER
 using System.Collections.Generic;
 using Code.Code.Libaries.Net.Packets;
 using Code.Core.Shared.Content.Types;
@@ -39,13 +41,20 @@ namespace Server.Model.Extensions.PlayerExtensions.UIHelpers.Interfaces
                 packet.X = x;
                 packet.Y = y;
 
-                Player.Client.ConnectionHandler.SendPacket(packet);
-
+                try
+                {
+                    Player.Client.ConnectionHandler.SendPacket(packet);
+                }
+                catch
+                { }
             }
         }
 
         private void ShowInventory(int id)
         {
+            if(id == Player.ID)
+                return;
+
             UnitInventory unitInventory = Player.CurrentWorld[id].GetExt<UnitInventory>();
             if (unitInventory == null)
                 Debug.LogError("Not an inventory.");
@@ -105,3 +114,4 @@ namespace Server.Model.Extensions.PlayerExtensions.UIHelpers.Interfaces
     }
 }
 
+#endif

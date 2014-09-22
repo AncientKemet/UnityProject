@@ -15,6 +15,15 @@ namespace Code.Libaries.Generic.Managers
         public List<Buff> Buffs;
         public List<GameObject> Effects;
 
+        private void OnEnable()
+        {
+            foreach (var item in Items)
+            {
+                if(item != null)
+                if (item.GUID == null) { }
+            }
+        }
+
 #if UNITY_EDITOR
         [MenuItem("Kemet/Open/ContentManager")]
         private static void SelectAsset()

@@ -1,4 +1,5 @@
-﻿using Code.Libaries.Net.Packets.ForServer;
+#if SERVER
+using Code.Libaries.Net.Packets.ForServer;
 using Server.Model.Entities.Human;
 
 namespace Server.Model.Extensions.PlayerExtensions
@@ -68,3 +69,4 @@ namespace Server.Model.Extensions.PlayerExtensions
         }
     }
 }
+#endif

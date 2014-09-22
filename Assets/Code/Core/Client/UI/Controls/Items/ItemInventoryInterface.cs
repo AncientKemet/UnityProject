@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Code.Code.Libaries.Net.Packets;
+using Code.Core.Client.UI.Interfaces.LowerRightFaces;
 using Code.Core.Client.Units;
 using Code.Core.Client.Units.Managed;
 using Code.Libaries.UnityExtensions;
@@ -77,6 +78,30 @@ namespace Code.Core.Client.UI.Controls.Items
 
         public void Handle(UIInventoryInterfacePacket packet)
         {
+            //convert my inventory to the special one
+            if (packet.UnitID == PlayerUnit.MyPlayerUnit.Id)
+            {
+                switch (packet.type)
+                {
+                    case UIInventoryInterfacePacket.PacketType.SHOW:
+                        InventoryInterface.I.ItemInventory.Width = packet.X;
+                        InventoryInterface.I.ItemInventory.Height = packet.Y;
+                        InventoryInterface.I.ItemInventory.ForceRebuild();
+                        break;
+
+                    case UIInventoryInterfacePacket.PacketType.HIDE:
+                        InventoryInterface.I.Hide();
+                        break;
+
+                    case UIInventoryInterfacePacket.PacketType.SetItem:
+                        int itemID = packet.Value;
+                        InventoryInterface.I.ItemInventory.SetItem(packet.X, packet.Y, itemID);
+                        break;
+                }
+                return;
+            }
+
+            //else do casual stuff
             ItemInventoryInterface instance = GetInterface(packet.UnitID);
             switch (packet.type)
             {

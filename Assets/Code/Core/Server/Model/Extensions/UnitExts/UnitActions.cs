@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+#if SERVER
+using System.Collections.Generic;
 using Code.Core.Client.UI;
 using Code.Core.Shared.Content.Types;
 using Code.Libaries.Generic.Managers;
@@ -157,10 +158,16 @@ namespace Server.Model.Extensions.UnitExts
             {
                 if (actionName == "Take")
                 {
+                    UnitInventory inventory = fromUnit.GetExt<UnitInventory>();
                     DroppedItem item = Unit as DroppedItem;
 
-                    item.Display.PickupingUnit = fromUnit;
-
+                    if (inventory != null)
+                    {
+                        if (inventory.AddItem(item.Item))
+                        {
+                            item.Display.PickupingUnit = fromUnit;
+                        }
+                    }
                     return;
                 }
 
@@ -201,3 +208,4 @@ namespace Server.Model.Extensions.UnitExts
         }
     }
 }
+#endif

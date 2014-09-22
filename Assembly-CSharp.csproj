@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_4_5_3;UNITY_4_5;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE;SERVER</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_5_3;UNITY_4_5;UNITY_64;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE;SERVER</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -66,6 +66,7 @@
      <Compile Include="Assets\Code\Core\Client\UI\Controls\ChannelBar.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\CircleButton.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\Clickable.cs" />
+     <Compile Include="Assets\Code\Core\Client\UI\Controls\Inputs\TextField.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\InterfaceButton.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\Items\ItemButton.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Controls\Items\ItemInventory.cs" />
@@ -78,9 +79,12 @@
      <Compile Include="Assets\Code\Core\Client\UI\InterfaceAnchor.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\InterfaceType.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Interfaces\ActionBars.cs" />
+     <Compile Include="Assets\Code\Core\Client\UI\Interfaces\LoginInterface.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Interfaces\LowerRight.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Interfaces\LowerRightFaces\InventoryInterface.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Interfaces\LowerRightFaces\LowerRightBase.cs" />
+     <Compile Include="Assets\Code\Core\Client\UI\Interfaces\Profile\ProfileInterface.cs" />
+     <Compile Include="Assets\Code\Core\Client\UI\Interfaces\Profile\ProfileTab.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Interfaces\RightClickMenu.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Interfaces\SpellDescription.cs" />
      <Compile Include="Assets\Code\Core\Client\UI\Interfaces\StatsBar\StatsBarInterfaces.cs" />
@@ -99,6 +103,7 @@
      <Compile Include="Assets\Code\Core\Client\Units\PlayerUnit.cs" />
      <Compile Include="Assets\Code\Core\Client\Units\UnitControllers\UnitDisplay.cs" />
      <Compile Include="Assets\Code\Core\GV.cs" />
+     <Compile Include="Assets\Code\Core\Server\LoginServer.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\ContentHandling\ServerSpawnManager.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Entities\Groups\PlayerParty.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Entities\Groups\UnitGroup.cs" />
@@ -120,7 +125,6 @@
      <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitExts\UnitCombat.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitExts\UnitDisplay.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitExts\UnitFocus.cs" />
-     <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitExts\UnitGroup.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitExts\UnitInventory.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitExts\UnitMovement.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\Extensions\UnitUpdateExt.cs" />
@@ -128,6 +132,10 @@
      <Compile Include="Assets\Code\Core\Server\Model\World.cs" />
      <Compile Include="Assets\Code\Core\Server\Model\WorldEntity.cs" />
      <Compile Include="Assets\Code\Core\Server\Net\ClientPacketExecutor.cs" />
+     <Compile Include="Assets\Code\Core\Server\SQL\ISQLSerializable.cs" />
+     <Compile Include="Assets\Code\Core\Server\SQL\SQLAttributes.cs" />
+     <Compile Include="Assets\Code\Core\Server\SQL\SQLSerializer.cs" />
+     <Compile Include="Assets\Code\Core\Server\SQL\SqlContentManagement.cs" />
      <Compile Include="Assets\Code\Core\Server\Server.cs" />
      <Compile Include="Assets\Code\Core\Server\ServerConnectionManager.cs" />
      <Compile Include="Assets\Code\Core\Server\ServerSingleton.cs" />
@@ -138,6 +146,7 @@
      <Compile Include="Assets\Code\Core\Shared\Content\Types\Buff.cs" />
      <Compile Include="Assets\Code\Core\Shared\Content\Types\Item.cs" />
      <Compile Include="Assets\Code\Core\Shared\Content\Types\ItemExtensions\EquipmentItem.cs" />
+     <Compile Include="Assets\Code\Core\Shared\Content\Types\ItemExtensions\ItemInUI.cs" />
      <Compile Include="Assets\Code\Core\Shared\Content\Types\ItemExtensions\ItemMaterials.cs" />
      <Compile Include="Assets\Code\Core\Shared\Content\Types\ItemExtensions\ItemRigid.cs" />
      <Compile Include="Assets\Code\Core\Shared\Content\Types\ItemExtensions\ItemWithInventory.cs" />
@@ -149,7 +158,6 @@
      <Compile Include="Assets\Code\Core\Shared\StructClasses\Combat\Damage.cs" />
      <Compile Include="Assets\Code\Core\Shared\StructClasses\Combat\Heal.cs" />
      <Compile Include="Assets\Code\Core\Shared\StructClasses\Combat\HealthChange.cs" />
-     <Compile Include="Assets\Code\Core\Shared\spells\extensions\NewBehaviourScript.cs" />
      <Compile Include="Assets\Code\Libaries\AstarPathfindingProject\Core\AI\AIPath.cs" />
      <Compile Include="Assets\Code\Libaries\AstarPathfindingProject\Core\AI\NavmeshController.cs" />
      <Compile Include="Assets\Code\Libaries\AstarPathfindingProject\Core\AI\Seeker.cs" />
@@ -235,6 +243,7 @@
      <Compile Include="Assets\Code\Libaries\Generic\Singleton.cs" />
      <Compile Include="Assets\Code\Libaries\Generic\Trees\IQuadTreeObject.cs" />
      <Compile Include="Assets\Code\Libaries\Generic\Trees\QuadTree.cs" />
+     <Compile Include="Assets\Code\Libaries\IO\Json.cs" />
      <Compile Include="Assets\Code\Libaries\IO\PlayerPrefsField.cs" />
      <Compile Include="Assets\Code\Libaries\IO\Prefabs.cs" />
      <Compile Include="Assets\Code\Libaries\MeshUtils\Combining.cs" />
@@ -421,6 +430,7 @@
      <None Include="Assets\ReferencedData\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\DLAA.shader" />
      <None Include="Assets\Code\Libaries\TK2DROOT\tk2d\Shaders\CutoutVertexColor.shader" />
      <None Include="Assets\ReferencedData\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseAndGrainDX11.shader" />
+     <None Include="Assets\ReferencedData\Client\UI\Fonts\Ancient.fnt" />
      <None Include="Assets\ReferencedData\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BrightPassFilter2.shader" />
      <None Include="Assets\ReferencedData\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableBlur.shader" />
      <None Include="Assets\ReferencedData\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\MotionBlurClear.shader" />

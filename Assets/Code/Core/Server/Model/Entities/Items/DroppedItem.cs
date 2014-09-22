@@ -1,3 +1,4 @@
+#if SERVER
 using Code.Core.Shared.Content.Types;
 using Code.Core.Shared.Content.Types.ItemExtensions;
 using Server.Model.Extensions.UnitExts;
@@ -37,3 +38,4 @@ namespace Server.Model.Entities.Items
     }
 }
 
+#endif

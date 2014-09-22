@@ -42,7 +42,7 @@ namespace Code.Core.Shared.Content.Types
             }
         }
 
-#if UNITY_EDITOR
+#if SERVER
 
         public void StartCasting(ServerUnit unit)
         {
@@ -92,6 +92,7 @@ namespace Code.Core.Shared.Content.Types
         public abstract void OnFinishCasting(ServerUnit unit, float strenght);
         public abstract void OnStrenghtChanged(ServerUnit unit, float strenght);
 
+#if UNITY_EDITOR
         public static void CreateSpell<T>() where T : Spell
         {
             var asset = CreateInstance<T>();
@@ -99,6 +100,7 @@ namespace Code.Core.Shared.Content.Types
             AssetDatabase.SaveAssets();
             Selection.activeObject = asset;
         }
+#endif
 #endif
 
     }

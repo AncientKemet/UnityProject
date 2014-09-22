@@ -9,7 +9,8 @@ namespace Code.Code.Libaries.Net.Packets
     class AuthenticationPacket : BasePacket
     {
 
-        public string text = "bad";
+        public string Username { get; set; }
+        public string Password { get; set; }
 
         protected override int GetOpCode()
         {
@@ -18,12 +19,14 @@ namespace Code.Code.Libaries.Net.Packets
 
         protected override void enSerialize(ByteStream bytestream)
         {
-            bytestream.addString("Lolol");
+            bytestream.addString(Username);
+            bytestream.addString(Password);
         }
 
         protected override void deSerialize(ByteStream bytestream)
         {
-            text = bytestream.getString();
+            Username = bytestream.getString();
+            Password = bytestream.getString();
         }
     }
 }

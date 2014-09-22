@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+#if SERVER
+using System.Collections.Generic;
 using Server.Model.Entities;
 using Server.Model.Entities.Human;
 
@@ -32,3 +33,4 @@ namespace Server.Model.Extensions.UnitExts
 
     }
 }
+#endif

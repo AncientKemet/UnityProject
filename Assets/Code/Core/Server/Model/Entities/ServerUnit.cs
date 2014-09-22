@@ -1,3 +1,5 @@
+
+#if SERVER
 using System.Collections.Generic;
 using Code.Code.Libaries.Net;
 using Code.Libaries.Generic.Trees;
@@ -6,17 +8,25 @@ using Server.Model.Entities.Human;
 using Server.Model.Extensions;
 using Server.Model.Extensions.UnitExts;
 using UnityEngine;
+using Server.SQL;
 
 namespace Server.Model.Entities
 {
     public class ServerUnit : WorldEntity, IQuadTreeObject
     {
+
         public UnitMovement Movement;
+
         public UnitCombat Combat;
+
         public UnitDisplay Display;
+
         public UnitAnim Anim;
+
         public UnitAttributes Attributes;
+
         public UnitFocus Focus;
+
         public UnitActions Actions;
 
         private List<UnitUpdateExt> _updateExtensions;
@@ -157,3 +167,4 @@ namespace Server.Model.Entities
     }
 }
 
+#endif

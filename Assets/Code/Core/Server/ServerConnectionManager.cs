@@ -24,6 +24,10 @@ namespace Server
             {
                 var client = new ServerClient(newConnection);
 
+                LoginServer.RegisterClient(client);
+
+                //Old technique
+                /*
                 Action actionToRunOnUnityThread = delegate
                 {
                     var player = ServerMonoBehaviour.CreateInstance<Player>();
@@ -32,8 +36,8 @@ namespace Server
 
                     Server.Instance.swm.Get.Kemet.AddEntity(player);
                 };
-
                 ServerSingleton.StuffToRunOnUnityThread.AddFirst(actionToRunOnUnityThread);
+                */
             }
         }
 

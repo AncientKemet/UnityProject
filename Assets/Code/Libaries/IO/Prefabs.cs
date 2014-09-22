@@ -1,5 +1,7 @@
 using System;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -24,6 +26,8 @@ namespace Code.Libaries.IO
             return null;
         }
 
+#if UNITY_EDITOR
+
         public static T GetAsset<T>(string assetPath) where T : ScriptableObject
         {
             Object o = AssetDatabase.LoadAssetAtPath(assetPath, typeof(T));
@@ -39,6 +43,8 @@ namespace Code.Libaries.IO
                 throw new Exception("Invalid asset: " + assetPath);
             return null;
         }
+
+#endif
     }
 }
 

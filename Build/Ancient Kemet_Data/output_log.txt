@@ -1,0 +1,53 @@
+Initialize engine version: 4.5.3f3 (fca41a4fabea)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [nvd3dumx.dll 9.18.13.3523]
+    Renderer: NVIDIA GeForce GT 440 
+    Vendor:   NVIDIA
+    VRAM:     971 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=0 INTZ=1 RAWZ=0 NULL=1 RESZ=0 SlowINTZ=0
+Default GameObject BitMask: UI already registered
+ 
+(Filename:  Line: 168)
+
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Robert\Documents\UnityProject\Build\Ancient Kemet_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Robert\Documents\UnityProject\Build\Ancient Kemet_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Robert\Documents\UnityProject\Build\Ancient Kemet_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Robert\Documents\UnityProject\Build\Ancient Kemet_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Robert\Documents\UnityProject\Build\Ancient Kemet_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\Robert\Documents\UnityProject\Build\Ancient Kemet_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: C:\Users\Robert\Documents\UnityProject\Build\Ancient Kemet_Data\Managed\Pathfinding.Ionic.Zip.Reduced.dll (this message is harmless)
+Loading C:\Users\Robert\Documents\UnityProject\Build\Ancient Kemet_Data\Managed\Pathfinding.Ionic.Zip.Reduced.dll into Unity Child Domain
+Platform assembly: C:\Users\Robert\Documents\UnityProject\Build\Ancient Kemet_Data\Managed\Pathfinding.JsonFx.dll (this message is harmless)
+Loading C:\Users\Robert\Documents\UnityProject\Build\Ancient Kemet_Data\Managed\Pathfinding.JsonFx.dll into Unity Child Domain
+- Completed reload, in  0.132 seconds
+desktop: 1920x1080 60Hz; virtual: 3840x1080 at -1920,0
+<RI> Initializing input.
+<RI> Input initialized.
+Platform assembly: C:\Users\Robert\Documents\UnityProject\Build\Ancient Kemet_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Robert\Documents\UnityProject\Build\Ancient Kemet_Data\Managed\System.dll (this message is harmless)
+SocketException: Zvyčajne je povolené len jedno použitie každej adresy (protokolu, sieťovej adresy, portu) soketu.
+
+  at System.Net.Sockets.Socket.Bind (System.Net.EndPoint local_end) [0x00000] in <filename unknown>:0 
+  at Server.Server.CreateServerSocket () [0x00000] in <filename unknown>:0 
+  at Server.Server.StartServer () [0x00000] in <filename unknown>:0 
+  at Server.ServerSingleton.OnEnable () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Scanning - Process took 651 ms to complete
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Platform assembly: C:\Users\Robert\Documents\UnityProject\Build\Ancient Kemet_Data\Managed\Boo.Lang.dll (this message is harmless)
+Connected to server.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Server.Server.Stop () [0x00000] in <filename unknown>:0 
+  at Server.ServerSingleton.OnDisable () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+

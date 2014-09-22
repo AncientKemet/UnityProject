@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+
+#if SERVER
+using Server.SQL;
+using System.Collections.Generic;
 using Code.Core.Shared.Content.Types;
 using Server.Model.Entities;
 using Server.Model.Entities.Human;
 
 namespace Server.Model.Extensions.UnitExts
 {
-    public class UnitInventory2 : EntityExtension
+    public class UnitInventory : EntityExtension
     {
         public enum AccessType
         {
@@ -13,11 +16,18 @@ namespace Server.Model.Extensions.UnitExts
             ONLY_THIS_UNIT
         }
 
+
+        [SQLSerialize]
         private int _width = 1;
+
+        [SQLSerialize]
         private int _height = 1;
+
+        [SQLSerialize]
         private List<Item> _items; 
 
         public ServerUnit Unit { get; private set; }
+
         public AccessType AccesType { get; set; }
 
         public List<Player> ListeningPlayers = new List<Player>(); 
@@ -45,6 +55,10 @@ namespace Server.Model.Extensions.UnitExts
         private void RecreateInventory()
         {
             _items = new List<Item>(Width * Height);
+            for (int i = 0; i < Width * Height; i++)
+            {
+                _items.Add(null);
+            }
         }
 
         public Item this[int x, int y]
@@ -92,5 +106,22 @@ namespace Server.Model.Extensions.UnitExts
                 return unit == Unit;
             return false;
         }
+
+        public bool AddItem(Item item)
+        {
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    if (this[x, y] == null)
+                    {
+                        this[x, y] = item;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
+#endif

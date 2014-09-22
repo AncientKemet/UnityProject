@@ -1,3 +1,4 @@
+#if SERVER
 using Server.Model.Extensions.UnitExts;
 using UnityEngine;
 
@@ -39,3 +40,4 @@ namespace Server.Model.Entities.Human
     }
 }
 
+#endif

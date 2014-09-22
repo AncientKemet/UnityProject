@@ -20,7 +20,7 @@ namespace ReferencedData.Content.Spells.Codes
         public float StrenghtRatio = 1f;
         public float DexterityRatio = 1f;
 
-#if UNITY_EDITOR
+#if SERVER
 
         public override void OnFinishCasting(ServerUnit unit, float strenght)
         {
@@ -36,12 +36,13 @@ namespace ReferencedData.Content.Spells.Codes
         {
             
         }
-
+#if UNITY_EDITOR
         [MenuItem("Kemet/Create/Spell/Test")]
         public static void CreateTest()
         {
             CreateSpell<MeleeSpell>();
         }
+#endif
 #endif
     }
 }
